@@ -5,11 +5,18 @@ const COLORS = ['#0d6b5d', '#b85c38', '#1f487e', '#987200', '#8b3757', '#4f6b2a'
 const state = {
   baseData: null,
   metadataIndex: null,
+  remoteSeries: [],
   importedSeries: loadImportedSeries(),
   selectedKeys: [],
   routerResult: null,
   metadataSearchQuery: '',
   metadataSearchResults: [],
+  selector: {
+    source: 'ALL',
+    dataset: 'ALL',
+    entity: 'ALL',
+    metric: 'ALL',
+  },
   filters: {
     search: '',
     source: 'ALL',
@@ -51,6 +58,12 @@ const elements = {
   metadataSearchButton: document.querySelector('#metadataSearchButton'),
   metadataSearchResults: document.querySelector('#metadataSearchResults'),
   metadataStatus: document.querySelector('#metadataStatus'),
+  sourceScroller: document.querySelector('#sourceScroller'),
+  datasetScroller: document.querySelector('#datasetScroller'),
+  entityScroller: document.querySelector('#entityScroller'),
+  metricScroller: document.querySelector('#metricScroller'),
+  applySelectorButton: document.querySelector('#applySelectorButton'),
+  resetSelectorButton: document.querySelector('#resetSelectorButton'),
 };
 
 init().catch((error) => {
@@ -65,10 +78,12 @@ async function init() {
   }
   state.baseData = await response.json();
   state.metadataIndex = await loadMetadataIndex();
+  state.remoteSeries = await loadRemoteSeries();
 
   wireEvents();
   renderSampleQueries();
   syncFilterOptions();
+  syncSelectorOptions();
   render();
 }
 
@@ -81,6 +96,19 @@ async function loadMetadataIndex() {
     return await response.json();
   } catch {
     return null;
+  }
+}
+
+async function loadRemoteSeries() {
+  try {
+    const response = await fetch('./data/remote-series.json');
+    if (!response.ok) {
+      return [];
+    }
+    const payload = await response.json();
+    return normalizeImportedPayload(payload);
+  } catch {
+    return [];
   }
 }
 
@@ -117,6 +145,7 @@ function wireEvents() {
     state.importedSeries = dedupeSeries([...state.importedSeries, ...series]);
     persistImportedSeries();
     syncFilterOptions();
+    syncSelectorOptions();
     render();
     event.target.value = '';
   });
@@ -126,6 +155,7 @@ function wireEvents() {
     persistImportedSeries();
     state.selectedKeys = state.selectedKeys.filter((key) => findSeriesByKey(key));
     syncFilterOptions();
+    syncSelectorOptions();
     render();
   });
 
@@ -167,6 +197,40 @@ function wireEvents() {
 
   elements.metadataSearchButton.addEventListener('click', () => {
     runMetadataSearch();
+  });
+
+  elements.sourceScroller.addEventListener('change', (event) => {
+    state.selector.source = event.target.value;
+    state.selector.dataset = 'ALL';
+    state.selector.entity = 'ALL';
+    state.selector.metric = 'ALL';
+    syncSelectorOptions();
+  });
+
+  elements.datasetScroller.addEventListener('change', (event) => {
+    state.selector.dataset = event.target.value;
+    state.selector.entity = 'ALL';
+    state.selector.metric = 'ALL';
+    syncSelectorOptions();
+  });
+
+  elements.entityScroller.addEventListener('change', (event) => {
+    state.selector.entity = event.target.value;
+    state.selector.metric = 'ALL';
+    syncSelectorOptions();
+  });
+
+  elements.metricScroller.addEventListener('change', (event) => {
+    state.selector.metric = event.target.value;
+  });
+
+  elements.applySelectorButton.addEventListener('click', () => {
+    applySelectorFilters();
+  });
+
+  elements.resetSelectorButton.addEventListener('click', () => {
+    state.selector = { source: 'ALL', dataset: 'ALL', entity: 'ALL', metric: 'ALL' };
+    syncSelectorOptions();
   });
 
   elements.downloadCsvButton.addEventListener('click', () => {
@@ -270,7 +334,7 @@ function computeStats(points) {
 }
 
 function allSeries() {
-  return dedupeSeries([...(state.baseData?.series ?? []), ...state.importedSeries]);
+  return dedupeSeries([...(state.baseData?.series ?? []), ...state.remoteSeries, ...state.importedSeries]);
 }
 
 function dedupeSeries(series) {
@@ -295,6 +359,36 @@ function syncFilterOptions() {
   renderSelect(elements.datasetFilter, datasets, state.filters.dataset);
 }
 
+function syncSelectorOptions() {
+  const series = allSeries();
+  const sources = ['ALL', ...new Set([
+    ...series.map((item) => item.source),
+    ...Object.keys(state.metadataIndex?.sourceCounts ?? {}),
+  ])];
+  const datasetPool = series.filter((item) => state.selector.source === 'ALL' || item.source === state.selector.source);
+  const datasets = ['ALL', ...new Set(datasetPool.map((item) => item.datasetName))];
+  if (!datasets.includes(state.selector.dataset)) {
+    state.selector.dataset = 'ALL';
+  }
+
+  const entityPool = datasetPool.filter((item) => state.selector.dataset === 'ALL' || item.datasetName === state.selector.dataset);
+  const entities = ['ALL', ...new Set(entityPool.map((item) => item.entity || item.entityName || '-'))];
+  if (!entities.includes(state.selector.entity)) {
+    state.selector.entity = 'ALL';
+  }
+
+  const metricPool = entityPool.filter((item) => state.selector.entity === 'ALL' || (item.entity || item.entityName || '-') === state.selector.entity);
+  const metrics = ['ALL', ...new Set(metricPool.map((item) => item.metricLabel || item.metric))];
+  if (!metrics.includes(state.selector.metric)) {
+    state.selector.metric = 'ALL';
+  }
+
+  renderScroller(elements.sourceScroller, sources, state.selector.source);
+  renderScroller(elements.datasetScroller, datasets, state.selector.dataset);
+  renderScroller(elements.entityScroller, entities, state.selector.entity);
+  renderScroller(elements.metricScroller, metrics, state.selector.metric);
+}
+
 function renderSelect(selectElement, options, selectedValue) {
   selectElement.innerHTML = '';
   for (const option of options) {
@@ -304,6 +398,32 @@ function renderSelect(selectElement, options, selectedValue) {
     element.selected = option === selectedValue;
     selectElement.append(element);
   }
+}
+
+function renderScroller(selectElement, options, selectedValue) {
+  selectElement.innerHTML = '';
+  for (const option of options) {
+    const element = document.createElement('option');
+    element.value = option;
+    element.textContent = option === 'ALL' ? '전체' : option;
+    element.selected = option === selectedValue;
+    selectElement.append(element);
+  }
+}
+
+function applySelectorFilters() {
+  state.filters.source = state.selector.source;
+  state.filters.dataset = state.selector.dataset;
+  const keywordParts = [state.selector.entity, state.selector.metric].filter((item) => item && item !== 'ALL');
+  const keyword = keywordParts.join(' ');
+  state.filters.search = normalizeText(keyword);
+  elements.searchInput.value = keyword;
+  syncFilterOptions();
+  const matches = filteredSeries().slice(0, 3).map((series) => series.key);
+  if (matches.length > 0) {
+    state.selectedKeys = matches;
+  }
+  render();
 }
 
 function filteredSeries() {
@@ -358,18 +478,22 @@ function renderSummary() {
 function renderSourceGrid() {
   const builtInSources = state.baseData?.sources ?? [];
   const importedBySource = new Map();
+  const all = allSeries();
   for (const series of state.importedSeries) {
     importedBySource.set(series.source, (importedBySource.get(series.source) ?? 0) + 1);
   }
 
-  elements.sourceGrid.innerHTML = builtInSources.map((source) => `
-    <article class="source-card ${source.status}">
+  elements.sourceGrid.innerHTML = builtInSources.map((source) => {
+    const sourceSeriesCount = all.filter((series) => series.source === source.id).length;
+    const sourceStatus = sourceSeriesCount > 0 ? 'connected' : source.status;
+    return `
+    <article class="source-card ${sourceStatus}">
       <div class="source-head">
         <h3>${source.name}</h3>
-        <span class="badge">${statusLabel(source.status)}</span>
+        <span class="badge">${statusLabel(sourceStatus)}</span>
       </div>
       <dl>
-        <div><dt>내장 시리즈</dt><dd>${numberFormat(source.seriesCount)}</dd></div>
+        <div><dt>내장 시리즈</dt><dd>${numberFormat(sourceSeriesCount)}</dd></div>
         <div><dt>업로드 시리즈</dt><dd>${numberFormat(importedBySource.get(source.id) ?? 0)}</dd></div>
         <div><dt>메타 항목</dt><dd>${numberFormat(state.metadataIndex?.sourceCounts?.[source.id] ?? 0)}</dd></div>
         <div><dt>인증</dt><dd>${source.authType}</dd></div>
@@ -382,7 +506,8 @@ function renderSourceGrid() {
       </div>
       ${source.baseUrl ? `<a href="${source.baseUrl}" target="_blank" rel="noreferrer">원본 소스</a>` : '<span class="muted">엔드포인트 미확정</span>'}
     </article>
-  `).join('');
+  `;
+  }).join('');
 }
 
 function renderMetadataStatus() {
@@ -446,7 +571,7 @@ function renderMetadataSearchResults() {
 }
 
 function statusLabel(status) {
-  if (status === 'built-in') {
+  if (status === 'built-in' || status === 'connected') {
     return '내장';
   }
   if (status === 'ready-for-import') {

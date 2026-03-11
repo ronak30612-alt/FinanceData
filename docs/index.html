@@ -112,11 +112,42 @@
         <button class="button subtle" id="clearImportsButton" type="button">업로드 초기화</button>
       </section>
 
+      <section class="panel">
+        <div class="panel-title-row">
+          <div>
+            <h2>출처별 선택 탐색기</h2>
+            <p>검색 대신 데이터 출처를 먼저 고르고, 데이터셋과 종목/기관/지표를 스크롤 리스트로 선택할 수 있다.</p>
+          </div>
+          <div class="compare-actions">
+            <button class="button primary" id="applySelectorButton" type="button">선택 적용</button>
+            <button class="button subtle" id="resetSelectorButton" type="button">선택 초기화</button>
+          </div>
+        </div>
+        <div class="selector-grid">
+          <label class="selector-panel">
+            <span>출처</span>
+            <select id="sourceScroller" size="8"></select>
+          </label>
+          <label class="selector-panel">
+            <span>데이터셋</span>
+            <select id="datasetScroller" size="8"></select>
+          </label>
+          <label class="selector-panel">
+            <span>종목 / 기관</span>
+            <select id="entityScroller" size="8"></select>
+          </label>
+          <label class="selector-panel">
+            <span>지표</span>
+            <select id="metricScroller" size="8"></select>
+          </label>
+        </div>
+      </section>
+
       <section class="status-panel">
         <div class="panel-title-row">
           <div>
             <h2>소스 연결 상태</h2>
-            <p>현재는 INCOS 코어 시계열이 내장되어 있으며, 나머지 기관은 동일 스키마 업로드 또는 후속 수집기 연결을 전제로 설계되어 있다.</p>
+            <p>INCOS 코어와 함께 FISIS, ECOS, KRX는 원격 호출로 만든 내장 시계열을 포함한다. KOFIA는 현재 서비스 카탈로그와 메타데이터 중심으로 연결된다.</p>
           </div>
         </div>
         <div class="source-grid" id="sourceGrid"></div>

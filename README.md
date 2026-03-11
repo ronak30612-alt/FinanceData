@@ -15,6 +15,7 @@ AI financial data workstation dashboard for FISIS, ECOS, KOFIA, KRX, and INCOS.
 
 ```powershell
 npm run build:metadata
+npm run build:remote
 npm run build:dashboard
 npm test
 npm run serve:dashboard
@@ -25,6 +26,7 @@ npm run serve:dashboard
 - Dashboard site: `docs/`
 - Dashboard data: `docs/data/dashboard-data.json`
 - Metadata index for browser search: `docs/data/metadata-index.json`
+- Curated remote series cache: `docs/data/remote-series.json`
 - Raw metadata cache: `exports/metadata/`
 
 ## GitHub Pages

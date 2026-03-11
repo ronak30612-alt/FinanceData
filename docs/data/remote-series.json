@@ -1,0 +1,4340 @@
+{
+  "generatedAt": "2026-03-11T16:04:54.264Z",
+  "series": [
+    {
+      "source": "FISIS",
+      "dataset": "fisis-bank-bis",
+      "datasetName": "FISIS BIS비율",
+      "category": "국내은행",
+      "seriesId": "fisis-bank-bis/0010927/bis_ratio",
+      "title": "FISIS · 국민은행 · BIS비율",
+      "entityCode": "0010927",
+      "entity": "국민은행",
+      "entityName": "국민은행",
+      "entityLabel": "금융회사",
+      "metric": "bis_ratio",
+      "metricLabel": "BIS비율",
+      "frequency": "Q",
+      "unit": "%",
+      "description": "국민은행의 BIS비율 시계열이다.",
+      "metadataDescription": "FISIS statisticsInfoSearch (SA053/A) 호출 결과를 정규화했다.",
+      "featureSummary": [
+        "분기 시계열",
+        "은행 비교"
+      ],
+      "metricDescription": "BIS비율 추이를 보여준다.",
+      "characteristics": [
+        "FISIS 실데이터",
+        "출처 선택 가능"
+      ],
+      "tags": [
+        "FISIS",
+        "국민은행",
+        "BIS비율"
+      ],
+      "points": [
+        {
+          "period": "2023-03",
+          "label": "2023.03",
+          "value": 18.53
+        },
+        {
+          "period": "2023-06",
+          "label": "2023.06",
+          "value": 18.45
+        },
+        {
+          "period": "2023-09",
+          "label": "2023.09",
+          "value": 18.36
+        },
+        {
+          "period": "2023-12",
+          "label": "2023.12",
+          "value": 18.08
+        },
+        {
+          "period": "2024-03",
+          "label": "2024.03",
+          "value": 17.35
+        },
+        {
+          "period": "2024-06",
+          "label": "2024.06",
+          "value": 17.8
+        },
+        {
+          "period": "2024-09",
+          "label": "2024.09",
+          "value": 18.19
+        },
+        {
+          "period": "2024-12",
+          "label": "2024.12",
+          "value": 17.31
+        },
+        {
+          "period": "2025-03",
+          "label": "2025.03",
+          "value": 17.56
+        },
+        {
+          "period": "2025-06",
+          "label": "2025.06",
+          "value": 17.92
+        },
+        {
+          "period": "2025-09",
+          "label": "2025.09",
+          "value": 17.91
+        }
+      ],
+      "stats": {
+        "latestPeriod": "2025-09",
+        "latestValue": 17.91,
+        "previousValue": 17.92,
+        "delta": -0.010000000000001563,
+        "deltaPct": -0.0005580357142858014,
+        "min": 17.31,
+        "max": 18.53,
+        "pointCount": 11
+      }
+    },
+    {
+      "source": "FISIS",
+      "dataset": "fisis-bank-assets",
+      "datasetName": "FISIS 자산총계",
+      "category": "국내은행",
+      "seriesId": "fisis-bank-assets/0010927/assets_total",
+      "title": "FISIS · 국민은행 · 자산총계",
+      "entityCode": "0010927",
+      "entity": "국민은행",
+      "entityName": "국민은행",
+      "entityLabel": "금융회사",
+      "metric": "assets_total",
+      "metricLabel": "자산총계",
+      "frequency": "Q",
+      "unit": "KRW",
+      "description": "국민은행의 자산총계 시계열이다.",
+      "metadataDescription": "FISIS statisticsInfoSearch (SA003/A) 호출 결과를 정규화했다.",
+      "featureSummary": [
+        "분기 시계열",
+        "은행 비교"
+      ],
+      "metricDescription": "자산총계 추이를 보여준다.",
+      "characteristics": [
+        "FISIS 실데이터",
+        "출처 선택 가능"
+      ],
+      "tags": [
+        "FISIS",
+        "국민은행",
+        "자산총계"
+      ],
+      "points": [
+        {
+          "period": "2023-03",
+          "label": "2023.03",
+          "value": 493745402000000
+        },
+        {
+          "period": "2023-06",
+          "label": "2023.06",
+          "value": 506394830000000
+        },
+        {
+          "period": "2023-09",
+          "label": "2023.09",
+          "value": 519049689000000
+        },
+        {
+          "period": "2023-12",
+          "label": "2023.12",
+          "value": 512372841000000
+        },
+        {
+          "period": "2024-03",
+          "label": "2024.03",
+          "value": 525999765000000
+        },
+        {
+          "period": "2024-06",
+          "label": "2024.06",
+          "value": 533335407000000
+        },
+        {
+          "period": "2024-09",
+          "label": "2024.09",
+          "value": 534096606000000
+        },
+        {
+          "period": "2024-12",
+          "label": "2024.12",
+          "value": 543596383000000
+        },
+        {
+          "period": "2025-03",
+          "label": "2025.03",
+          "value": 549392960000000
+        },
+        {
+          "period": "2025-06",
+          "label": "2025.06",
+          "value": 554403437000000
+        },
+        {
+          "period": "2025-09",
+          "label": "2025.09",
+          "value": 561564589000000
+        }
+      ],
+      "stats": {
+        "latestPeriod": "2025-09",
+        "latestValue": 561564589000000,
+        "previousValue": 554403437000000,
+        "delta": 7161152000000,
+        "deltaPct": 0.012916860758927798,
+        "min": 493745402000000,
+        "max": 561564589000000,
+        "pointCount": 11
+      }
+    },
+    {
+      "source": "FISIS",
+      "dataset": "fisis-bank-loans",
+      "datasetName": "FISIS 원화대출금",
+      "category": "국내은행",
+      "seriesId": "fisis-bank-loans/0010927/krw_loans",
+      "title": "FISIS · 국민은행 · 원화대출금",
+      "entityCode": "0010927",
+      "entity": "국민은행",
+      "entityName": "국민은행",
+      "entityLabel": "금융회사",
+      "metric": "krw_loans",
+      "metricLabel": "원화대출금",
+      "frequency": "Q",
+      "unit": "KRW",
+      "description": "국민은행의 원화대출금 시계열이다.",
+      "metadataDescription": "FISIS statisticsInfoSearch (SA003/A33) 호출 결과를 정규화했다.",
+      "featureSummary": [
+        "분기 시계열",
+        "은행 비교"
+      ],
+      "metricDescription": "원화대출금 추이를 보여준다.",
+      "characteristics": [
+        "FISIS 실데이터",
+        "출처 선택 가능"
+      ],
+      "tags": [
+        "FISIS",
+        "국민은행",
+        "원화대출금"
+      ],
+      "points": [
+        {
+          "period": "2023-03",
+          "label": "2023.03",
+          "value": 326386888000000
+        },
+        {
+          "period": "2023-06",
+          "label": "2023.06",
+          "value": 330008806000000
+        },
+        {
+          "period": "2023-09",
+          "label": "2023.09",
+          "value": 336139216000000
+        },
+        {
+          "period": "2023-12",
+          "label": "2023.12",
+          "value": 341433744000000
+        },
+        {
+          "period": "2024-03",
+          "label": "2024.03",
+          "value": 343644976000000
+        },
+        {
+          "period": "2024-06",
+          "label": "2024.06",
+          "value": 351490125000000
+        },
+        {
+          "period": "2024-09",
+          "label": "2024.09",
+          "value": 361804540000000
+        },
+        {
+          "period": "2024-12",
+          "label": "2024.12",
+          "value": 363583757000000
+        },
+        {
+          "period": "2025-03",
+          "label": "2025.03",
+          "value": 367014962000000
+        },
+        {
+          "period": "2025-06",
+          "label": "2025.06",
+          "value": 372197906000000
+        },
+        {
+          "period": "2025-09",
+          "label": "2025.09",
+          "value": 375447557000000
+        }
+      ],
+      "stats": {
+        "latestPeriod": "2025-09",
+        "latestValue": 375447557000000,
+        "previousValue": 372197906000000,
+        "delta": 3249651000000,
+        "deltaPct": 0.0087309760415471,
+        "min": 326386888000000,
+        "max": 375447557000000,
+        "pointCount": 11
+      }
+    },
+    {
+      "source": "FISIS",
+      "dataset": "fisis-bank-bis",
+      "datasetName": "FISIS BIS비율",
+      "category": "국내은행",
+      "seriesId": "fisis-bank-bis/0011625/bis_ratio",
+      "title": "FISIS · 신한은행 · BIS비율",
+      "entityCode": "0011625",
+      "entity": "신한은행",
+      "entityName": "신한은행",
+      "entityLabel": "금융회사",
+      "metric": "bis_ratio",
+      "metricLabel": "BIS비율",
+      "frequency": "Q",
+      "unit": "%",
+      "description": "신한은행의 BIS비율 시계열이다.",
+      "metadataDescription": "FISIS statisticsInfoSearch (SA053/A) 호출 결과를 정규화했다.",
+      "featureSummary": [
+        "분기 시계열",
+        "은행 비교"
+      ],
+      "metricDescription": "BIS비율 추이를 보여준다.",
+      "characteristics": [
+        "FISIS 실데이터",
+        "출처 선택 가능"
+      ],
+      "tags": [
+        "FISIS",
+        "신한은행",
+        "BIS비율"
+      ],
+      "points": [
+        {
+          "period": "2023-03",
+          "label": "2023.03",
+          "value": 18.3
+        },
+        {
+          "period": "2023-06",
+          "label": "2023.06",
+          "value": 18.39
+        },
+        {
+          "period": "2023-09",
+          "label": "2023.09",
+          "value": 18.21
+        },
+        {
+          "period": "2023-12",
+          "label": "2023.12",
+          "value": 18.08
+        },
+        {
+          "period": "2024-03",
+          "label": "2024.03",
+          "value": 17.65
+        },
+        {
+          "period": "2024-06",
+          "label": "2024.06",
+          "value": 18.01
+        },
+        {
+          "period": "2024-09",
+          "label": "2024.09",
+          "value": 18.25
+        },
+        {
+          "period": "2024-12",
+          "label": "2024.12",
+          "value": 17.55
+        },
+        {
+          "period": "2025-03",
+          "label": "2025.03",
+          "value": 17.94
+        },
+        {
+          "period": "2025-06",
+          "label": "2025.06",
+          "value": 18.59
+        },
+        {
+          "period": "2025-09",
+          "label": "2025.09",
+          "value": 18.31
+        }
+      ],
+      "stats": {
+        "latestPeriod": "2025-09",
+        "latestValue": 18.31,
+        "previousValue": 18.59,
+        "delta": -0.28000000000000114,
+        "deltaPct": -0.01506186121570743,
+        "min": 17.55,
+        "max": 18.59,
+        "pointCount": 11
+      }
+    },
+    {
+      "source": "FISIS",
+      "dataset": "fisis-bank-assets",
+      "datasetName": "FISIS 자산총계",
+      "category": "국내은행",
+      "seriesId": "fisis-bank-assets/0011625/assets_total",
+      "title": "FISIS · 신한은행 · 자산총계",
+      "entityCode": "0011625",
+      "entity": "신한은행",
+      "entityName": "신한은행",
+      "entityLabel": "금융회사",
+      "metric": "assets_total",
+      "metricLabel": "자산총계",
+      "frequency": "Q",
+      "unit": "KRW",
+      "description": "신한은행의 자산총계 시계열이다.",
+      "metadataDescription": "FISIS statisticsInfoSearch (SA003/A) 호출 결과를 정규화했다.",
+      "featureSummary": [
+        "분기 시계열",
+        "은행 비교"
+      ],
+      "metricDescription": "자산총계 추이를 보여준다.",
+      "characteristics": [
+        "FISIS 실데이터",
+        "출처 선택 가능"
+      ],
+      "tags": [
+        "FISIS",
+        "신한은행",
+        "자산총계"
+      ],
+      "points": [
+        {
+          "period": "2023-03",
+          "label": "2023.03",
+          "value": 445674182000000
+        },
+        {
+          "period": "2023-06",
+          "label": "2023.06",
+          "value": 447923271000000
+        },
+        {
+          "period": "2023-09",
+          "label": "2023.09",
+          "value": 459933682000000
+        },
+        {
+          "period": "2023-12",
+          "label": "2023.12",
+          "value": 457256928000000
+        },
+        {
+          "period": "2024-03",
+          "label": "2024.03",
+          "value": 468378199000000
+        },
+        {
+          "period": "2024-06",
+          "label": "2024.06",
+          "value": 485627380000000
+        },
+        {
+          "period": "2024-09",
+          "label": "2024.09",
+          "value": 500859111000000
+        },
+        {
+          "period": "2024-12",
+          "label": "2024.12",
+          "value": 499849072000000
+        },
+        {
+          "period": "2025-03",
+          "label": "2025.03",
+          "value": 504342935000000
+        },
+        {
+          "period": "2025-06",
+          "label": "2025.06",
+          "value": 509849386000000
+        },
+        {
+          "period": "2025-09",
+          "label": "2025.09",
+          "value": 534794505000000
+        }
+      ],
+      "stats": {
+        "latestPeriod": "2025-09",
+        "latestValue": 534794505000000,
+        "previousValue": 509849386000000,
+        "delta": 24945119000000,
+        "deltaPct": 0.04892644707431304,
+        "min": 445674182000000,
+        "max": 534794505000000,
+        "pointCount": 11
+      }
+    },
+    {
+      "source": "FISIS",
+      "dataset": "fisis-bank-loans",
+      "datasetName": "FISIS 원화대출금",
+      "category": "국내은행",
+      "seriesId": "fisis-bank-loans/0011625/krw_loans",
+      "title": "FISIS · 신한은행 · 원화대출금",
+      "entityCode": "0011625",
+      "entity": "신한은행",
+      "entityName": "신한은행",
+      "entityLabel": "금융회사",
+      "metric": "krw_loans",
+      "metricLabel": "원화대출금",
+      "frequency": "Q",
+      "unit": "KRW",
+      "description": "신한은행의 원화대출금 시계열이다.",
+      "metadataDescription": "FISIS statisticsInfoSearch (SA003/A33) 호출 결과를 정규화했다.",
+      "featureSummary": [
+        "분기 시계열",
+        "은행 비교"
+      ],
+      "metricDescription": "원화대출금 추이를 보여준다.",
+      "characteristics": [
+        "FISIS 실데이터",
+        "출처 선택 가능"
+      ],
+      "tags": [
+        "FISIS",
+        "신한은행",
+        "원화대출금"
+      ],
+      "points": [
+        {
+          "period": "2023-03",
+          "label": "2023.03",
+          "value": 281519184000000
+        },
+        {
+          "period": "2023-06",
+          "label": "2023.06",
+          "value": 283237601000000
+        },
+        {
+          "period": "2023-09",
+          "label": "2023.09",
+          "value": 286279158000000
+        },
+        {
+          "period": "2023-12",
+          "label": "2023.12",
+          "value": 290336308000000
+        },
+        {
+          "period": "2024-03",
+          "label": "2024.03",
+          "value": 298183081000000
+        },
+        {
+          "period": "2024-06",
+          "label": "2024.06",
+          "value": 308962491000000
+        },
+        {
+          "period": "2024-09",
+          "label": "2024.09",
+          "value": 319902327000000
+        },
+        {
+          "period": "2024-12",
+          "label": "2024.12",
+          "value": 320223321000000
+        },
+        {
+          "period": "2025-03",
+          "label": "2025.03",
+          "value": 321525112000000
+        },
+        {
+          "period": "2025-06",
+          "label": "2025.06",
+          "value": 322827014000000
+        },
+        {
+          "period": "2025-09",
+          "label": "2025.09",
+          "value": 331479701000000
+        }
+      ],
+      "stats": {
+        "latestPeriod": "2025-09",
+        "latestValue": 331479701000000,
+        "previousValue": 322827014000000,
+        "delta": 8652687000000,
+        "deltaPct": 0.026802859193190073,
+        "min": 281519184000000,
+        "max": 331479701000000,
+        "pointCount": 11
+      }
+    },
+    {
+      "source": "FISIS",
+      "dataset": "fisis-bank-bis",
+      "datasetName": "FISIS BIS비율",
+      "category": "국내은행",
+      "seriesId": "fisis-bank-bis/0010001/bis_ratio",
+      "title": "FISIS · 우리은행 · BIS비율",
+      "entityCode": "0010001",
+      "entity": "우리은행",
+      "entityName": "우리은행",
+      "entityLabel": "금융회사",
+      "metric": "bis_ratio",
+      "metricLabel": "BIS비율",
+      "frequency": "Q",
+      "unit": "%",
+      "description": "우리은행의 BIS비율 시계열이다.",
+      "metadataDescription": "FISIS statisticsInfoSearch (SA053/A) 호출 결과를 정규화했다.",
+      "featureSummary": [
+        "분기 시계열",
+        "은행 비교"
+      ],
+      "metricDescription": "BIS비율 추이를 보여준다.",
+      "characteristics": [
+        "FISIS 실데이터",
+        "출처 선택 가능"
+      ],
+      "tags": [
+        "FISIS",
+        "우리은행",
+        "BIS비율"
+      ],
+      "points": [
+        {
+          "period": "2023-03",
+          "label": "2023.03",
+          "value": 16.33
+        },
+        {
+          "period": "2023-06",
+          "label": "2023.06",
+          "value": 16.42
+        },
+        {
+          "period": "2023-09",
+          "label": "2023.09",
+          "value": 16.22
+        },
+        {
+          "period": "2023-12",
+          "label": "2023.12",
+          "value": 16.04
+        },
+        {
+          "period": "2024-03",
+          "label": "2024.03",
+          "value": 15.92
+        },
+        {
+          "period": "2024-06",
+          "label": "2024.06",
+          "value": 16.13
+        },
+        {
+          "period": "2024-09",
+          "label": "2024.09",
+          "value": 16.4
+        },
+        {
+          "period": "2024-12",
+          "label": "2024.12",
+          "value": 15.85
+        },
+        {
+          "period": "2025-03",
+          "label": "2025.03",
+          "value": 16.22
+        },
+        {
+          "period": "2025-06",
+          "label": "2025.06",
+          "value": 16.97
+        },
+        {
+          "period": "2025-09",
+          "label": "2025.09",
+          "value": 17.26
+        }
+      ],
+      "stats": {
+        "latestPeriod": "2025-09",
+        "latestValue": 17.26,
+        "previousValue": 16.97,
+        "delta": 0.2900000000000027,
+        "deltaPct": 0.01708898055391884,
+        "min": 15.85,
+        "max": 17.26,
+        "pointCount": 11
+      }
+    },
+    {
+      "source": "FISIS",
+      "dataset": "fisis-bank-assets",
+      "datasetName": "FISIS 자산총계",
+      "category": "국내은행",
+      "seriesId": "fisis-bank-assets/0010001/assets_total",
+      "title": "FISIS · 우리은행 · 자산총계",
+      "entityCode": "0010001",
+      "entity": "우리은행",
+      "entityName": "우리은행",
+      "entityLabel": "금융회사",
+      "metric": "assets_total",
+      "metricLabel": "자산총계",
+      "frequency": "Q",
+      "unit": "KRW",
+      "description": "우리은행의 자산총계 시계열이다.",
+      "metadataDescription": "FISIS statisticsInfoSearch (SA003/A) 호출 결과를 정규화했다.",
+      "featureSummary": [
+        "분기 시계열",
+        "은행 비교"
+      ],
+      "metricDescription": "자산총계 추이를 보여준다.",
+      "characteristics": [
+        "FISIS 실데이터",
+        "출처 선택 가능"
+      ],
+      "tags": [
+        "FISIS",
+        "우리은행",
+        "자산총계"
+      ],
+      "points": [
+        {
+          "period": "2023-03",
+          "label": "2023.03",
+          "value": 420225899000000
+        },
+        {
+          "period": "2023-06",
+          "label": "2023.06",
+          "value": 424128116000000
+        },
+        {
+          "period": "2023-09",
+          "label": "2023.09",
+          "value": 425460359000000
+        },
+        {
+          "period": "2023-12",
+          "label": "2023.12",
+          "value": 436687888000000
+        },
+        {
+          "period": "2024-03",
+          "label": "2024.03",
+          "value": 442617569000000
+        },
+        {
+          "period": "2024-06",
+          "label": "2024.06",
+          "value": 444906192000000
+        },
+        {
+          "period": "2024-09",
+          "label": "2024.09",
+          "value": 477171932000000
+        },
+        {
+          "period": "2024-12",
+          "label": "2024.12",
+          "value": 461224823000000
+        },
+        {
+          "period": "2025-03",
+          "label": "2025.03",
+          "value": 469198801000000
+        },
+        {
+          "period": "2025-06",
+          "label": "2025.06",
+          "value": 471813784000000
+        },
+        {
+          "period": "2025-09",
+          "label": "2025.09",
+          "value": 466737865000000
+        }
+      ],
+      "stats": {
+        "latestPeriod": "2025-09",
+        "latestValue": 466737865000000,
+        "previousValue": 471813784000000,
+        "delta": -5075919000000,
+        "deltaPct": -0.010758310104818812,
+        "min": 420225899000000,
+        "max": 477171932000000,
+        "pointCount": 11
+      }
+    },
+    {
+      "source": "FISIS",
+      "dataset": "fisis-bank-loans",
+      "datasetName": "FISIS 원화대출금",
+      "category": "국내은행",
+      "seriesId": "fisis-bank-loans/0010001/krw_loans",
+      "title": "FISIS · 우리은행 · 원화대출금",
+      "entityCode": "0010001",
+      "entity": "우리은행",
+      "entityName": "우리은행",
+      "entityLabel": "금융회사",
+      "metric": "krw_loans",
+      "metricLabel": "원화대출금",
+      "frequency": "Q",
+      "unit": "KRW",
+      "description": "우리은행의 원화대출금 시계열이다.",
+      "metadataDescription": "FISIS statisticsInfoSearch (SA003/A33) 호출 결과를 정규화했다.",
+      "featureSummary": [
+        "분기 시계열",
+        "은행 비교"
+      ],
+      "metricDescription": "원화대출금 추이를 보여준다.",
+      "characteristics": [
+        "FISIS 실데이터",
+        "출처 선택 가능"
+      ],
+      "tags": [
+        "FISIS",
+        "우리은행",
+        "원화대출금"
+      ],
+      "points": [
+        {
+          "period": "2023-03",
+          "label": "2023.03",
+          "value": 264265274000000
+        },
+        {
+          "period": "2023-06",
+          "label": "2023.06",
+          "value": 266536770000000
+        },
+        {
+          "period": "2023-09",
+          "label": "2023.09",
+          "value": 274204401000000
+        },
+        {
+          "period": "2023-12",
+          "label": "2023.12",
+          "value": 282174936000000
+        },
+        {
+          "period": "2024-03",
+          "label": "2024.03",
+          "value": 285872640000000
+        },
+        {
+          "period": "2024-06",
+          "label": "2024.06",
+          "value": 291766876000000
+        },
+        {
+          "period": "2024-09",
+          "label": "2024.09",
+          "value": 307571484000000
+        },
+        {
+          "period": "2024-12",
+          "label": "2024.12",
+          "value": 299968928000000
+        },
+        {
+          "period": "2025-03",
+          "label": "2025.03",
+          "value": 297088832000000
+        },
+        {
+          "period": "2025-06",
+          "label": "2025.06",
+          "value": 299093246000000
+        },
+        {
+          "period": "2025-09",
+          "label": "2025.09",
+          "value": 300527410000000
+        }
+      ],
+      "stats": {
+        "latestPeriod": "2025-09",
+        "latestValue": 300527410000000,
+        "previousValue": 299093246000000,
+        "delta": 1434164000000,
+        "deltaPct": 0.004795039738209267,
+        "min": 264265274000000,
+        "max": 307571484000000,
+        "pointCount": 11
+      }
+    },
+    {
+      "source": "FISIS",
+      "dataset": "fisis-bank-bis",
+      "datasetName": "FISIS BIS비율",
+      "category": "국내은행",
+      "seriesId": "fisis-bank-bis/0011228/bis_ratio",
+      "title": "FISIS · 하나은행 · BIS비율",
+      "entityCode": "0011228",
+      "entity": "하나은행",
+      "entityName": "하나은행",
+      "entityLabel": "금융회사",
+      "metric": "bis_ratio",
+      "metricLabel": "BIS비율",
+      "frequency": "Q",
+      "unit": "%",
+      "description": "하나은행의 BIS비율 시계열이다.",
+      "metadataDescription": "FISIS statisticsInfoSearch (SA053/A) 호출 결과를 정규화했다.",
+      "featureSummary": [
+        "분기 시계열",
+        "은행 비교"
+      ],
+      "metricDescription": "BIS비율 추이를 보여준다.",
+      "characteristics": [
+        "FISIS 실데이터",
+        "출처 선택 가능"
+      ],
+      "tags": [
+        "FISIS",
+        "하나은행",
+        "BIS비율"
+      ],
+      "points": [],
+      "stats": {
+        "latestPeriod": null,
+        "latestValue": null,
+        "previousValue": null,
+        "delta": null,
+        "deltaPct": null,
+        "min": null,
+        "max": null,
+        "pointCount": 0
+      }
+    },
+    {
+      "source": "FISIS",
+      "dataset": "fisis-bank-assets",
+      "datasetName": "FISIS 자산총계",
+      "category": "국내은행",
+      "seriesId": "fisis-bank-assets/0011228/assets_total",
+      "title": "FISIS · 하나은행 · 자산총계",
+      "entityCode": "0011228",
+      "entity": "하나은행",
+      "entityName": "하나은행",
+      "entityLabel": "금융회사",
+      "metric": "assets_total",
+      "metricLabel": "자산총계",
+      "frequency": "Q",
+      "unit": "KRW",
+      "description": "하나은행의 자산총계 시계열이다.",
+      "metadataDescription": "FISIS statisticsInfoSearch (SA003/A) 호출 결과를 정규화했다.",
+      "featureSummary": [
+        "분기 시계열",
+        "은행 비교"
+      ],
+      "metricDescription": "자산총계 추이를 보여준다.",
+      "characteristics": [
+        "FISIS 실데이터",
+        "출처 선택 가능"
+      ],
+      "tags": [
+        "FISIS",
+        "하나은행",
+        "자산총계"
+      ],
+      "points": [],
+      "stats": {
+        "latestPeriod": null,
+        "latestValue": null,
+        "previousValue": null,
+        "delta": null,
+        "deltaPct": null,
+        "min": null,
+        "max": null,
+        "pointCount": 0
+      }
+    },
+    {
+      "source": "FISIS",
+      "dataset": "fisis-bank-loans",
+      "datasetName": "FISIS 원화대출금",
+      "category": "국내은행",
+      "seriesId": "fisis-bank-loans/0011228/krw_loans",
+      "title": "FISIS · 하나은행 · 원화대출금",
+      "entityCode": "0011228",
+      "entity": "하나은행",
+      "entityName": "하나은행",
+      "entityLabel": "금융회사",
+      "metric": "krw_loans",
+      "metricLabel": "원화대출금",
+      "frequency": "Q",
+      "unit": "KRW",
+      "description": "하나은행의 원화대출금 시계열이다.",
+      "metadataDescription": "FISIS statisticsInfoSearch (SA003/A33) 호출 결과를 정규화했다.",
+      "featureSummary": [
+        "분기 시계열",
+        "은행 비교"
+      ],
+      "metricDescription": "원화대출금 추이를 보여준다.",
+      "characteristics": [
+        "FISIS 실데이터",
+        "출처 선택 가능"
+      ],
+      "tags": [
+        "FISIS",
+        "하나은행",
+        "원화대출금"
+      ],
+      "points": [],
+      "stats": {
+        "latestPeriod": null,
+        "latestValue": null,
+        "previousValue": null,
+        "delta": null,
+        "deltaPct": null,
+        "min": null,
+        "max": null,
+        "pointCount": 0
+      }
+    },
+    {
+      "source": "FISIS",
+      "dataset": "fisis-bank-bis",
+      "datasetName": "FISIS BIS비율",
+      "category": "국내은행",
+      "seriesId": "fisis-bank-bis/0010026/bis_ratio",
+      "title": "FISIS · 중소기업은행 · BIS비율",
+      "entityCode": "0010026",
+      "entity": "중소기업은행",
+      "entityName": "중소기업은행",
+      "entityLabel": "금융회사",
+      "metric": "bis_ratio",
+      "metricLabel": "BIS비율",
+      "frequency": "Q",
+      "unit": "%",
+      "description": "중소기업은행의 BIS비율 시계열이다.",
+      "metadataDescription": "FISIS statisticsInfoSearch (SA053/A) 호출 결과를 정규화했다.",
+      "featureSummary": [
+        "분기 시계열",
+        "은행 비교"
+      ],
+      "metricDescription": "BIS비율 추이를 보여준다.",
+      "characteristics": [
+        "FISIS 실데이터",
+        "출처 선택 가능"
+      ],
+      "tags": [
+        "FISIS",
+        "중소기업은행",
+        "BIS비율"
+      ],
+      "points": [
+        {
+          "period": "2023-03",
+          "label": "2023.03",
+          "value": 15.17
+        },
+        {
+          "period": "2023-06",
+          "label": "2023.06",
+          "value": 15.05
+        },
+        {
+          "period": "2023-09",
+          "label": "2023.09",
+          "value": 14.95
+        },
+        {
+          "period": "2023-12",
+          "label": "2023.12",
+          "value": 14.87
+        },
+        {
+          "period": "2024-03",
+          "label": "2024.03",
+          "value": 14.94
+        },
+        {
+          "period": "2024-06",
+          "label": "2024.06",
+          "value": 14.98
+        },
+        {
+          "period": "2024-09",
+          "label": "2024.09",
+          "value": 14.88
+        },
+        {
+          "period": "2024-12",
+          "label": "2024.12",
+          "value": 14.69
+        },
+        {
+          "period": "2025-03",
+          "label": "2025.03",
+          "value": 14.78
+        },
+        {
+          "period": "2025-06",
+          "label": "2025.06",
+          "value": 15.03
+        },
+        {
+          "period": "2025-09",
+          "label": "2025.09",
+          "value": 14.88
+        }
+      ],
+      "stats": {
+        "latestPeriod": "2025-09",
+        "latestValue": 14.88,
+        "previousValue": 15.03,
+        "delta": -0.14999999999999858,
+        "deltaPct": -0.009980039920159587,
+        "min": 14.69,
+        "max": 15.17,
+        "pointCount": 11
+      }
+    },
+    {
+      "source": "FISIS",
+      "dataset": "fisis-bank-assets",
+      "datasetName": "FISIS 자산총계",
+      "category": "국내은행",
+      "seriesId": "fisis-bank-assets/0010026/assets_total",
+      "title": "FISIS · 중소기업은행 · 자산총계",
+      "entityCode": "0010026",
+      "entity": "중소기업은행",
+      "entityName": "중소기업은행",
+      "entityLabel": "금융회사",
+      "metric": "assets_total",
+      "metricLabel": "자산총계",
+      "frequency": "Q",
+      "unit": "KRW",
+      "description": "중소기업은행의 자산총계 시계열이다.",
+      "metadataDescription": "FISIS statisticsInfoSearch (SA003/A) 호출 결과를 정규화했다.",
+      "featureSummary": [
+        "분기 시계열",
+        "은행 비교"
+      ],
+      "metricDescription": "자산총계 추이를 보여준다.",
+      "characteristics": [
+        "FISIS 실데이터",
+        "출처 선택 가능"
+      ],
+      "tags": [
+        "FISIS",
+        "중소기업은행",
+        "자산총계"
+      ],
+      "points": [
+        {
+          "period": "2023-03",
+          "label": "2023.03",
+          "value": 402958192000000
+        },
+        {
+          "period": "2023-06",
+          "label": "2023.06",
+          "value": 407065544000000
+        },
+        {
+          "period": "2023-09",
+          "label": "2023.09",
+          "value": 403965578000000
+        },
+        {
+          "period": "2023-12",
+          "label": "2023.12",
+          "value": 412695279000000
+        },
+        {
+          "period": "2024-03",
+          "label": "2024.03",
+          "value": 416183187000000
+        },
+        {
+          "period": "2024-06",
+          "label": "2024.06",
+          "value": 423476411000000
+        },
+        {
+          "period": "2024-09",
+          "label": "2024.09",
+          "value": 419159663000000
+        },
+        {
+          "period": "2024-12",
+          "label": "2024.12",
+          "value": 431278452000000
+        },
+        {
+          "period": "2025-03",
+          "label": "2025.03",
+          "value": 441521220000000
+        },
+        {
+          "period": "2025-06",
+          "label": "2025.06",
+          "value": 447427618000000
+        },
+        {
+          "period": "2025-09",
+          "label": "2025.09",
+          "value": 447551376000000
+        }
+      ],
+      "stats": {
+        "latestPeriod": "2025-09",
+        "latestValue": 447551376000000,
+        "previousValue": 447427618000000,
+        "delta": 123758000000,
+        "deltaPct": 0.0002765989291255597,
+        "min": 402958192000000,
+        "max": 447551376000000,
+        "pointCount": 11
+      }
+    },
+    {
+      "source": "FISIS",
+      "dataset": "fisis-bank-loans",
+      "datasetName": "FISIS 원화대출금",
+      "category": "국내은행",
+      "seriesId": "fisis-bank-loans/0010026/krw_loans",
+      "title": "FISIS · 중소기업은행 · 원화대출금",
+      "entityCode": "0010026",
+      "entity": "중소기업은행",
+      "entityName": "중소기업은행",
+      "entityLabel": "금융회사",
+      "metric": "krw_loans",
+      "metricLabel": "원화대출금",
+      "frequency": "Q",
+      "unit": "KRW",
+      "description": "중소기업은행의 원화대출금 시계열이다.",
+      "metadataDescription": "FISIS statisticsInfoSearch (SA003/A33) 호출 결과를 정규화했다.",
+      "featureSummary": [
+        "분기 시계열",
+        "은행 비교"
+      ],
+      "metricDescription": "원화대출금 추이를 보여준다.",
+      "characteristics": [
+        "FISIS 실데이터",
+        "출처 선택 가능"
+      ],
+      "tags": [
+        "FISIS",
+        "중소기업은행",
+        "원화대출금"
+      ],
+      "points": [
+        {
+          "period": "2023-03",
+          "label": "2023.03",
+          "value": 276441394000000
+        },
+        {
+          "period": "2023-06",
+          "label": "2023.06",
+          "value": 280436108000000
+        },
+        {
+          "period": "2023-09",
+          "label": "2023.09",
+          "value": 283162796000000
+        },
+        {
+          "period": "2023-12",
+          "label": "2023.12",
+          "value": 284694399000000
+        },
+        {
+          "period": "2024-03",
+          "label": "2024.03",
+          "value": 287846082000000
+        },
+        {
+          "period": "2024-06",
+          "label": "2024.06",
+          "value": 291545210000000
+        },
+        {
+          "period": "2024-09",
+          "label": "2024.09",
+          "value": 295261779000000
+        },
+        {
+          "period": "2024-12",
+          "label": "2024.12",
+          "value": 298739084000000
+        },
+        {
+          "period": "2025-03",
+          "label": "2025.03",
+          "value": 305360966000000
+        },
+        {
+          "period": "2025-06",
+          "label": "2025.06",
+          "value": 310345617000000
+        },
+        {
+          "period": "2025-09",
+          "label": "2025.09",
+          "value": 312613353000000
+        }
+      ],
+      "stats": {
+        "latestPeriod": "2025-09",
+        "latestValue": 312613353000000,
+        "previousValue": 310345617000000,
+        "delta": 2267736000000,
+        "deltaPct": 0.0073071307464284245,
+        "min": 276441394000000,
+        "max": 312613353000000,
+        "pointCount": 11
+      }
+    },
+    {
+      "source": "ECOS",
+      "dataset": "ecos-base-rate",
+      "datasetName": "ECOS 한국은행 기준금리",
+      "category": "거시경제",
+      "seriesId": "722Y001/0101000/base_rate",
+      "title": "ECOS · 한국은행 기준금리",
+      "entityCode": "BOK",
+      "entity": "한국은행",
+      "entityName": "한국은행",
+      "entityLabel": "기관",
+      "metric": "base_rate",
+      "metricLabel": "한국은행 기준금리",
+      "frequency": "M",
+      "unit": "%",
+      "description": "한국은행 기준금리 시계열이다.",
+      "metadataDescription": "ECOS StatisticSearch (722Y001/0101000) 호출 결과다.",
+      "featureSummary": [
+        "공식 통계",
+        "월간"
+      ],
+      "metricDescription": "한국은행 기준금리 흐름을 비교한다.",
+      "characteristics": [
+        "ECOS 실데이터",
+        "출처 선택 가능"
+      ],
+      "tags": [
+        "ECOS",
+        "한국은행 기준금리"
+      ],
+      "points": [
+        {
+          "period": "2023-01",
+          "label": "2023.01",
+          "value": 3.5
+        },
+        {
+          "period": "2023-02",
+          "label": "2023.02",
+          "value": 3.5
+        },
+        {
+          "period": "2023-03",
+          "label": "2023.03",
+          "value": 3.5
+        },
+        {
+          "period": "2023-04",
+          "label": "2023.04",
+          "value": 3.5
+        },
+        {
+          "period": "2023-05",
+          "label": "2023.05",
+          "value": 3.5
+        },
+        {
+          "period": "2023-06",
+          "label": "2023.06",
+          "value": 3.5
+        },
+        {
+          "period": "2023-07",
+          "label": "2023.07",
+          "value": 3.5
+        },
+        {
+          "period": "2023-08",
+          "label": "2023.08",
+          "value": 3.5
+        },
+        {
+          "period": "2023-09",
+          "label": "2023.09",
+          "value": 3.5
+        },
+        {
+          "period": "2023-10",
+          "label": "2023.10",
+          "value": 3.5
+        },
+        {
+          "period": "2023-11",
+          "label": "2023.11",
+          "value": 3.5
+        },
+        {
+          "period": "2023-12",
+          "label": "2023.12",
+          "value": 3.5
+        },
+        {
+          "period": "2024-01",
+          "label": "2024.01",
+          "value": 3.5
+        },
+        {
+          "period": "2024-02",
+          "label": "2024.02",
+          "value": 3.5
+        },
+        {
+          "period": "2024-03",
+          "label": "2024.03",
+          "value": 3.5
+        },
+        {
+          "period": "2024-04",
+          "label": "2024.04",
+          "value": 3.5
+        },
+        {
+          "period": "2024-05",
+          "label": "2024.05",
+          "value": 3.5
+        },
+        {
+          "period": "2024-06",
+          "label": "2024.06",
+          "value": 3.5
+        },
+        {
+          "period": "2024-07",
+          "label": "2024.07",
+          "value": 3.5
+        },
+        {
+          "period": "2024-08",
+          "label": "2024.08",
+          "value": 3.5
+        },
+        {
+          "period": "2024-09",
+          "label": "2024.09",
+          "value": 3.5
+        },
+        {
+          "period": "2024-10",
+          "label": "2024.10",
+          "value": 3.25
+        },
+        {
+          "period": "2024-11",
+          "label": "2024.11",
+          "value": 3
+        },
+        {
+          "period": "2024-12",
+          "label": "2024.12",
+          "value": 3
+        },
+        {
+          "period": "2025-01",
+          "label": "2025.01",
+          "value": 3
+        },
+        {
+          "period": "2025-02",
+          "label": "2025.02",
+          "value": 2.75
+        },
+        {
+          "period": "2025-03",
+          "label": "2025.03",
+          "value": 2.75
+        },
+        {
+          "period": "2025-04",
+          "label": "2025.04",
+          "value": 2.75
+        },
+        {
+          "period": "2025-05",
+          "label": "2025.05",
+          "value": 2.5
+        },
+        {
+          "period": "2025-06",
+          "label": "2025.06",
+          "value": 2.5
+        },
+        {
+          "period": "2025-07",
+          "label": "2025.07",
+          "value": 2.5
+        },
+        {
+          "period": "2025-08",
+          "label": "2025.08",
+          "value": 2.5
+        },
+        {
+          "period": "2025-09",
+          "label": "2025.09",
+          "value": 2.5
+        },
+        {
+          "period": "2025-10",
+          "label": "2025.10",
+          "value": 2.5
+        },
+        {
+          "period": "2025-11",
+          "label": "2025.11",
+          "value": 2.5
+        },
+        {
+          "period": "2025-12",
+          "label": "2025.12",
+          "value": 2.5
+        },
+        {
+          "period": "2026-01",
+          "label": "2026.01",
+          "value": 2.5
+        },
+        {
+          "period": "2026-02",
+          "label": "2026.02",
+          "value": 2.5
+        }
+      ],
+      "stats": {
+        "latestPeriod": "2026-02",
+        "latestValue": 2.5,
+        "previousValue": 2.5,
+        "delta": 0,
+        "deltaPct": 0,
+        "min": 2.5,
+        "max": 3.5,
+        "pointCount": 38
+      }
+    },
+    {
+      "source": "ECOS",
+      "dataset": "ecos-cpi-total",
+      "datasetName": "ECOS 소비자물가지수 총지수",
+      "category": "거시경제",
+      "seriesId": "901Y009/0/cpi_total",
+      "title": "ECOS · 소비자물가지수 총지수",
+      "entityCode": "BOK",
+      "entity": "한국은행",
+      "entityName": "한국은행",
+      "entityLabel": "기관",
+      "metric": "cpi_total",
+      "metricLabel": "소비자물가지수 총지수",
+      "frequency": "M",
+      "unit": "index",
+      "description": "소비자물가지수 총지수 시계열이다.",
+      "metadataDescription": "ECOS StatisticSearch (901Y009/0) 호출 결과다.",
+      "featureSummary": [
+        "공식 통계",
+        "월간"
+      ],
+      "metricDescription": "소비자물가지수 총지수 흐름을 비교한다.",
+      "characteristics": [
+        "ECOS 실데이터",
+        "출처 선택 가능"
+      ],
+      "tags": [
+        "ECOS",
+        "소비자물가지수 총지수"
+      ],
+      "points": [
+        {
+          "period": "2023-01",
+          "label": "2023.01",
+          "value": 110.07
+        },
+        {
+          "period": "2023-02",
+          "label": "2023.02",
+          "value": 110.33
+        },
+        {
+          "period": "2023-03",
+          "label": "2023.03",
+          "value": 110.52
+        },
+        {
+          "period": "2023-04",
+          "label": "2023.04",
+          "value": 110.77
+        },
+        {
+          "period": "2023-05",
+          "label": "2023.05",
+          "value": 111.13
+        },
+        {
+          "period": "2023-06",
+          "label": "2023.06",
+          "value": 111.16
+        },
+        {
+          "period": "2023-07",
+          "label": "2023.07",
+          "value": 111.29
+        },
+        {
+          "period": "2023-08",
+          "label": "2023.08",
+          "value": 112.28
+        },
+        {
+          "period": "2023-09",
+          "label": "2023.09",
+          "value": 112.85
+        },
+        {
+          "period": "2023-10",
+          "label": "2023.10",
+          "value": 113.27
+        },
+        {
+          "period": "2023-11",
+          "label": "2023.11",
+          "value": 112.68
+        },
+        {
+          "period": "2023-12",
+          "label": "2023.12",
+          "value": 112.73
+        },
+        {
+          "period": "2024-01",
+          "label": "2024.01",
+          "value": 113.17
+        },
+        {
+          "period": "2024-02",
+          "label": "2024.02",
+          "value": 113.78
+        },
+        {
+          "period": "2024-03",
+          "label": "2024.03",
+          "value": 113.95
+        },
+        {
+          "period": "2024-04",
+          "label": "2024.04",
+          "value": 114.01
+        },
+        {
+          "period": "2024-05",
+          "label": "2024.05",
+          "value": 114.1
+        },
+        {
+          "period": "2024-06",
+          "label": "2024.06",
+          "value": 113.84
+        },
+        {
+          "period": "2024-07",
+          "label": "2024.07",
+          "value": 114.13
+        },
+        {
+          "period": "2024-08",
+          "label": "2024.08",
+          "value": 114.54
+        },
+        {
+          "period": "2024-09",
+          "label": "2024.09",
+          "value": 114.65
+        },
+        {
+          "period": "2024-10",
+          "label": "2024.10",
+          "value": 114.69
+        },
+        {
+          "period": "2024-11",
+          "label": "2024.11",
+          "value": 114.4
+        },
+        {
+          "period": "2024-12",
+          "label": "2024.12",
+          "value": 114.91
+        },
+        {
+          "period": "2025-01",
+          "label": "2025.01",
+          "value": 115.71
+        },
+        {
+          "period": "2025-02",
+          "label": "2025.02",
+          "value": 116.08
+        },
+        {
+          "period": "2025-03",
+          "label": "2025.03",
+          "value": 116.29
+        },
+        {
+          "period": "2025-04",
+          "label": "2025.04",
+          "value": 116.38
+        },
+        {
+          "period": "2025-05",
+          "label": "2025.05",
+          "value": 116.27
+        },
+        {
+          "period": "2025-06",
+          "label": "2025.06",
+          "value": 116.31
+        },
+        {
+          "period": "2025-07",
+          "label": "2025.07",
+          "value": 116.52
+        },
+        {
+          "period": "2025-08",
+          "label": "2025.08",
+          "value": 116.45
+        },
+        {
+          "period": "2025-09",
+          "label": "2025.09",
+          "value": 117.06
+        },
+        {
+          "period": "2025-10",
+          "label": "2025.10",
+          "value": 117.42
+        },
+        {
+          "period": "2025-11",
+          "label": "2025.11",
+          "value": 117.2
+        },
+        {
+          "period": "2025-12",
+          "label": "2025.12",
+          "value": 117.57
+        },
+        {
+          "period": "2026-01",
+          "label": "2026.01",
+          "value": 118.03
+        },
+        {
+          "period": "2026-02",
+          "label": "2026.02",
+          "value": 118.4
+        }
+      ],
+      "stats": {
+        "latestPeriod": "2026-02",
+        "latestValue": 118.4,
+        "previousValue": 118.03,
+        "delta": 0.37000000000000455,
+        "deltaPct": 0.0031347962382445526,
+        "min": 110.07,
+        "max": 118.4,
+        "pointCount": 38
+      }
+    },
+    {
+      "source": "ECOS",
+      "dataset": "ecos-usdkrw",
+      "datasetName": "ECOS 원/미국달러 환율",
+      "category": "거시경제",
+      "seriesId": "731Y001/0000001/usdkrw",
+      "title": "ECOS · 원/미국달러 환율",
+      "entityCode": "BOK",
+      "entity": "한국은행",
+      "entityName": "한국은행",
+      "entityLabel": "기관",
+      "metric": "usdkrw",
+      "metricLabel": "원/미국달러 환율",
+      "frequency": "D",
+      "unit": "KRW",
+      "description": "원/미국달러 환율 시계열이다.",
+      "metadataDescription": "ECOS StatisticSearch (731Y001/0000001) 호출 결과다.",
+      "featureSummary": [
+        "공식 통계",
+        "일간"
+      ],
+      "metricDescription": "원/미국달러 환율 흐름을 비교한다.",
+      "characteristics": [
+        "ECOS 실데이터",
+        "출처 선택 가능"
+      ],
+      "tags": [
+        "ECOS",
+        "원/미국달러 환율"
+      ],
+      "points": [
+        {
+          "period": "2025-01-02",
+          "label": "2025-01-02",
+          "value": 1470
+        },
+        {
+          "period": "2025-01-03",
+          "label": "2025-01-03",
+          "value": 1468.3
+        },
+        {
+          "period": "2025-01-06",
+          "label": "2025-01-06",
+          "value": 1466.8
+        },
+        {
+          "period": "2025-01-07",
+          "label": "2025-01-07",
+          "value": 1470.8
+        },
+        {
+          "period": "2025-01-08",
+          "label": "2025-01-08",
+          "value": 1455.4
+        },
+        {
+          "period": "2025-01-09",
+          "label": "2025-01-09",
+          "value": 1453.2
+        },
+        {
+          "period": "2025-01-10",
+          "label": "2025-01-10",
+          "value": 1458.2
+        },
+        {
+          "period": "2025-01-13",
+          "label": "2025-01-13",
+          "value": 1460.7
+        },
+        {
+          "period": "2025-01-14",
+          "label": "2025-01-14",
+          "value": 1471.3
+        },
+        {
+          "period": "2025-01-15",
+          "label": "2025-01-15",
+          "value": 1463.3
+        },
+        {
+          "period": "2025-01-16",
+          "label": "2025-01-16",
+          "value": 1460.2
+        },
+        {
+          "period": "2025-01-17",
+          "label": "2025-01-17",
+          "value": 1454.7
+        },
+        {
+          "period": "2025-01-20",
+          "label": "2025-01-20",
+          "value": 1455.8
+        },
+        {
+          "period": "2025-01-21",
+          "label": "2025-01-21",
+          "value": 1453
+        },
+        {
+          "period": "2025-01-22",
+          "label": "2025-01-22",
+          "value": 1437.9
+        },
+        {
+          "period": "2025-01-23",
+          "label": "2025-01-23",
+          "value": 1434.3
+        },
+        {
+          "period": "2025-01-24",
+          "label": "2025-01-24",
+          "value": 1437.1
+        },
+        {
+          "period": "2025-01-31",
+          "label": "2025-01-31",
+          "value": 1433.3
+        },
+        {
+          "period": "2025-02-03",
+          "label": "2025-02-03",
+          "value": 1453
+        },
+        {
+          "period": "2025-02-04",
+          "label": "2025-02-04",
+          "value": 1469.2
+        },
+        {
+          "period": "2025-02-05",
+          "label": "2025-02-05",
+          "value": 1460.8
+        },
+        {
+          "period": "2025-02-06",
+          "label": "2025-02-06",
+          "value": 1450
+        },
+        {
+          "period": "2025-02-07",
+          "label": "2025-02-07",
+          "value": 1447.1
+        },
+        {
+          "period": "2025-02-10",
+          "label": "2025-02-10",
+          "value": 1447.4
+        },
+        {
+          "period": "2025-02-11",
+          "label": "2025-02-11",
+          "value": 1453.4
+        },
+        {
+          "period": "2025-02-12",
+          "label": "2025-02-12",
+          "value": 1453.5
+        },
+        {
+          "period": "2025-02-13",
+          "label": "2025-02-13",
+          "value": 1452.6
+        },
+        {
+          "period": "2025-02-14",
+          "label": "2025-02-14",
+          "value": 1450.5
+        },
+        {
+          "period": "2025-02-17",
+          "label": "2025-02-17",
+          "value": 1443.3
+        },
+        {
+          "period": "2025-02-18",
+          "label": "2025-02-18",
+          "value": 1441.1
+        },
+        {
+          "period": "2025-02-19",
+          "label": "2025-02-19",
+          "value": 1443.9
+        },
+        {
+          "period": "2025-02-20",
+          "label": "2025-02-20",
+          "value": 1440.6
+        },
+        {
+          "period": "2025-02-21",
+          "label": "2025-02-21",
+          "value": 1439.4
+        },
+        {
+          "period": "2025-02-24",
+          "label": "2025-02-24",
+          "value": 1434.1
+        },
+        {
+          "period": "2025-02-25",
+          "label": "2025-02-25",
+          "value": 1429.2
+        },
+        {
+          "period": "2025-02-26",
+          "label": "2025-02-26",
+          "value": 1430.7
+        },
+        {
+          "period": "2025-02-27",
+          "label": "2025-02-27",
+          "value": 1431.8
+        },
+        {
+          "period": "2025-02-28",
+          "label": "2025-02-28",
+          "value": 1439.6
+        },
+        {
+          "period": "2025-03-04",
+          "label": "2025-03-04",
+          "value": 1458.7
+        },
+        {
+          "period": "2025-03-05",
+          "label": "2025-03-05",
+          "value": 1459.6
+        },
+        {
+          "period": "2025-03-06",
+          "label": "2025-03-06",
+          "value": 1456
+        },
+        {
+          "period": "2025-03-07",
+          "label": "2025-03-07",
+          "value": 1441.6
+        },
+        {
+          "period": "2025-03-10",
+          "label": "2025-03-10",
+          "value": 1446.3
+        },
+        {
+          "period": "2025-03-11",
+          "label": "2025-03-11",
+          "value": 1451.5
+        },
+        {
+          "period": "2025-03-12",
+          "label": "2025-03-12",
+          "value": 1457.9
+        },
+        {
+          "period": "2025-03-13",
+          "label": "2025-03-13",
+          "value": 1452
+        },
+        {
+          "period": "2025-03-14",
+          "label": "2025-03-14",
+          "value": 1451.9
+        },
+        {
+          "period": "2025-03-17",
+          "label": "2025-03-17",
+          "value": 1454.8
+        },
+        {
+          "period": "2025-03-18",
+          "label": "2025-03-18",
+          "value": 1448
+        },
+        {
+          "period": "2025-03-19",
+          "label": "2025-03-19",
+          "value": 1447.1
+        },
+        {
+          "period": "2025-03-20",
+          "label": "2025-03-20",
+          "value": 1452.3
+        },
+        {
+          "period": "2025-03-21",
+          "label": "2025-03-21",
+          "value": 1459.2
+        },
+        {
+          "period": "2025-03-24",
+          "label": "2025-03-24",
+          "value": 1466.9
+        },
+        {
+          "period": "2025-03-25",
+          "label": "2025-03-25",
+          "value": 1466.9
+        },
+        {
+          "period": "2025-03-26",
+          "label": "2025-03-26",
+          "value": 1469.6
+        },
+        {
+          "period": "2025-03-27",
+          "label": "2025-03-27",
+          "value": 1465.3
+        },
+        {
+          "period": "2025-03-28",
+          "label": "2025-03-28",
+          "value": 1466.8
+        },
+        {
+          "period": "2025-03-31",
+          "label": "2025-03-31",
+          "value": 1466.5
+        },
+        {
+          "period": "2025-04-01",
+          "label": "2025-04-01",
+          "value": 1470.6
+        },
+        {
+          "period": "2025-04-02",
+          "label": "2025-04-02",
+          "value": 1471.7
+        },
+        {
+          "period": "2025-04-03",
+          "label": "2025-04-03",
+          "value": 1467.8
+        },
+        {
+          "period": "2025-04-04",
+          "label": "2025-04-04",
+          "value": 1467
+        },
+        {
+          "period": "2025-04-07",
+          "label": "2025-04-07",
+          "value": 1439.3
+        },
+        {
+          "period": "2025-04-08",
+          "label": "2025-04-08",
+          "value": 1465.9
+        },
+        {
+          "period": "2025-04-09",
+          "label": "2025-04-09",
+          "value": 1470.2
+        },
+        {
+          "period": "2025-04-10",
+          "label": "2025-04-10",
+          "value": 1482.9
+        },
+        {
+          "period": "2025-04-11",
+          "label": "2025-04-11",
+          "value": 1458.5
+        },
+        {
+          "period": "2025-04-14",
+          "label": "2025-04-14",
+          "value": 1450.8
+        },
+        {
+          "period": "2025-04-15",
+          "label": "2025-04-15",
+          "value": 1427.4
+        },
+        {
+          "period": "2025-04-16",
+          "label": "2025-04-16",
+          "value": 1423.3
+        },
+        {
+          "period": "2025-04-17",
+          "label": "2025-04-17",
+          "value": 1427.4
+        },
+        {
+          "period": "2025-04-18",
+          "label": "2025-04-18",
+          "value": 1419.9
+        },
+        {
+          "period": "2025-04-21",
+          "label": "2025-04-21",
+          "value": 1421.5
+        },
+        {
+          "period": "2025-04-22",
+          "label": "2025-04-22",
+          "value": 1418.9
+        },
+        {
+          "period": "2025-04-23",
+          "label": "2025-04-23",
+          "value": 1422.6
+        },
+        {
+          "period": "2025-04-24",
+          "label": "2025-04-24",
+          "value": 1426.6
+        },
+        {
+          "period": "2025-04-25",
+          "label": "2025-04-25",
+          "value": 1430.2
+        },
+        {
+          "period": "2025-04-28",
+          "label": "2025-04-28",
+          "value": 1434.6
+        },
+        {
+          "period": "2025-04-29",
+          "label": "2025-04-29",
+          "value": 1439.3
+        },
+        {
+          "period": "2025-04-30",
+          "label": "2025-04-30",
+          "value": 1438.5
+        },
+        {
+          "period": "2025-05-02",
+          "label": "2025-05-02",
+          "value": 1426.9
+        },
+        {
+          "period": "2025-05-07",
+          "label": "2025-05-07",
+          "value": 1426.6
+        },
+        {
+          "period": "2025-05-08",
+          "label": "2025-05-08",
+          "value": 1394.1
+        },
+        {
+          "period": "2025-05-09",
+          "label": "2025-05-09",
+          "value": 1396
+        },
+        {
+          "period": "2025-05-12",
+          "label": "2025-05-12",
+          "value": 1405.6
+        },
+        {
+          "period": "2025-05-13",
+          "label": "2025-05-13",
+          "value": 1400.4
+        },
+        {
+          "period": "2025-05-14",
+          "label": "2025-05-14",
+          "value": 1413.7
+        },
+        {
+          "period": "2025-05-15",
+          "label": "2025-05-15",
+          "value": 1415.8
+        },
+        {
+          "period": "2025-05-16",
+          "label": "2025-05-16",
+          "value": 1399.6
+        },
+        {
+          "period": "2025-05-19",
+          "label": "2025-05-19",
+          "value": 1394.3
+        },
+        {
+          "period": "2025-05-20",
+          "label": "2025-05-20",
+          "value": 1398
+        },
+        {
+          "period": "2025-05-21",
+          "label": "2025-05-21",
+          "value": 1392.6
+        },
+        {
+          "period": "2025-05-22",
+          "label": "2025-05-22",
+          "value": 1387.1
+        },
+        {
+          "period": "2025-05-23",
+          "label": "2025-05-23",
+          "value": 1378.4
+        },
+        {
+          "period": "2025-05-26",
+          "label": "2025-05-26",
+          "value": 1376.9
+        },
+        {
+          "period": "2025-05-27",
+          "label": "2025-05-27",
+          "value": 1365
+        },
+        {
+          "period": "2025-05-28",
+          "label": "2025-05-28",
+          "value": 1368.3
+        },
+        {
+          "period": "2025-05-29",
+          "label": "2025-05-29",
+          "value": 1374.6
+        },
+        {
+          "period": "2025-05-30",
+          "label": "2025-05-30",
+          "value": 1381.4
+        },
+        {
+          "period": "2025-06-02",
+          "label": "2025-06-02",
+          "value": 1375.7
+        },
+        {
+          "period": "2025-06-04",
+          "label": "2025-06-04",
+          "value": 1376.9
+        },
+        {
+          "period": "2025-06-05",
+          "label": "2025-06-05",
+          "value": 1373.8
+        },
+        {
+          "period": "2025-06-09",
+          "label": "2025-06-09",
+          "value": 1359
+        },
+        {
+          "period": "2025-06-10",
+          "label": "2025-06-10",
+          "value": 1358.9
+        },
+        {
+          "period": "2025-06-11",
+          "label": "2025-06-11",
+          "value": 1359.9
+        },
+        {
+          "period": "2025-06-12",
+          "label": "2025-06-12",
+          "value": 1368.8
+        },
+        {
+          "period": "2025-06-13",
+          "label": "2025-06-13",
+          "value": 1362.9
+        },
+        {
+          "period": "2025-06-16",
+          "label": "2025-06-16",
+          "value": 1366.8
+        },
+        {
+          "period": "2025-06-17",
+          "label": "2025-06-17",
+          "value": 1363.6
+        },
+        {
+          "period": "2025-06-18",
+          "label": "2025-06-18",
+          "value": 1361.7
+        },
+        {
+          "period": "2025-06-19",
+          "label": "2025-06-19",
+          "value": 1373.2
+        },
+        {
+          "period": "2025-06-20",
+          "label": "2025-06-20",
+          "value": 1379.6
+        },
+        {
+          "period": "2025-06-23",
+          "label": "2025-06-23",
+          "value": 1369.4
+        },
+        {
+          "period": "2025-06-24",
+          "label": "2025-06-24",
+          "value": 1381.9
+        },
+        {
+          "period": "2025-06-25",
+          "label": "2025-06-25",
+          "value": 1365
+        },
+        {
+          "period": "2025-06-26",
+          "label": "2025-06-26",
+          "value": 1360.9
+        },
+        {
+          "period": "2025-06-27",
+          "label": "2025-06-27",
+          "value": 1357.6
+        },
+        {
+          "period": "2025-06-30",
+          "label": "2025-06-30",
+          "value": 1356.4
+        },
+        {
+          "period": "2025-07-01",
+          "label": "2025-07-01",
+          "value": 1353.6
+        },
+        {
+          "period": "2025-07-02",
+          "label": "2025-07-02",
+          "value": 1352.6
+        },
+        {
+          "period": "2025-07-03",
+          "label": "2025-07-03",
+          "value": 1359.4
+        },
+        {
+          "period": "2025-07-04",
+          "label": "2025-07-04",
+          "value": 1358.1
+        },
+        {
+          "period": "2025-07-07",
+          "label": "2025-07-07",
+          "value": 1364.2
+        },
+        {
+          "period": "2025-07-08",
+          "label": "2025-07-08",
+          "value": 1366.6
+        },
+        {
+          "period": "2025-07-09",
+          "label": "2025-07-09",
+          "value": 1368
+        },
+        {
+          "period": "2025-07-10",
+          "label": "2025-07-10",
+          "value": 1373.8
+        },
+        {
+          "period": "2025-07-11",
+          "label": "2025-07-11",
+          "value": 1373
+        },
+        {
+          "period": "2025-07-14",
+          "label": "2025-07-14",
+          "value": 1374.7
+        },
+        {
+          "period": "2025-07-15",
+          "label": "2025-07-15",
+          "value": 1378.5
+        },
+        {
+          "period": "2025-07-16",
+          "label": "2025-07-16",
+          "value": 1382.7
+        },
+        {
+          "period": "2025-07-17",
+          "label": "2025-07-17",
+          "value": 1387.1
+        },
+        {
+          "period": "2025-07-18",
+          "label": "2025-07-18",
+          "value": 1390.8
+        },
+        {
+          "period": "2025-07-21",
+          "label": "2025-07-21",
+          "value": 1391.9
+        },
+        {
+          "period": "2025-07-22",
+          "label": "2025-07-22",
+          "value": 1391.1
+        },
+        {
+          "period": "2025-07-23",
+          "label": "2025-07-23",
+          "value": 1386.3
+        },
+        {
+          "period": "2025-07-24",
+          "label": "2025-07-24",
+          "value": 1379.1
+        },
+        {
+          "period": "2025-07-25",
+          "label": "2025-07-25",
+          "value": 1368.7
+        },
+        {
+          "period": "2025-07-28",
+          "label": "2025-07-28",
+          "value": 1376
+        },
+        {
+          "period": "2025-07-29",
+          "label": "2025-07-29",
+          "value": 1379.6
+        },
+        {
+          "period": "2025-07-30",
+          "label": "2025-07-30",
+          "value": 1391.4
+        },
+        {
+          "period": "2025-07-31",
+          "label": "2025-07-31",
+          "value": 1382.9
+        },
+        {
+          "period": "2025-08-01",
+          "label": "2025-08-01",
+          "value": 1390.4
+        },
+        {
+          "period": "2025-08-04",
+          "label": "2025-08-04",
+          "value": 1399.3
+        },
+        {
+          "period": "2025-08-05",
+          "label": "2025-08-05",
+          "value": 1384.9
+        },
+        {
+          "period": "2025-08-06",
+          "label": "2025-08-06",
+          "value": 1386.7
+        },
+        {
+          "period": "2025-08-07",
+          "label": "2025-08-07",
+          "value": 1389.5
+        },
+        {
+          "period": "2025-08-08",
+          "label": "2025-08-08",
+          "value": 1384.2
+        },
+        {
+          "period": "2025-08-11",
+          "label": "2025-08-11",
+          "value": 1386
+        },
+        {
+          "period": "2025-08-12",
+          "label": "2025-08-12",
+          "value": 1388.3
+        },
+        {
+          "period": "2025-08-13",
+          "label": "2025-08-13",
+          "value": 1390.2
+        },
+        {
+          "period": "2025-08-14",
+          "label": "2025-08-14",
+          "value": 1383.8
+        },
+        {
+          "period": "2025-08-18",
+          "label": "2025-08-18",
+          "value": 1382.2
+        },
+        {
+          "period": "2025-08-19",
+          "label": "2025-08-19",
+          "value": 1385.3
+        },
+        {
+          "period": "2025-08-20",
+          "label": "2025-08-20",
+          "value": 1389.4
+        },
+        {
+          "period": "2025-08-21",
+          "label": "2025-08-21",
+          "value": 1397.5
+        },
+        {
+          "period": "2025-08-22",
+          "label": "2025-08-22",
+          "value": 1398.1
+        },
+        {
+          "period": "2025-08-25",
+          "label": "2025-08-25",
+          "value": 1395.6
+        },
+        {
+          "period": "2025-08-26",
+          "label": "2025-08-26",
+          "value": 1386.3
+        },
+        {
+          "period": "2025-08-27",
+          "label": "2025-08-27",
+          "value": 1391.2
+        },
+        {
+          "period": "2025-08-28",
+          "label": "2025-08-28",
+          "value": 1395.7
+        },
+        {
+          "period": "2025-08-29",
+          "label": "2025-08-29",
+          "value": 1388.6
+        },
+        {
+          "period": "2025-09-01",
+          "label": "2025-09-01",
+          "value": 1387.7
+        },
+        {
+          "period": "2025-09-02",
+          "label": "2025-09-02",
+          "value": 1392.4
+        },
+        {
+          "period": "2025-09-03",
+          "label": "2025-09-03",
+          "value": 1392.2
+        },
+        {
+          "period": "2025-09-04",
+          "label": "2025-09-04",
+          "value": 1393.8
+        },
+        {
+          "period": "2025-09-05",
+          "label": "2025-09-05",
+          "value": 1392.7
+        },
+        {
+          "period": "2025-09-08",
+          "label": "2025-09-08",
+          "value": 1391.8
+        },
+        {
+          "period": "2025-09-09",
+          "label": "2025-09-09",
+          "value": 1390.4
+        },
+        {
+          "period": "2025-09-10",
+          "label": "2025-09-10",
+          "value": 1386.6
+        },
+        {
+          "period": "2025-09-11",
+          "label": "2025-09-11",
+          "value": 1387.6
+        },
+        {
+          "period": "2025-09-12",
+          "label": "2025-09-12",
+          "value": 1389.4
+        },
+        {
+          "period": "2025-09-15",
+          "label": "2025-09-15",
+          "value": 1388.7
+        },
+        {
+          "period": "2025-09-16",
+          "label": "2025-09-16",
+          "value": 1389.5
+        },
+        {
+          "period": "2025-09-17",
+          "label": "2025-09-17",
+          "value": 1382.3
+        },
+        {
+          "period": "2025-09-18",
+          "label": "2025-09-18",
+          "value": 1380
+        },
+        {
+          "period": "2025-09-19",
+          "label": "2025-09-19",
+          "value": 1384.6
+        },
+        {
+          "period": "2025-09-22",
+          "label": "2025-09-22",
+          "value": 1393.6
+        },
+        {
+          "period": "2025-09-23",
+          "label": "2025-09-23",
+          "value": 1394
+        },
+        {
+          "period": "2025-09-24",
+          "label": "2025-09-24",
+          "value": 1393.8
+        },
+        {
+          "period": "2025-09-25",
+          "label": "2025-09-25",
+          "value": 1394.9
+        },
+        {
+          "period": "2025-09-26",
+          "label": "2025-09-26",
+          "value": 1400.4
+        },
+        {
+          "period": "2025-09-29",
+          "label": "2025-09-29",
+          "value": 1411.6
+        },
+        {
+          "period": "2025-09-30",
+          "label": "2025-09-30",
+          "value": 1402.2
+        },
+        {
+          "period": "2025-10-01",
+          "label": "2025-10-01",
+          "value": 1403.2
+        },
+        {
+          "period": "2025-10-02",
+          "label": "2025-10-02",
+          "value": 1406
+        },
+        {
+          "period": "2025-10-10",
+          "label": "2025-10-10",
+          "value": 1401.9
+        },
+        {
+          "period": "2025-10-13",
+          "label": "2025-10-13",
+          "value": 1420.5
+        },
+        {
+          "period": "2025-10-14",
+          "label": "2025-10-14",
+          "value": 1427.7
+        },
+        {
+          "period": "2025-10-15",
+          "label": "2025-10-15",
+          "value": 1428.4
+        },
+        {
+          "period": "2025-10-16",
+          "label": "2025-10-16",
+          "value": 1424.4
+        },
+        {
+          "period": "2025-10-17",
+          "label": "2025-10-17",
+          "value": 1419.1
+        },
+        {
+          "period": "2025-10-20",
+          "label": "2025-10-20",
+          "value": 1419.5
+        },
+        {
+          "period": "2025-10-21",
+          "label": "2025-10-21",
+          "value": 1420.2
+        },
+        {
+          "period": "2025-10-22",
+          "label": "2025-10-22",
+          "value": 1423.7
+        },
+        {
+          "period": "2025-10-23",
+          "label": "2025-10-23",
+          "value": 1430.1
+        },
+        {
+          "period": "2025-10-24",
+          "label": "2025-10-24",
+          "value": 1436.6
+        },
+        {
+          "period": "2025-10-27",
+          "label": "2025-10-27",
+          "value": 1436.1
+        },
+        {
+          "period": "2025-10-28",
+          "label": "2025-10-28",
+          "value": 1432.5
+        },
+        {
+          "period": "2025-10-29",
+          "label": "2025-10-29",
+          "value": 1434.3
+        },
+        {
+          "period": "2025-10-30",
+          "label": "2025-10-30",
+          "value": 1433
+        },
+        {
+          "period": "2025-10-31",
+          "label": "2025-10-31",
+          "value": 1423.2
+        },
+        {
+          "period": "2025-11-03",
+          "label": "2025-11-03",
+          "value": 1427.4
+        },
+        {
+          "period": "2025-11-04",
+          "label": "2025-11-04",
+          "value": 1429
+        },
+        {
+          "period": "2025-11-05",
+          "label": "2025-11-05",
+          "value": 1437.7
+        },
+        {
+          "period": "2025-11-06",
+          "label": "2025-11-06",
+          "value": 1447
+        },
+        {
+          "period": "2025-11-07",
+          "label": "2025-11-07",
+          "value": 1445.6
+        },
+        {
+          "period": "2025-11-10",
+          "label": "2025-11-10",
+          "value": 1454
+        },
+        {
+          "period": "2025-11-11",
+          "label": "2025-11-11",
+          "value": 1453.7
+        },
+        {
+          "period": "2025-11-12",
+          "label": "2025-11-12",
+          "value": 1463.2
+        },
+        {
+          "period": "2025-11-13",
+          "label": "2025-11-13",
+          "value": 1466.4
+        },
+        {
+          "period": "2025-11-14",
+          "label": "2025-11-14",
+          "value": 1469.5
+        },
+        {
+          "period": "2025-11-17",
+          "label": "2025-11-17",
+          "value": 1458.5
+        },
+        {
+          "period": "2025-11-18",
+          "label": "2025-11-18",
+          "value": 1458.3
+        },
+        {
+          "period": "2025-11-19",
+          "label": "2025-11-19",
+          "value": 1465.2
+        },
+        {
+          "period": "2025-11-20",
+          "label": "2025-11-20",
+          "value": 1465
+        },
+        {
+          "period": "2025-11-21",
+          "label": "2025-11-21",
+          "value": 1468.4
+        },
+        {
+          "period": "2025-11-24",
+          "label": "2025-11-24",
+          "value": 1472
+        },
+        {
+          "period": "2025-11-25",
+          "label": "2025-11-25",
+          "value": 1473.5
+        },
+        {
+          "period": "2025-11-26",
+          "label": "2025-11-26",
+          "value": 1473.5
+        },
+        {
+          "period": "2025-11-27",
+          "label": "2025-11-27",
+          "value": 1462.7
+        },
+        {
+          "period": "2025-11-28",
+          "label": "2025-11-28",
+          "value": 1464.8
+        },
+        {
+          "period": "2025-12-01",
+          "label": "2025-12-01",
+          "value": 1465.9
+        },
+        {
+          "period": "2025-12-02",
+          "label": "2025-12-02",
+          "value": 1469.1
+        },
+        {
+          "period": "2025-12-03",
+          "label": "2025-12-03",
+          "value": 1469.6
+        },
+        {
+          "period": "2025-12-04",
+          "label": "2025-12-04",
+          "value": 1468.7
+        },
+        {
+          "period": "2025-12-05",
+          "label": "2025-12-05",
+          "value": 1471.5
+        },
+        {
+          "period": "2025-12-08",
+          "label": "2025-12-08",
+          "value": 1472.1
+        },
+        {
+          "period": "2025-12-09",
+          "label": "2025-12-09",
+          "value": 1469
+        },
+        {
+          "period": "2025-12-10",
+          "label": "2025-12-10",
+          "value": 1470.4
+        },
+        {
+          "period": "2025-12-11",
+          "label": "2025-12-11",
+          "value": 1470.4
+        },
+        {
+          "period": "2025-12-12",
+          "label": "2025-12-12",
+          "value": 1469.5
+        },
+        {
+          "period": "2025-12-15",
+          "label": "2025-12-15",
+          "value": 1472.5
+        },
+        {
+          "period": "2025-12-16",
+          "label": "2025-12-16",
+          "value": 1474.1
+        },
+        {
+          "period": "2025-12-17",
+          "label": "2025-12-17",
+          "value": 1472.4
+        },
+        {
+          "period": "2025-12-18",
+          "label": "2025-12-18",
+          "value": 1478.6
+        },
+        {
+          "period": "2025-12-19",
+          "label": "2025-12-19",
+          "value": 1477.2
+        },
+        {
+          "period": "2025-12-22",
+          "label": "2025-12-22",
+          "value": 1477.8
+        },
+        {
+          "period": "2025-12-23",
+          "label": "2025-12-23",
+          "value": 1478.9
+        },
+        {
+          "period": "2025-12-24",
+          "label": "2025-12-24",
+          "value": 1483.4
+        },
+        {
+          "period": "2025-12-26",
+          "label": "2025-12-26",
+          "value": 1460.6
+        },
+        {
+          "period": "2025-12-29",
+          "label": "2025-12-29",
+          "value": 1442.3
+        },
+        {
+          "period": "2025-12-30",
+          "label": "2025-12-30",
+          "value": 1433.9
+        },
+        {
+          "period": "2025-12-31",
+          "label": "2025-12-31",
+          "value": 1434.9
+        },
+        {
+          "period": "2026-01-02",
+          "label": "2026-01-02",
+          "value": 1434.9
+        },
+        {
+          "period": "2026-01-05",
+          "label": "2026-01-05",
+          "value": 1442.1
+        },
+        {
+          "period": "2026-01-06",
+          "label": "2026-01-06",
+          "value": 1446.8
+        },
+        {
+          "period": "2026-01-07",
+          "label": "2026-01-07",
+          "value": 1445.7
+        },
+        {
+          "period": "2026-01-08",
+          "label": "2026-01-08",
+          "value": 1448.3
+        },
+        {
+          "period": "2026-01-09",
+          "label": "2026-01-09",
+          "value": 1449.4
+        },
+        {
+          "period": "2026-01-12",
+          "label": "2026-01-12",
+          "value": 1455.7
+        },
+        {
+          "period": "2026-01-13",
+          "label": "2026-01-13",
+          "value": 1464.1
+        },
+        {
+          "period": "2026-01-14",
+          "label": "2026-01-14",
+          "value": 1472.8
+        },
+        {
+          "period": "2026-01-15",
+          "label": "2026-01-15",
+          "value": 1477.5
+        },
+        {
+          "period": "2026-01-16",
+          "label": "2026-01-16",
+          "value": 1469.7
+        },
+        {
+          "period": "2026-01-19",
+          "label": "2026-01-19",
+          "value": 1473.5
+        },
+        {
+          "period": "2026-01-20",
+          "label": "2026-01-20",
+          "value": 1473.6
+        },
+        {
+          "period": "2026-01-21",
+          "label": "2026-01-21",
+          "value": 1477
+        },
+        {
+          "period": "2026-01-22",
+          "label": "2026-01-22",
+          "value": 1472.8
+        },
+        {
+          "period": "2026-01-23",
+          "label": "2026-01-23",
+          "value": 1468.4
+        },
+        {
+          "period": "2026-01-26",
+          "label": "2026-01-26",
+          "value": 1467.2
+        },
+        {
+          "period": "2026-01-27",
+          "label": "2026-01-27",
+          "value": 1442.8
+        },
+        {
+          "period": "2026-01-28",
+          "label": "2026-01-28",
+          "value": 1448.8
+        },
+        {
+          "period": "2026-01-29",
+          "label": "2026-01-29",
+          "value": 1428.6
+        },
+        {
+          "period": "2026-01-30",
+          "label": "2026-01-30",
+          "value": 1427
+        },
+        {
+          "period": "2026-02-02",
+          "label": "2026-02-02",
+          "value": 1436.7
+        },
+        {
+          "period": "2026-02-03",
+          "label": "2026-02-03",
+          "value": 1457.3
+        },
+        {
+          "period": "2026-02-04",
+          "label": "2026-02-04",
+          "value": 1449
+        },
+        {
+          "period": "2026-02-05",
+          "label": "2026-02-05",
+          "value": 1451.2
+        },
+        {
+          "period": "2026-02-06",
+          "label": "2026-02-06",
+          "value": 1464.1
+        },
+        {
+          "period": "2026-02-09",
+          "label": "2026-02-09",
+          "value": 1470.3
+        },
+        {
+          "period": "2026-02-10",
+          "label": "2026-02-10",
+          "value": 1464.3
+        },
+        {
+          "period": "2026-02-11",
+          "label": "2026-02-11",
+          "value": 1457.7
+        },
+        {
+          "period": "2026-02-12",
+          "label": "2026-02-12",
+          "value": 1454.4
+        },
+        {
+          "period": "2026-02-13",
+          "label": "2026-02-13",
+          "value": 1443.4
+        },
+        {
+          "period": "2026-02-19",
+          "label": "2026-02-19",
+          "value": 1443.1
+        },
+        {
+          "period": "2026-02-20",
+          "label": "2026-02-20",
+          "value": 1450.7
+        },
+        {
+          "period": "2026-02-23",
+          "label": "2026-02-23",
+          "value": 1448.7
+        },
+        {
+          "period": "2026-02-24",
+          "label": "2026-02-24",
+          "value": 1442
+        },
+        {
+          "period": "2026-02-25",
+          "label": "2026-02-25",
+          "value": 1445.8
+        },
+        {
+          "period": "2026-02-26",
+          "label": "2026-02-26",
+          "value": 1435.3
+        },
+        {
+          "period": "2026-02-27",
+          "label": "2026-02-27",
+          "value": 1424.5
+        },
+        {
+          "period": "2026-03-03",
+          "label": "2026-03-03",
+          "value": 1435.4
+        },
+        {
+          "period": "2026-03-04",
+          "label": "2026-03-04",
+          "value": 1464.5
+        },
+        {
+          "period": "2026-03-05",
+          "label": "2026-03-05",
+          "value": 1478.8
+        },
+        {
+          "period": "2026-03-06",
+          "label": "2026-03-06",
+          "value": 1464.3
+        },
+        {
+          "period": "2026-03-09",
+          "label": "2026-03-09",
+          "value": 1474.5
+        },
+        {
+          "period": "2026-03-10",
+          "label": "2026-03-10",
+          "value": 1493.1
+        }
+      ],
+      "stats": {
+        "latestPeriod": "2026-03-10",
+        "latestValue": 1493.1,
+        "previousValue": 1474.5,
+        "delta": 18.59999999999991,
+        "deltaPct": 0.012614445574771047,
+        "min": 1352.6,
+        "max": 1493.1,
+        "pointCount": 287
+      }
+    },
+    {
+      "source": "KRX",
+      "dataset": "krx-index-daily",
+      "datasetName": "KRX 지수 일별",
+      "category": "지수",
+      "seriesId": "krx-index-daily/KRX 300",
+      "title": "KRX · KRX 300",
+      "entityCode": "KRX 300",
+      "entity": "KRX 300",
+      "entityName": "KRX 300",
+      "entityLabel": "지수",
+      "metric": "close_index",
+      "metricLabel": "종가 지수",
+      "frequency": "D",
+      "unit": "index",
+      "description": "KRX 300 일별 종가 지수 시계열이다.",
+      "metadataDescription": "KRX krx_dd_trd AUTH_KEY 호출 결과를 일자별로 누적했다.",
+      "featureSummary": [
+        "일별 지수",
+        "시장 비교"
+      ],
+      "metricDescription": "종가 기준 지수 레벨이다.",
+      "characteristics": [
+        "KRX 실데이터",
+        "출처 선택 가능"
+      ],
+      "tags": [
+        "KRX",
+        "KRX 300"
+      ],
+      "points": [
+        {
+          "period": "2025-12-01",
+          "label": "2025-12-01",
+          "value": 2524.45
+        },
+        {
+          "period": "2025-12-02",
+          "label": "2025-12-02",
+          "value": 2573.9
+        },
+        {
+          "period": "2025-12-03",
+          "label": "2025-12-03",
+          "value": 2594.93
+        },
+        {
+          "period": "2025-12-04",
+          "label": "2025-12-04",
+          "value": 2588.89
+        },
+        {
+          "period": "2025-12-05",
+          "label": "2025-12-05",
+          "value": 2632.01
+        },
+        {
+          "period": "2025-12-08",
+          "label": "2025-12-08",
+          "value": 2669.63
+        },
+        {
+          "period": "2025-12-09",
+          "label": "2025-12-09",
+          "value": 2656.62
+        },
+        {
+          "period": "2025-12-10",
+          "label": "2025-12-10",
+          "value": 2656.71
+        },
+        {
+          "period": "2025-12-11",
+          "label": "2025-12-11",
+          "value": 2632.47
+        },
+        {
+          "period": "2025-12-12",
+          "label": "2025-12-12",
+          "value": 2663.73
+        },
+        {
+          "period": "2025-12-15",
+          "label": "2025-12-15",
+          "value": 2607.08
+        },
+        {
+          "period": "2025-12-16",
+          "label": "2025-12-16",
+          "value": 2547.48
+        },
+        {
+          "period": "2025-12-17",
+          "label": "2025-12-17",
+          "value": 2592.67
+        },
+        {
+          "period": "2025-12-18",
+          "label": "2025-12-18",
+          "value": 2560.38
+        },
+        {
+          "period": "2025-12-19",
+          "label": "2025-12-19",
+          "value": 2574.73
+        },
+        {
+          "period": "2025-12-22",
+          "label": "2025-12-22",
+          "value": 2636.06
+        },
+        {
+          "period": "2025-12-23",
+          "label": "2025-12-23",
+          "value": 2643.47
+        },
+        {
+          "period": "2025-12-24",
+          "label": "2025-12-24",
+          "value": 2640.25
+        },
+        {
+          "period": "2025-12-26",
+          "label": "2025-12-26",
+          "value": 2665.69
+        },
+        {
+          "period": "2025-12-29",
+          "label": "2025-12-29",
+          "value": 2734.48
+        },
+        {
+          "period": "2025-12-30",
+          "label": "2025-12-30",
+          "value": 2733.85
+        },
+        {
+          "period": "2026-01-02",
+          "label": "2026-01-02",
+          "value": 2813.82
+        },
+        {
+          "period": "2026-01-05",
+          "label": "2026-01-05",
+          "value": 2920.19
+        },
+        {
+          "period": "2026-01-06",
+          "label": "2026-01-06",
+          "value": 2965.95
+        },
+        {
+          "period": "2026-01-07",
+          "label": "2026-01-07",
+          "value": 2984.95
+        },
+        {
+          "period": "2026-01-08",
+          "label": "2026-01-08",
+          "value": 2983.5
+        },
+        {
+          "period": "2026-01-09",
+          "label": "2026-01-09",
+          "value": 3001.22
+        },
+        {
+          "period": "2026-01-12",
+          "label": "2026-01-12",
+          "value": 3020.33
+        },
+        {
+          "period": "2026-01-13",
+          "label": "2026-01-13",
+          "value": 3053.27
+        },
+        {
+          "period": "2026-01-14",
+          "label": "2026-01-14",
+          "value": 3072.89
+        },
+        {
+          "period": "2026-01-15",
+          "label": "2026-01-15",
+          "value": 3118.62
+        },
+        {
+          "period": "2026-01-16",
+          "label": "2026-01-16",
+          "value": 3155.22
+        },
+        {
+          "period": "2026-01-19",
+          "label": "2026-01-19",
+          "value": 3195.19
+        },
+        {
+          "period": "2026-01-20",
+          "label": "2026-01-20",
+          "value": 3172.76
+        },
+        {
+          "period": "2026-01-21",
+          "label": "2026-01-21",
+          "value": 3188.67
+        },
+        {
+          "period": "2026-01-22",
+          "label": "2026-01-22",
+          "value": 3225.39
+        },
+        {
+          "period": "2026-01-23",
+          "label": "2026-01-23",
+          "value": 3254.75
+        },
+        {
+          "period": "2026-01-26",
+          "label": "2026-01-26",
+          "value": 3245.45
+        },
+        {
+          "period": "2026-01-27",
+          "label": "2026-01-27",
+          "value": 3355.77
+        },
+        {
+          "period": "2026-01-28",
+          "label": "2026-01-28",
+          "value": 3428.13
+        },
+        {
+          "period": "2026-01-29",
+          "label": "2026-01-29",
+          "value": 3464.28
+        },
+        {
+          "period": "2026-01-30",
+          "label": "2026-01-30",
+          "value": 3469.74
+        },
+        {
+          "period": "2026-02-02",
+          "label": "2026-02-02",
+          "value": 3276.53
+        },
+        {
+          "period": "2026-02-03",
+          "label": "2026-02-03",
+          "value": 3513.68
+        },
+        {
+          "period": "2026-02-04",
+          "label": "2026-02-04",
+          "value": 3557.94
+        },
+        {
+          "period": "2026-02-05",
+          "label": "2026-02-05",
+          "value": 3407.89
+        },
+        {
+          "period": "2026-02-06",
+          "label": "2026-02-06",
+          "value": 3363.21
+        },
+        {
+          "period": "2026-02-09",
+          "label": "2026-02-09",
+          "value": 3511.69
+        },
+        {
+          "period": "2026-02-10",
+          "label": "2026-02-10",
+          "value": 3506.04
+        },
+        {
+          "period": "2026-02-11",
+          "label": "2026-02-11",
+          "value": 3538.9
+        },
+        {
+          "period": "2026-02-12",
+          "label": "2026-02-12",
+          "value": 3658.79
+        },
+        {
+          "period": "2026-02-13",
+          "label": "2026-02-13",
+          "value": 3647.17
+        },
+        {
+          "period": "2026-02-19",
+          "label": "2026-02-19",
+          "value": 3771.16
+        },
+        {
+          "period": "2026-02-20",
+          "label": "2026-02-20",
+          "value": 3850.33
+        },
+        {
+          "period": "2026-02-23",
+          "label": "2026-02-23",
+          "value": 3873.83
+        },
+        {
+          "period": "2026-02-24",
+          "label": "2026-02-24",
+          "value": 3965.33
+        },
+        {
+          "period": "2026-02-25",
+          "label": "2026-02-25",
+          "value": 4036.02
+        },
+        {
+          "period": "2026-02-26",
+          "label": "2026-02-26",
+          "value": 4213.72
+        },
+        {
+          "period": "2026-02-27",
+          "label": "2026-02-27",
+          "value": 4171.71
+        },
+        {
+          "period": "2026-03-04",
+          "label": "2026-03-04",
+          "value": 3383.99
+        },
+        {
+          "period": "2026-03-06",
+          "label": "2026-03-06",
+          "value": 3727.16
+        },
+        {
+          "period": "2026-03-09",
+          "label": "2026-03-09",
+          "value": 3493.93
+        },
+        {
+          "period": "2026-03-10",
+          "label": "2026-03-10",
+          "value": 3697.19
+        }
+      ],
+      "stats": {
+        "latestPeriod": "2026-03-10",
+        "latestValue": 3697.19,
+        "previousValue": 3493.93,
+        "delta": 203.26000000000022,
+        "deltaPct": 0.05817517809458124,
+        "min": 2524.45,
+        "max": 4213.72,
+        "pointCount": 63
+      }
+    },
+    {
+      "source": "KRX",
+      "dataset": "krx-index-daily",
+      "datasetName": "KRX 지수 일별",
+      "category": "지수",
+      "seriesId": "krx-index-daily/KRX 100",
+      "title": "KRX · KRX 100",
+      "entityCode": "KRX 100",
+      "entity": "KRX 100",
+      "entityName": "KRX 100",
+      "entityLabel": "지수",
+      "metric": "close_index",
+      "metricLabel": "종가 지수",
+      "frequency": "D",
+      "unit": "index",
+      "description": "KRX 100 일별 종가 지수 시계열이다.",
+      "metadataDescription": "KRX krx_dd_trd AUTH_KEY 호출 결과를 일자별로 누적했다.",
+      "featureSummary": [
+        "일별 지수",
+        "시장 비교"
+      ],
+      "metricDescription": "종가 기준 지수 레벨이다.",
+      "characteristics": [
+        "KRX 실데이터",
+        "출처 선택 가능"
+      ],
+      "tags": [
+        "KRX",
+        "KRX 100"
+      ],
+      "points": [
+        {
+          "period": "2025-12-01",
+          "label": "2025-12-01",
+          "value": 8663.8
+        },
+        {
+          "period": "2025-12-02",
+          "label": "2025-12-02",
+          "value": 8842.29
+        },
+        {
+          "period": "2025-12-03",
+          "label": "2025-12-03",
+          "value": 8913.79
+        },
+        {
+          "period": "2025-12-04",
+          "label": "2025-12-04",
+          "value": 8900.38
+        },
+        {
+          "period": "2025-12-05",
+          "label": "2025-12-05",
+          "value": 9066.15
+        },
+        {
+          "period": "2025-12-08",
+          "label": "2025-12-08",
+          "value": 9212.45
+        },
+        {
+          "period": "2025-12-09",
+          "label": "2025-12-09",
+          "value": 9158.35
+        },
+        {
+          "period": "2025-12-10",
+          "label": "2025-12-10",
+          "value": 9159.66
+        },
+        {
+          "period": "2025-12-11",
+          "label": "2025-12-11",
+          "value": 9067.14
+        },
+        {
+          "period": "2025-12-12",
+          "label": "2025-12-12",
+          "value": 9184.55
+        },
+        {
+          "period": "2025-12-15",
+          "label": "2025-12-15",
+          "value": 8970.6
+        },
+        {
+          "period": "2025-12-16",
+          "label": "2025-12-16",
+          "value": 8759.56
+        },
+        {
+          "period": "2025-12-17",
+          "label": "2025-12-17",
+          "value": 8932.01
+        },
+        {
+          "period": "2025-12-18",
+          "label": "2025-12-18",
+          "value": 8826.89
+        },
+        {
+          "period": "2025-12-19",
+          "label": "2025-12-19",
+          "value": 8871.38
+        },
+        {
+          "period": "2025-12-22",
+          "label": "2025-12-22",
+          "value": 9098.44
+        },
+        {
+          "period": "2025-12-23",
+          "label": "2025-12-23",
+          "value": 9132.91
+        },
+        {
+          "period": "2025-12-24",
+          "label": "2025-12-24",
+          "value": 9124.01
+        },
+        {
+          "period": "2025-12-26",
+          "label": "2025-12-26",
+          "value": 9227.84
+        },
+        {
+          "period": "2025-12-29",
+          "label": "2025-12-29",
+          "value": 9488.98
+        },
+        {
+          "period": "2025-12-30",
+          "label": "2025-12-30",
+          "value": 9494.63
+        },
+        {
+          "period": "2026-01-02",
+          "label": "2026-01-02",
+          "value": 9795.45
+        },
+        {
+          "period": "2026-01-05",
+          "label": "2026-01-05",
+          "value": 10194.3
+        },
+        {
+          "period": "2026-01-06",
+          "label": "2026-01-06",
+          "value": 10368.89
+        },
+        {
+          "period": "2026-01-07",
+          "label": "2026-01-07",
+          "value": 10451.1
+        },
+        {
+          "period": "2026-01-08",
+          "label": "2026-01-08",
+          "value": 10450.21
+        },
+        {
+          "period": "2026-01-09",
+          "label": "2026-01-09",
+          "value": 10516.69
+        },
+        {
+          "period": "2026-01-12",
+          "label": "2026-01-12",
+          "value": 10581.09
+        },
+        {
+          "period": "2026-01-13",
+          "label": "2026-01-13",
+          "value": 10700.09
+        },
+        {
+          "period": "2026-01-14",
+          "label": "2026-01-14",
+          "value": 10772.48
+        },
+        {
+          "period": "2026-01-15",
+          "label": "2026-01-15",
+          "value": 10940.79
+        },
+        {
+          "period": "2026-01-16",
+          "label": "2026-01-16",
+          "value": 11080.01
+        },
+        {
+          "period": "2026-01-19",
+          "label": "2026-01-19",
+          "value": 11227.94
+        },
+        {
+          "period": "2026-01-20",
+          "label": "2026-01-20",
+          "value": 11130.31
+        },
+        {
+          "period": "2026-01-21",
+          "label": "2026-01-21",
+          "value": 11210.1
+        },
+        {
+          "period": "2026-01-22",
+          "label": "2026-01-22",
+          "value": 11332.16
+        },
+        {
+          "period": "2026-01-23",
+          "label": "2026-01-23",
+          "value": 11416.63
+        },
+        {
+          "period": "2026-01-26",
+          "label": "2026-01-26",
+          "value": 11339.63
+        },
+        {
+          "period": "2026-01-27",
+          "label": "2026-01-27",
+          "value": 11747.24
+        },
+        {
+          "period": "2026-01-28",
+          "label": "2026-01-28",
+          "value": 11986.7
+        },
+        {
+          "period": "2026-01-29",
+          "label": "2026-01-29",
+          "value": 12099.68
+        },
+        {
+          "period": "2026-01-30",
+          "label": "2026-01-30",
+          "value": 12124.03
+        },
+        {
+          "period": "2026-02-02",
+          "label": "2026-02-02",
+          "value": 11437.25
+        },
+        {
+          "period": "2026-02-03",
+          "label": "2026-02-03",
+          "value": 12295.51
+        },
+        {
+          "period": "2026-02-04",
+          "label": "2026-02-04",
+          "value": 12452.3
+        },
+        {
+          "period": "2026-02-05",
+          "label": "2026-02-05",
+          "value": 11904.18
+        },
+        {
+          "period": "2026-02-06",
+          "label": "2026-02-06",
+          "value": 11754.41
+        },
+        {
+          "period": "2026-02-09",
+          "label": "2026-02-09",
+          "value": 12274.69
+        },
+        {
+          "period": "2026-02-10",
+          "label": "2026-02-10",
+          "value": 12253.13
+        },
+        {
+          "period": "2026-02-11",
+          "label": "2026-02-11",
+          "value": 12378.12
+        },
+        {
+          "period": "2026-02-12",
+          "label": "2026-02-12",
+          "value": 12817.66
+        },
+        {
+          "period": "2026-02-13",
+          "label": "2026-02-13",
+          "value": 12788.41
+        },
+        {
+          "period": "2026-02-19",
+          "label": "2026-02-19",
+          "value": 13219.92
+        },
+        {
+          "period": "2026-02-20",
+          "label": "2026-02-20",
+          "value": 13522.03
+        },
+        {
+          "period": "2026-02-23",
+          "label": "2026-02-23",
+          "value": 13611.5
+        },
+        {
+          "period": "2026-02-24",
+          "label": "2026-02-24",
+          "value": 13962.07
+        },
+        {
+          "period": "2026-02-25",
+          "label": "2026-02-25",
+          "value": 14233.94
+        },
+        {
+          "period": "2026-02-26",
+          "label": "2026-02-26",
+          "value": 14897
+        },
+        {
+          "period": "2026-02-27",
+          "label": "2026-02-27",
+          "value": 14726.39
+        },
+        {
+          "period": "2026-03-04",
+          "label": "2026-03-04",
+          "value": 11920.98
+        },
+        {
+          "period": "2026-03-06",
+          "label": "2026-03-06",
+          "value": 13081.03
+        },
+        {
+          "period": "2026-03-09",
+          "label": "2026-03-09",
+          "value": 12235.79
+        },
+        {
+          "period": "2026-03-10",
+          "label": "2026-03-10",
+          "value": 12995.11
+        }
+      ],
+      "stats": {
+        "latestPeriod": "2026-03-10",
+        "latestValue": 12995.11,
+        "previousValue": 12235.79,
+        "delta": 759.3199999999997,
+        "deltaPct": 0.06205729258184389,
+        "min": 8663.8,
+        "max": 14897,
+        "pointCount": 63
+      }
+    },
+    {
+      "source": "KRX",
+      "dataset": "krx-index-daily",
+      "datasetName": "KRX 지수 일별",
+      "category": "지수",
+      "seriesId": "krx-index-daily/KRX 반도체",
+      "title": "KRX · KRX 반도체",
+      "entityCode": "KRX 반도체",
+      "entity": "KRX 반도체",
+      "entityName": "KRX 반도체",
+      "entityLabel": "지수",
+      "metric": "close_index",
+      "metricLabel": "종가 지수",
+      "frequency": "D",
+      "unit": "index",
+      "description": "KRX 반도체 일별 종가 지수 시계열이다.",
+      "metadataDescription": "KRX krx_dd_trd AUTH_KEY 호출 결과를 일자별로 누적했다.",
+      "featureSummary": [
+        "일별 지수",
+        "시장 비교"
+      ],
+      "metricDescription": "종가 기준 지수 레벨이다.",
+      "characteristics": [
+        "KRX 실데이터",
+        "출처 선택 가능"
+      ],
+      "tags": [
+        "KRX",
+        "KRX 반도체"
+      ],
+      "points": [
+        {
+          "period": "2025-12-01",
+          "label": "2025-12-01",
+          "value": 5865.74
+        },
+        {
+          "period": "2025-12-02",
+          "label": "2025-12-02",
+          "value": 5961.51
+        },
+        {
+          "period": "2025-12-03",
+          "label": "2025-12-03",
+          "value": 6004.34
+        },
+        {
+          "period": "2025-12-04",
+          "label": "2025-12-04",
+          "value": 5894.77
+        },
+        {
+          "period": "2025-12-05",
+          "label": "2025-12-05",
+          "value": 5980.04
+        },
+        {
+          "period": "2025-12-08",
+          "label": "2025-12-08",
+          "value": 6085.78
+        },
+        {
+          "period": "2025-12-09",
+          "label": "2025-12-09",
+          "value": 6017
+        },
+        {
+          "period": "2025-12-10",
+          "label": "2025-12-10",
+          "value": 6066.58
+        },
+        {
+          "period": "2025-12-11",
+          "label": "2025-12-11",
+          "value": 5988.68
+        },
+        {
+          "period": "2025-12-12",
+          "label": "2025-12-12",
+          "value": 6006.49
+        },
+        {
+          "period": "2025-12-15",
+          "label": "2025-12-15",
+          "value": 5844.31
+        },
+        {
+          "period": "2025-12-16",
+          "label": "2025-12-16",
+          "value": 5656.26
+        },
+        {
+          "period": "2025-12-17",
+          "label": "2025-12-17",
+          "value": 5866.12
+        },
+        {
+          "period": "2025-12-18",
+          "label": "2025-12-18",
+          "value": 5794.03
+        },
+        {
+          "period": "2025-12-19",
+          "label": "2025-12-19",
+          "value": 5762.35
+        },
+        {
+          "period": "2025-12-22",
+          "label": "2025-12-22",
+          "value": 6063.8
+        },
+        {
+          "period": "2025-12-23",
+          "label": "2025-12-23",
+          "value": 6077.62
+        },
+        {
+          "period": "2025-12-24",
+          "label": "2025-12-24",
+          "value": 6047.27
+        },
+        {
+          "period": "2025-12-26",
+          "label": "2025-12-26",
+          "value": 6228.38
+        },
+        {
+          "period": "2025-12-29",
+          "label": "2025-12-29",
+          "value": 6381.44
+        },
+        {
+          "period": "2025-12-30",
+          "label": "2025-12-30",
+          "value": 6422.88
+        },
+        {
+          "period": "2026-01-02",
+          "label": "2026-01-02",
+          "value": 6859.1
+        },
+        {
+          "period": "2026-01-05",
+          "label": "2026-01-05",
+          "value": 7169
+        },
+        {
+          "period": "2026-01-06",
+          "label": "2026-01-06",
+          "value": 7390.13
+        },
+        {
+          "period": "2026-01-07",
+          "label": "2026-01-07",
+          "value": 7368.73
+        },
+        {
+          "period": "2026-01-08",
+          "label": "2026-01-08",
+          "value": 7372.28
+        },
+        {
+          "period": "2026-01-09",
+          "label": "2026-01-09",
+          "value": 7240.78
+        },
+        {
+          "period": "2026-01-12",
+          "label": "2026-01-12",
+          "value": 7240.26
+        },
+        {
+          "period": "2026-01-13",
+          "label": "2026-01-13",
+          "value": 7264.16
+        },
+        {
+          "period": "2026-01-14",
+          "label": "2026-01-14",
+          "value": 7363.05
+        },
+        {
+          "period": "2026-01-15",
+          "label": "2026-01-15",
+          "value": 7431.96
+        },
+        {
+          "period": "2026-01-16",
+          "label": "2026-01-16",
+          "value": 7518.96
+        },
+        {
+          "period": "2026-01-19",
+          "label": "2026-01-19",
+          "value": 7564.94
+        },
+        {
+          "period": "2026-01-20",
+          "label": "2026-01-20",
+          "value": 7374.33
+        },
+        {
+          "period": "2026-01-21",
+          "label": "2026-01-21",
+          "value": 7405.27
+        },
+        {
+          "period": "2026-01-22",
+          "label": "2026-01-22",
+          "value": 7511.49
+        },
+        {
+          "period": "2026-01-23",
+          "label": "2026-01-23",
+          "value": 7571.73
+        },
+        {
+          "period": "2026-01-26",
+          "label": "2026-01-26",
+          "value": 7679.18
+        },
+        {
+          "period": "2026-01-27",
+          "label": "2026-01-27",
+          "value": 8159.18
+        },
+        {
+          "period": "2026-01-28",
+          "label": "2026-01-28",
+          "value": 8664.78
+        },
+        {
+          "period": "2026-01-29",
+          "label": "2026-01-29",
+          "value": 8836.25
+        },
+        {
+          "period": "2026-01-30",
+          "label": "2026-01-30",
+          "value": 9209.97
+        },
+        {
+          "period": "2026-02-02",
+          "label": "2026-02-02",
+          "value": 8493.21
+        },
+        {
+          "period": "2026-02-03",
+          "label": "2026-02-03",
+          "value": 9216.56
+        },
+        {
+          "period": "2026-02-04",
+          "label": "2026-02-04",
+          "value": 9223.63
+        },
+        {
+          "period": "2026-02-05",
+          "label": "2026-02-05",
+          "value": 8790.99
+        },
+        {
+          "period": "2026-02-06",
+          "label": "2026-02-06",
+          "value": 8815.69
+        },
+        {
+          "period": "2026-02-09",
+          "label": "2026-02-09",
+          "value": 9263
+        },
+        {
+          "period": "2026-02-10",
+          "label": "2026-02-10",
+          "value": 9034.63
+        },
+        {
+          "period": "2026-02-11",
+          "label": "2026-02-11",
+          "value": 8958.42
+        },
+        {
+          "period": "2026-02-12",
+          "label": "2026-02-12",
+          "value": 9387.27
+        },
+        {
+          "period": "2026-02-13",
+          "label": "2026-02-13",
+          "value": 9239.16
+        },
+        {
+          "period": "2026-02-19",
+          "label": "2026-02-19",
+          "value": 9583.57
+        },
+        {
+          "period": "2026-02-20",
+          "label": "2026-02-20",
+          "value": 9724.8
+        },
+        {
+          "period": "2026-02-23",
+          "label": "2026-02-23",
+          "value": 9672.56
+        },
+        {
+          "period": "2026-02-24",
+          "label": "2026-02-24",
+          "value": 9994.16
+        },
+        {
+          "period": "2026-02-25",
+          "label": "2026-02-25",
+          "value": 10041.49
+        },
+        {
+          "period": "2026-02-26",
+          "label": "2026-02-26",
+          "value": 10955.39
+        },
+        {
+          "period": "2026-02-27",
+          "label": "2026-02-27",
+          "value": 11008.22
+        },
+        {
+          "period": "2026-03-04",
+          "label": "2026-03-04",
+          "value": 9049.37
+        },
+        {
+          "period": "2026-03-06",
+          "label": "2026-03-06",
+          "value": 10669.21
+        },
+        {
+          "period": "2026-03-09",
+          "label": "2026-03-09",
+          "value": 9738.14
+        },
+        {
+          "period": "2026-03-10",
+          "label": "2026-03-10",
+          "value": 10390
+        }
+      ],
+      "stats": {
+        "latestPeriod": "2026-03-10",
+        "latestValue": 10390,
+        "previousValue": 9738.14,
+        "delta": 651.8600000000006,
+        "deltaPct": 0.06693886101452645,
+        "min": 5656.26,
+        "max": 11008.22,
+        "pointCount": 63
+      }
+    }
+  ]
+}

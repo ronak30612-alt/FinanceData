@@ -197,8 +197,25 @@ a {
 .dashboard-grid,
 .panel-stack,
 .metadata-grid,
-.source-grid {
+.source-grid,
+.selector-grid {
   margin-top: 18px;
+}
+
+.selector-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.selector-panel {
+  display: grid;
+  gap: 8px;
+}
+
+.selector-panel select {
+  min-height: 220px;
+  background: rgba(255, 255, 255, 0.88);
 }
 
 .panel-title-row {
@@ -476,7 +493,8 @@ ul.compact-list {
   .dashboard-grid,
   .toolbar,
   .router-form,
-  .router-result-grid {
+  .router-result-grid,
+  .selector-grid {
     grid-template-columns: 1fr;
   }
 
