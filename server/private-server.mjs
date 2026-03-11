@@ -296,7 +296,34 @@ function getFisisIndustries() {
   return [...new Set(metadata.fisis.statistics.map((item) => item.lrg_div_nm).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'ko-KR'));
 }
 
-function getFisisCompanies(industry) {
+async function getFisisCompanies(industry) {
+  const partDivMap = [
+    { match: '국내은행', partDivs: ['A', 'B'] },
+    { match: '신용카드', partDivs: ['C'] },
+    { match: '증권', partDivs: ['R'] },
+    { match: '보험', partDivs: ['H', 'I', 'J'] },
+  ];
+
+  const mapped = partDivMap.find((item) => industry && industry.includes(item.match));
+  if (mapped) {
+    const collected = [];
+    for (const partDiv of mapped.partDivs) {
+      const url = `${env.FISIS_BASE_URL}/companySearch.json?lang=kr&auth=${encodeURIComponent(env.FISIS_API_KEY)}&partDiv=${encodeURIComponent(partDiv)}`;
+      const payload = await fetchJson(url).catch(() => null);
+      collected.push(...(payload?.result?.list ?? []).map((company) => ({
+        code: company.finance_cd,
+        name: company.finance_nm,
+        path: company.finance_path,
+      })));
+    }
+    const live = collected
+      .filter((company) => !/\[폐\]/.test(company.name))
+      .filter((company) => !industry || industry === 'ALL' || (company.path ?? '').includes(industry) || company.name.includes('은행'));
+    if (live.length > 0) {
+      return dedupeBy(live, (item) => `${item.code}:${item.name}`);
+    }
+  }
+
   const filtered = metadata.fisis.companies
     .filter((company) => !industry || industry === 'ALL' || (company.finance_path ?? '').includes(industry))
     .filter((company) => !/\[폐\]/.test(company.finance_nm))
@@ -579,7 +606,7 @@ async function handleApi(request, response, url) {
       const statistic = url.searchParams.get('statistic') ?? '';
       sendJson(response, 200, {
         industries: getFisisIndustries(),
-        companies: getFisisCompanies(industry),
+        companies: await getFisisCompanies(industry),
         statistics: getFisisStatistics(industry, url.searchParams.get('keyword') ?? ''),
         accounts: statistic ? getFisisAccounts(statistic) : [],
       });

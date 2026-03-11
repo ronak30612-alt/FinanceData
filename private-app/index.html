@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,20 +11,20 @@
       <section class="auth-card" id="authPanel">
         <div class="auth-copy">
           <p class="eyebrow">Private Finance Workstation</p>
-          <h1>Private Finance Analysis Lab</h1>
-          <p>Build source-specific queries for FISIS, ECOS, KOFIA, KRX, and INCOS, then combine them into one merged comparison table and chart.</p>
+          <h1>비공개 금융 데이터 분석실</h1>
+          <p>FISIS, ECOS, KOFIA, KRX, INCOS를 출처별 단계형 선택으로 조회하고, 여러 요청을 하나의 비교 표와 차트로 병합합니다.</p>
         </div>
         <form id="loginForm" class="auth-form">
           <label>
-            <span>Username</span>
+            <span>아이디</span>
             <input id="usernameInput" type="text" autocomplete="username" />
           </label>
           <label>
-            <span>Password</span>
+            <span>비밀번호</span>
             <input id="passwordInput" type="password" autocomplete="current-password" />
           </label>
-          <button class="button primary" type="submit">Sign in</button>
-          <p class="hint">Default credentials are <code>admin / change-me</code>. Update them in <code>.env</code>.</p>
+          <button class="button primary" type="submit">로그인</button>
+          <p class="hint">기본값은 <code>admin / change-me</code>이며 실제 값은 <code>.env</code>에서 바꿀 수 있습니다.</p>
         </form>
       </section>
 
@@ -32,11 +32,11 @@
         <header class="hero">
           <div>
             <p class="eyebrow">Private Finance Workstation</p>
-            <h1>Source-Aware Data Builder</h1>
-            <p id="sessionText" class="hero-copy">Checking session...</p>
+            <h1>출처별 데이터 빌더</h1>
+            <p id="sessionText" class="hero-copy">세션 확인 중...</p>
           </div>
           <div class="hero-actions">
-            <button class="button subtle" id="logoutButton" type="button">Sign out</button>
+            <button class="button subtle" id="logoutButton" type="button">로그아웃</button>
           </div>
         </header>
 
@@ -44,8 +44,8 @@
           <div class="builder-column">
             <section class="panel">
               <div class="panel-head">
-                <h2>Source Builder</h2>
-                <p>Each source has its own workflow. Build one request at a time, then add it to the comparison bundle.</p>
+                <h2>출처 빌더</h2>
+                <p>각 출처마다 단계가 다릅니다. 한 번에 하나씩 요청을 만든 뒤 비교 번들에 추가합니다.</p>
               </div>
               <div class="source-tabs" id="sourceTabs"></div>
               <div id="sourcePanel" class="source-panel"></div>
@@ -55,25 +55,25 @@
           <div class="bundle-column">
             <section class="panel">
               <div class="panel-head">
-                <h2>Comparison Bundle</h2>
-                <p>Collect multiple requests across different sources, then run them together on one time axis.</p>
+                <h2>비교 번들</h2>
+                <p>여러 출처의 요청을 모아 같은 시계열 축으로 병합 실행합니다.</p>
               </div>
               <div class="bundle-list" id="bundleList"></div>
               <div class="bundle-actions">
-                <button class="button primary" id="runBundleButton" type="button">Run comparison</button>
-                <button class="button subtle" id="clearBundleButton" type="button">Clear bundle</button>
+                <button class="button primary" id="runBundleButton" type="button">비교 실행</button>
+                <button class="button subtle" id="clearBundleButton" type="button">번들 초기화</button>
               </div>
             </section>
 
             <section class="panel">
               <div class="panel-head">
-                <h2>Export</h2>
-                <p>Download the current merged result as CSV, Excel, or JSON.</p>
+                <h2>내보내기</h2>
+                <p>현재 병합 결과를 CSV, Excel, JSON으로 저장합니다.</p>
               </div>
               <div class="output-actions">
-                <button class="button subtle" id="downloadCsvButton" type="button">Download CSV</button>
-                <button class="button subtle" id="downloadExcelButton" type="button">Download Excel</button>
-                <button class="button subtle" id="downloadJsonButton" type="button">Download JSON</button>
+                <button class="button subtle" id="downloadCsvButton" type="button">CSV 다운로드</button>
+                <button class="button subtle" id="downloadExcelButton" type="button">Excel 다운로드</button>
+                <button class="button subtle" id="downloadJsonButton" type="button">JSON 다운로드</button>
               </div>
             </section>
           </div>
@@ -81,11 +81,11 @@
 
         <section class="panel result-shell">
           <div class="panel-head">
-            <h2>Merged Result</h2>
-            <p>Selected requests are aligned on the same period axis so you can compare them in one view.</p>
+            <h2>병합 결과</h2>
+            <p>선택한 요청을 같은 기간축으로 정렬해 한 화면에서 비교합니다.</p>
           </div>
-          <div id="resultMeta" class="status-line">No comparison has been run yet.</div>
-          <div id="chartEmpty" class="empty-state">Add one or more requests to the bundle, then run comparison.</div>
+          <div id="resultMeta" class="status-line">아직 실행된 비교가 없습니다.</div>
+          <div id="chartEmpty" class="empty-state">비교할 요청을 번들에 추가한 뒤 비교 실행을 누르세요.</div>
           <svg id="chartSvg" class="chart-svg" viewBox="0 0 1080 420" preserveAspectRatio="none"></svg>
           <div id="chartLegend" class="legend"></div>
           <div class="table-wrap">
@@ -105,7 +105,7 @@
           <h3 class="bundle-title"></h3>
           <p class="bundle-summary"></p>
         </div>
-        <button class="button subtle bundle-remove" type="button">Remove</button>
+        <button class="button subtle bundle-remove" type="button">제거</button>
       </article>
     </template>
 
