@@ -89,6 +89,36 @@ const KOFIA_OPERATIONS = {
   },
 };
 
+const KRX_SERVICE_CATALOG = {
+  지수: [{ code: 'krx-index-daily', name: '지수 일별 시계열', wired: true }],
+  증권상품: [
+    { code: 'krx-etf-daily', name: 'ETF 일별매매정보', wired: false },
+    { code: 'krx-etn-daily', name: 'ETN 일별매매정보', wired: false },
+    { code: 'krx-elw-daily', name: 'ELW 일별매매정보', wired: false },
+  ],
+  채권: [
+    { code: 'krx-gov-bond-daily', name: '국채전문유통시장 일별매매정보', wired: false },
+    { code: 'krx-general-bond-daily', name: '일반채권시장 일별매매정보', wired: false },
+    { code: 'krx-retail-bond-daily', name: '소액채권시장 일별매매정보', wired: false },
+  ],
+  파생상품: [
+    { code: 'krx-futures-daily', name: '선물 일별매매정보', wired: false },
+    { code: 'krx-options-daily', name: '옵션 일별매매정보', wired: false },
+    { code: 'krx-stock-futures-kospi', name: '주식선물(유가) 일별매매정보', wired: false },
+    { code: 'krx-stock-futures-kosdaq', name: '주식선물(코스닥) 일별매매정보', wired: false },
+  ],
+  일반상품: [
+    { code: 'krx-oil-daily', name: '석유시장 일별매매정보', wired: false },
+    { code: 'krx-gold-daily', name: '금시장 일별매매정보', wired: false },
+    { code: 'krx-carbon-daily', name: '배출권 시장 일별매매정보', wired: false },
+  ],
+  ESG: [
+    { code: 'krx-esg-bond', name: '사회책임투자채권 정보', wired: false },
+    { code: 'krx-esg-security-product', name: 'ESG 증권상품 정보', wired: false },
+    { code: 'krx-esg-index', name: 'ESG 지수 정보', wired: false },
+  ],
+};
+
 function parseEnv(text) {
   return Object.fromEntries(
     String(text ?? '')
@@ -267,11 +297,26 @@ function getFisisIndustries() {
 }
 
 function getFisisCompanies(industry) {
-  return metadata.fisis.companies
+  const filtered = metadata.fisis.companies
     .filter((company) => !industry || industry === 'ALL' || (company.finance_path ?? '').includes(industry))
     .filter((company) => !/\[폐\]/.test(company.finance_nm))
     .map((company) => ({ code: company.finance_cd, name: company.finance_nm, path: company.finance_path }))
     .slice(0, 600);
+  if (filtered.length > 0 || !industry || industry === 'ALL') {
+    return dedupeBy(filtered, (item) => `${item.code}:${item.name}`);
+  }
+  const fallback = metadata.fisis.companies
+    .filter((company) => !/\[폐\]/.test(company.finance_nm))
+    .filter((company) => {
+      if (industry.includes('은행')) return /은행/.test(company.finance_nm);
+      if (industry.includes('증권')) return /(증권|투자)/.test(company.finance_nm);
+      if (industry.includes('보험')) return /(보험|화재|생명)/.test(company.finance_nm);
+      if (industry.includes('카드')) return /카드/.test(company.finance_nm);
+      return false;
+    })
+    .map((company) => ({ code: company.finance_cd, name: company.finance_nm, path: company.finance_path }))
+    .slice(0, 300);
+  return dedupeBy(fallback, (item) => `${item.code}:${item.name}`);
 }
 
 function getFisisStatistics(industry, keyword = '') {
@@ -566,7 +611,7 @@ async function handleApi(request, response, url) {
     }
 
     if (source === 'KRX') {
-      sendJson(response, 200, { indices: getKrxIndices() });
+      sendJson(response, 200, { indices: getKrxIndices(), serviceCatalog: KRX_SERVICE_CATALOG });
       return;
     }
 

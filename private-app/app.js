@@ -321,11 +321,12 @@ async function renderKofia() {
       <div class="step-block">
         <h3>2. Date controls</h3>
         <div class="option-grid">
-          <label><span>Hint date for selector loading</span><input id="kofiaDateHint" value="${escapeAttr(form.dateHint)}" /></label>
-          <label><span>Exact date</span><input id="kofiaExactDate" value="${escapeAttr(form.exactDate)}" /></label>
-          <label><span>Start</span><input id="kofiaStart" value="${escapeAttr(form.start)}" /></label>
-          <label><span>End</span><input id="kofiaEnd" value="${escapeAttr(form.end)}" /></label>
+          <label><span>Selector hint date</span><input id="kofiaDateHint" value="${escapeAttr(form.dateHint)}" /></label>
+          <label><span>Exact date</span><input id="kofiaExactDate" value="${escapeAttr(form.exactDate)}" placeholder="${op?.dateMode === 'M' ? 'YYYYMM' : 'YYYYMMDD'}" /></label>
+          <label><span>Start</span><input id="kofiaStart" value="${escapeAttr(form.start)}" placeholder="${op?.dateMode === 'M' ? 'YYYYMM' : 'YYYYMMDD'}" /></label>
+          <label><span>End</span><input id="kofiaEnd" value="${escapeAttr(form.end)}" placeholder="${op?.dateMode === 'M' ? 'YYYYMM' : 'YYYYMMDD'}" /></label>
         </div>
+        <p class="hint">Use exact date for a single snapshot. Use start/end for a range. Monthly operations expect YYYYMM, daily operations expect YYYYMMDD.</p>
       </div>
       ${renderKofiaSelectorBlocks(op, form)}
       <div class="step-block">
@@ -393,6 +394,14 @@ async function renderKrx() {
       <div class="step-block">
         <h3>1. Indices</h3>
         <label><span>KRX indices</span><select id="krxIndices" multiple size="14">${renderObjectOptions(data.indices, form.indices, 'code', (item) => item.name)}</select></label>
+      </div>
+      <div class="step-block">
+        <h3>KRX service catalog</h3>
+        <div class="bundle-summary">
+          ${Object.entries(data.serviceCatalog ?? {}).map(([group, items]) => `
+            <p><strong>${group}</strong>: ${items.map((item) => `${item.name}${item.wired ? ' (live)' : ' (catalog)'}`).join(', ')}</p>
+          `).join('')}
+        </div>
       </div>
       <div class="step-block">
         <h3>Period</h3>
@@ -628,7 +637,9 @@ function renderChart(series) {
     parts.push(`<text x="${padding.left - 12}" y="${y + 4}" text-anchor="end" fill="#6a5b48" font-size="12">${escapeHtml(String(roundNumber(value, 2)))}</text>`);
   });
 
+  const tickEvery = Math.max(1, Math.ceil(periods.length / 10));
   periods.forEach((period, index) => {
+    if (index % tickEvery !== 0 && index !== periods.length - 1) return;
     const x = padding.left + (periods.length === 1 ? innerWidth / 2 : xStep * index);
     parts.push(`<text x="${x}" y="${height - 14}" text-anchor="middle" fill="#6a5b48" font-size="12">${escapeHtml(period)}</text>`);
   });
