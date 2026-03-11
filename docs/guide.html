@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Financial Data Workstation Guide</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="panel" style="display:grid;gap:18px;max-width:960px;margin:0 auto;">
+        <div class="panel-title-row"><h1>대시보드 가이드</h1></div>
+        <p class="hero-copy">로컬 빌드, 외부 JSON 업로드, 자연어 질의 라우팅, GitHub Pages 배포까지 한 번에 따라가기 위한 요약 가이드다.</p>
+
+        <h2>1. 데이터 빌드</h2>
+        <pre><code>npm run build:dashboard</code></pre>
+        <p class="hero-copy">`exports/core-db/*.csv`를 읽어 `docs/data/dashboard-data.json`과 `docs/data/import-template.json`을 생성한다.</p>
+
+        <h2>2. 메타데이터 DB 빌드</h2>
+        <pre><code>npm run build:metadata</code></pre>
+        <p class="hero-copy">FISIS, ECOS, KRX, INCOS, KOFIA 메타데이터를 실제 호출해 `exports/metadata`와 `docs/data/metadata-db.json`에 저장한다.</p>
+
+        <h2>3. 로컬 미리보기</h2>
+        <pre><code>npm run serve:dashboard</code></pre>
+        <p class="hero-copy">기본 주소는 <strong>http://127.0.0.1:4173</strong>다.</p>
+
+        <h2>4. 자연어 질의 라우터</h2>
+        <ul class="compact-list">
+          <li>질문을 입력하면 후보 소스와 지표를 추천한다.</li>
+          <li>현재는 규칙 기반 카탈로그 방식이며, 후속 단계에서 실제 API 메타데이터 DB와 연동한다.</li>
+          <li>예: `국내 은행 이자수익과 KOSPI 지수 추이 비교해줘`</li>
+        </ul>
+
+        <h2>5. 메타데이터 탐색기</h2>
+        <ul class="compact-list">
+          <li>`docs/data/metadata-index.json`을 읽어 실제 기관 메타데이터를 검색한다.</li>
+          <li>검색 결과에서 소스/코드/분류를 확인한 뒤 바로 대시보드 검색 조건으로 넘길 수 있다.</li>
+        </ul>
+
+        <h2>6. 업로드 JSON 형식</h2>
+        <pre><code>{
+  "series": [
+    {
+      "source": "ECOS",
+      "dataset": "ecos-statistics",
+      "datasetName": "ECOS 예시",
+      "seriesId": "ecos/example/base-rate",
+      "title": "예시 · 한국은행 기준금리",
+      "entity": "한국은행",
+      "entityLabel": "기관",
+      "metric": "base_rate",
+      "metricLabel": "Base Rate",
+      "frequency": "M",
+      "unit": "%",
+      "description": "기준금리 예시 시계열",
+      "metadataDescription": "ECOS 통계표 예시",
+      "featureSummary": ["월간 금리 추세"],
+      "characteristics": ["정책금리"],
+      "tags": ["ECOS", "기준금리"],
+      "points": [
+        { "period": "2025-01", "value": 3.5 },
+        { "period": "2025-02", "value": 3.5 }
+      ]
+    }
+  ]
+}</code></pre>
+
+        <h2>7. 다운로드</h2>
+        <ul class="compact-list">
+          <li>선택한 시리즈를 CSV로 다운로드할 수 있다.</li>
+          <li>동일 비교 테이블을 Excel 호환 `.xls`로 내릴 수 있다.</li>
+          <li>선택 시리즈 전체를 JSON으로 저장할 수 있다.</li>
+        </ul>
+
+        <h2>8. GitHub Pages 배포</h2>
+        <ul class="compact-list">
+          <li>방법 A: `.github/workflows/deploy-pages.yml` 사용</li>
+          <li>방법 B: GitHub Pages에서 branch=`main`, folder=`/docs` 선택</li>
+        </ul>
+
+        <h2>9. 배포 전 체크</h2>
+        <pre><code>npm test
+npm run check</code></pre>
+
+        <div><a class="button primary" href="./index.html">대시보드로 돌아가기</a></div>
+      </section>
+    </main>
+  </body>
+  </html>

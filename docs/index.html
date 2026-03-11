@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Financial Data Workstation</title>
+    <meta
+      name="description"
+      content="FISIS, ECOS, KOFIA, KRX, INCOS 데이터를 검색하고 자연어 질의로 라우팅하며 비교 차트와 테이블, CSV/Excel 다운로드를 지원하는 GitHub Pages 대시보드"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="hero">
+        <div class="hero-copy-block">
+          <p class="eyebrow">AI Financial Data Workstation</p>
+          <h1>금융 데이터 수집 및 분석 대시보드</h1>
+          <p class="hero-copy">
+            FISIS, ECOS, KOFIA, KRX, INCOS 데이터를 하나의 시계열 구조로 비교하고, 자연어 질의로 어떤 소스를 봐야 하는지
+            먼저 파악한 뒤 차트와 테이블로 분석할 수 있도록 설계한 정적 대시보드다.
+          </p>
+          <div class="hero-badges">
+            <span class="pill">자연어 라우팅</span>
+            <span class="pill">메타데이터 설명</span>
+            <span class="pill">CSV / Excel 다운로드</span>
+            <span class="pill">GitHub Pages 배포</span>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a class="button primary" href="./data/import-template.json" download>업로드 템플릿</a>
+          <a class="button ghost" href="./guide.html" target="_blank" rel="noreferrer">사용 가이드</a>
+        </div>
+      </header>
+
+      <section class="summary-grid" id="summaryGrid"></section>
+
+      <section class="panel router-panel">
+        <div class="panel-title-row">
+          <div>
+            <h2>자연어 질의 라우터</h2>
+            <p>질문을 입력하면 어떤 기관과 지표를 먼저 확인해야 하는지 후보를 제안한다.</p>
+          </div>
+          <div class="sample-queries" id="sampleQueries"></div>
+        </div>
+        <div class="router-form">
+          <label class="search-box router-search">
+            <span>질의 입력</span>
+            <textarea id="queryInput" rows="3" placeholder="예: 국내 은행 이자수익과 KOSPI 지수 추이 비교해줘"></textarea>
+          </label>
+          <div class="router-actions">
+            <button class="button primary" id="analyzeQueryButton" type="button">질의 분석</button>
+            <button class="button subtle" id="useSuggestedSeriesButton" type="button">추천 시리즈 선택</button>
+          </div>
+        </div>
+        <div class="router-result" id="routerResult">
+          <div class="empty-inline">질의를 분석하면 추천 소스와 후보 지표가 여기에 표시된다.</div>
+        </div>
+      </section>
+
+      <section class="panel router-panel">
+        <div class="panel-title-row">
+          <div>
+            <h2>메타데이터 탐색기</h2>
+            <p>실제 호출로 생성한 메타데이터 DB에서 통계표, 계정, 회사, 지수, 서비스 항목을 직접 찾는다.</p>
+          </div>
+          <div id="metadataStatus" class="sample-queries"></div>
+        </div>
+        <div class="router-form">
+          <label class="search-box router-search">
+            <span>메타데이터 검색</span>
+            <input id="metadataSearchInput" type="search" placeholder="예: 기준금리, 코스피, 은행, 손해율, 회사채" />
+          </label>
+          <div class="router-actions">
+            <button class="button primary" id="metadataSearchButton" type="button">메타 검색</button>
+          </div>
+        </div>
+        <div class="router-result" id="metadataSearchResults">
+          <div class="empty-inline">메타데이터 DB를 불러온 뒤 검색 결과가 여기에 표시된다.</div>
+        </div>
+      </section>
+
+      <section class="toolbar">
+        <label class="search-box">
+          <span>검색</span>
+          <input id="searchInput" type="search" placeholder="지표명, 기관, 보험사, 태그 검색" />
+        </label>
+
+        <label>
+          <span>소스</span>
+          <select id="sourceFilter"></select>
+        </label>
+
+        <label>
+          <span>데이터셋</span>
+          <select id="datasetFilter"></select>
+        </label>
+
+        <label>
+          <span>비교 모드</span>
+          <select id="compareMode">
+            <option value="raw">원본값</option>
+            <option value="indexed">지수화(시작값=100)</option>
+          </select>
+        </label>
+
+        <label class="file-box">
+          <span>외부 JSON 추가</span>
+          <input id="importInput" type="file" accept=".json,application/json" />
+        </label>
+
+        <button class="button subtle" id="clearImportsButton" type="button">업로드 초기화</button>
+      </section>
+
+      <section class="status-panel">
+        <div class="panel-title-row">
+          <div>
+            <h2>소스 연결 상태</h2>
+            <p>현재는 INCOS 코어 시계열이 내장되어 있으며, 나머지 기관은 동일 스키마 업로드 또는 후속 수집기 연결을 전제로 설계되어 있다.</p>
+          </div>
+        </div>
+        <div class="source-grid" id="sourceGrid"></div>
+      </section>
+
+      <main class="dashboard-grid">
+        <section class="panel panel-list">
+          <div class="panel-title-row">
+            <div>
+              <h2>시계열 라이브러리</h2>
+              <p id="resultMeta">로딩 중...</p>
+            </div>
+          </div>
+          <div class="series-list" id="seriesList"></div>
+        </section>
+
+        <div class="panel-stack">
+          <section class="panel panel-chart">
+            <div class="panel-title-row">
+              <div>
+                <h2>비교 차트</h2>
+                <p>선택한 시리즈를 최대 6개까지 같은 기간축에서 비교한다.</p>
+              </div>
+              <div class="compare-actions">
+                <button class="button subtle" id="selectTopButton" type="button">상위 3개 선택</button>
+                <button class="button subtle" id="clearSelectionButton" type="button">선택 해제</button>
+              </div>
+            </div>
+            <div id="chartLegend" class="legend"></div>
+            <div id="chartEmpty" class="empty-state">왼쪽 목록에서 비교할 시리즈를 선택해 주세요.</div>
+            <svg id="chartSvg" class="chart-svg" viewBox="0 0 920 420" preserveAspectRatio="none" aria-label="시계열 비교 차트"></svg>
+            <div class="insight-grid" id="insightGrid"></div>
+          </section>
+
+          <section class="panel metadata-panel">
+            <div class="panel-title-row">
+              <div>
+                <h2>메타데이터와 특징 설명</h2>
+                <p>선택한 시리즈의 데이터 특징, 메타데이터 설명, 해석 포인트를 표시한다.</p>
+              </div>
+              <div class="download-actions">
+                <button class="button subtle" id="downloadCsvButton" type="button">CSV 다운로드</button>
+                <button class="button subtle" id="downloadExcelButton" type="button">Excel 다운로드</button>
+                <button class="button subtle" id="downloadJsonButton" type="button">JSON 다운로드</button>
+              </div>
+            </div>
+            <div class="metadata-grid" id="metadataGrid">
+              <div class="empty-inline">시리즈를 선택하면 메타데이터 설명이 여기에 표시된다.</div>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <section class="panel">
+        <div class="panel-title-row">
+          <div>
+            <h2>선택 시리즈 상세 테이블</h2>
+            <p>같은 시계열 기준으로 비교할 수 있도록 period를 정렬해 보여준다.</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table id="compareTable">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <template id="seriesCardTemplate">
+      <article class="series-card">
+        <div class="series-card-head">
+          <div>
+            <p class="series-source"></p>
+            <h3 class="series-title"></h3>
+          </div>
+          <button class="button chip" type="button"></button>
+        </div>
+        <div class="series-meta"></div>
+        <div class="stat-row">
+          <div>
+            <span class="label">최신값</span>
+            <strong class="latest-value"></strong>
+          </div>
+          <div>
+            <span class="label">전월/전기 대비</span>
+            <strong class="delta-value"></strong>
+          </div>
+        </div>
+        <div class="tag-list"></div>
+      </article>
+    </template>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+  </html>

@@ -1,0 +1,10 @@
+.env
+.env.*
+!.env.example
+.omx/
+AGENTS.md
+exports/db/
+exports/metadata/
+exports/*.xml
+exports/*.xlsx
+docs/data/metadata-db.json

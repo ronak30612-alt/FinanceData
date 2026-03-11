@@ -1,0 +1,81 @@
+{
+  "generatedAt": "2026-03-11T15:25:53.965Z",
+  "description": "브라우저 업로드용 통합 시계열 템플릿이다. docs/data/dashboard-data.json 의 series 스키마와 호환된다.",
+  "supportedSources": [
+    {
+      "id": "FISIS",
+      "status": "ready-for-import",
+      "authType": "apiKey",
+      "notes": "회사코드, 업권코드, 지표코드 메타데이터가 필요하다."
+    },
+    {
+      "id": "ECOS",
+      "status": "ready-for-import",
+      "authType": "apiKey",
+      "notes": "통계표 코드와 항목 코드 조합이 핵심이다."
+    },
+    {
+      "id": "KOFIA",
+      "status": "ready-for-import",
+      "authType": "apiKey",
+      "notes": "오퍼레이션명과 dateType 규칙을 반드시 반영한다."
+    },
+    {
+      "id": "KRX",
+      "status": "ready-for-import",
+      "authType": "apiKey",
+      "notes": "기준일자 basDd 단위 반복 조회를 전제로 한다."
+    },
+    {
+      "id": "INCOS",
+      "status": "built-in",
+      "authType": "noneOrTBD",
+      "notes": "공개 페이지와 내부 호출 파라미터 분석을 병행한다."
+    }
+  ],
+  "series": [
+    {
+      "source": "ECOS",
+      "dataset": "ecos-statistics",
+      "datasetName": "ECOS 예시",
+      "category": "경제지표",
+      "seriesId": "ecos/example/base-rate",
+      "title": "예시 · 한국은행 기준금리",
+      "entityCode": "BOK",
+      "entity": "한국은행",
+      "entityName": "한국은행",
+      "entityLabel": "기관",
+      "metric": "base_rate",
+      "metricLabel": "Base Rate",
+      "frequency": "M",
+      "unit": "%",
+      "description": "기준금리 예시 시계열이다.",
+      "metadataDescription": "ECOS 통계표 예시 구조를 보여주는 샘플이다.",
+      "featureSummary": [
+        "월간 금리 추세",
+        "정책금리 비교"
+      ],
+      "metricDescription": "기준금리 수준을 보여주는 지표다.",
+      "characteristics": [
+        "정책금리",
+        "월간 비교 가능"
+      ],
+      "tags": [
+        "ECOS",
+        "기준금리"
+      ],
+      "points": [
+        {
+          "period": "2025-01",
+          "label": "2025.01",
+          "value": 3.5
+        },
+        {
+          "period": "2025-02",
+          "label": "2025.02",
+          "value": 3.5
+        }
+      ]
+    }
+  ]
+}

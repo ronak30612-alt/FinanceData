@@ -1,0 +1,133 @@
+{
+  "version": 2,
+  "normalizedRowContract": {
+    "requiredFields": [
+      "source",
+      "dataset",
+      "series_id",
+      "series_name",
+      "period",
+      "value"
+    ],
+    "optionalFields": [
+      "category",
+      "entity_code",
+      "entity_name",
+      "market",
+      "frequency",
+      "unit",
+      "currency",
+      "dimensions",
+      "metadata"
+    ]
+  },
+  "sources": {
+    "FISIS": {
+      "name": "FISIS",
+      "enabled": true,
+      "auth": {
+        "type": "apiKey",
+        "envKey": "FISIS_API_KEY"
+      },
+      "baseUrl": "http://fisis.fss.or.kr/openapi",
+      "coverage": "금융회사, 경영지표, 공시",
+      "datasets": [
+        "financial-company-metrics",
+        "disclosure",
+        "management-indicators"
+      ],
+      "features": [
+        "금융회사 지표 조회",
+        "회사/업권 메타데이터 검색"
+      ],
+      "metadataAvailable": true,
+      "notes": "회사코드, 업권코드, 지표코드 메타데이터가 필요하다."
+    },
+    "ECOS": {
+      "name": "ECOS",
+      "enabled": true,
+      "auth": {
+        "type": "apiKey",
+        "envKey": "ECOS_API_KEY"
+      },
+      "baseUrl": "https://ecos.bok.or.kr/api/StatisticSearch",
+      "coverage": "거시경제, 금리, 물가, 통화",
+      "datasets": [
+        "macro-statistics",
+        "rates",
+        "money-supply",
+        "prices"
+      ],
+      "features": [
+        "통계표 코드 검색",
+        "항목 코드 조합 조회"
+      ],
+      "metadataAvailable": true,
+      "notes": "통계표 코드와 항목 코드 조합이 핵심이다."
+    },
+    "KOFIA": {
+      "name": "KOFIA",
+      "enabled": true,
+      "auth": {
+        "type": "apiKey",
+        "envKey": "KOFIA_API_KEY"
+      },
+      "baseUrl": "https://apis.data.go.kr/1160100/service/GetKofiaStatisticsInfoService",
+      "coverage": "채권, 펀드, 투자통계",
+      "datasets": [
+        "bond",
+        "fund",
+        "investment-statistics"
+      ],
+      "features": [
+        "오퍼레이션별 호출",
+        "dateType 기반 반복 수집"
+      ],
+      "metadataAvailable": true,
+      "notes": "오퍼레이션명과 dateType 규칙을 반드시 반영한다."
+    },
+    "KRX": {
+      "name": "KRX",
+      "enabled": true,
+      "auth": {
+        "type": "apiKey",
+        "envKey": "KRX_API_KEY"
+      },
+      "baseUrl": "https://data-dbg.krx.co.kr/svc/apis/idx/krx_dd_trd",
+      "coverage": "주가지수, 거래대금, 시장시세",
+      "datasets": [
+        "index",
+        "market-cap",
+        "trading-value"
+      ],
+      "features": [
+        "basDd 일별 반복 호출",
+        "시장 지수 비교"
+      ],
+      "metadataAvailable": true,
+      "notes": "기준일자 basDd 단위 반복 조회를 전제로 한다."
+    },
+    "INCOS": {
+      "name": "INCOS",
+      "enabled": true,
+      "auth": {
+        "type": "noneOrTBD",
+        "envKey": "INCOS_API_KEY"
+      },
+      "baseUrl": "https://incos.kidi.or.kr:5443/insMonth/selMonthbookDeList.do",
+      "coverage": "보험월보, 손해보험 통계",
+      "datasets": [
+        "incos-industry-core",
+        "incos-company-core",
+        "incos-longterm-core",
+        "incos-channel-core"
+      ],
+      "features": [
+        "월보 스크래핑",
+        "보험사/상품군/채널 시계열 분석"
+      ],
+      "metadataAvailable": true,
+      "notes": "공개 페이지와 내부 호출 파라미터 분석을 병행한다."
+    }
+  }
+}
