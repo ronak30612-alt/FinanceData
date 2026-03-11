@@ -119,6 +119,30 @@ const KRX_SERVICE_CATALOG = {
   ],
 };
 
+const FISIS_PART_DIV_TO_INDUSTRY = {
+  A: '국내은행',
+  C: '신용카드사',
+  D: '종합금융회사',
+  E: '저축은행',
+  F: '증권사',
+  G: '자산운용사',
+  H: '생명보험',
+  I: '손해보험',
+  J: '외은지점',
+  K: '리스사',
+  L: '금융지주회사',
+  M: '부동산신탁',
+  N: '신기술금융사',
+  O: '개별신협',
+  P: '수협단위조합',
+  Q: '농협단위조합',
+  R: '공통(파생상품)',
+  S: '산림단위조합',
+  T: '할부금융사',
+  W: '선물사',
+  X: '투자자문사',
+};
+
 function parseEnv(text) {
   return Object.fromEntries(
     String(text ?? '')
@@ -269,6 +293,7 @@ function buildQueryResult(source, rows, seriesDefinitions, digits, unitMode) {
 }
 
 const env = await loadEnv();
+const fisisIndustryMap = await getFisisIndustryMap();
 const metadata = {
   fisis: await readJson(path.join(METADATA_DIR, 'fisis-metadata.json')),
   ecos: await readJson(path.join(METADATA_DIR, 'ecos-metadata.json')),
@@ -292,58 +317,36 @@ function requireAuth(request, response) {
   return session;
 }
 
-function getFisisIndustries() {
-  return [...new Set(metadata.fisis.statistics.map((item) => item.lrg_div_nm).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'ko-KR'));
-}
-
-async function getFisisCompanies(industry) {
-  const partDivMap = [
-    { match: '국내은행', partDivs: ['A', 'B'] },
-    { match: '신용카드', partDivs: ['C'] },
-    { match: '증권', partDivs: ['R'] },
-    { match: '보험', partDivs: ['H', 'I', 'J'] },
-  ];
-
-  const mapped = partDivMap.find((item) => industry && industry.includes(item.match));
-  if (mapped) {
-    const collected = [];
-    for (const partDiv of mapped.partDivs) {
-      const url = `${env.FISIS_BASE_URL}/companySearch.json?lang=kr&auth=${encodeURIComponent(env.FISIS_API_KEY)}&partDiv=${encodeURIComponent(partDiv)}`;
-      const payload = await fetchJson(url).catch(() => null);
-      collected.push(...(payload?.result?.list ?? []).map((company) => ({
+async function getFisisIndustryMap() {
+  const auth = env.FISIS_API_KEY;
+  const map = {};
+  for (const [partDiv, industry] of Object.entries(FISIS_PART_DIV_TO_INDUSTRY)) {
+    const url = `${env.FISIS_BASE_URL}/companySearch.json?lang=kr&auth=${encodeURIComponent(auth)}&partDiv=${encodeURIComponent(partDiv)}`;
+    const payload = await fetchJson(url).catch(() => null);
+    const list = (payload?.result?.list ?? [])
+      .filter((company) => !/\[폐\]/.test(company.finance_nm))
+      .map((company) => ({
         code: company.finance_cd,
         name: company.finance_nm,
         path: company.finance_path,
-      })));
-    }
-    const live = collected
-      .filter((company) => !/\[폐\]/.test(company.name))
-      .filter((company) => !industry || industry === 'ALL' || (company.path ?? '').includes(industry) || company.name.includes('은행'));
-    if (live.length > 0) {
-      return dedupeBy(live, (item) => `${item.code}:${item.name}`);
+        partDiv,
+      }));
+  if (list.length > 0) {
+      map[industry] = dedupeBy(list, (item) => `${item.code}:${item.name}`);
     }
   }
+  return map;
+}
 
-  const filtered = metadata.fisis.companies
-    .filter((company) => !industry || industry === 'ALL' || (company.finance_path ?? '').includes(industry))
-    .filter((company) => !/\[폐\]/.test(company.finance_nm))
-    .map((company) => ({ code: company.finance_cd, name: company.finance_nm, path: company.finance_path }))
-    .slice(0, 600);
-  if (filtered.length > 0 || !industry || industry === 'ALL') {
-    return dedupeBy(filtered, (item) => `${item.code}:${item.name}`);
+function getFisisIndustries(fisisIndustryMap) {
+  return Object.keys(fisisIndustryMap).sort((a, b) => a.localeCompare(b, 'ko-KR'));
+}
+
+function getFisisCompanies(fisisIndustryMap, industry) {
+  if (!industry || industry === 'ALL') {
+    return Object.values(fisisIndustryMap).flat().slice(0, 800);
   }
-  const fallback = metadata.fisis.companies
-    .filter((company) => !/\[폐\]/.test(company.finance_nm))
-    .filter((company) => {
-      if (industry.includes('은행')) return /은행/.test(company.finance_nm);
-      if (industry.includes('증권')) return /(증권|투자)/.test(company.finance_nm);
-      if (industry.includes('보험')) return /(보험|화재|생명)/.test(company.finance_nm);
-      if (industry.includes('카드')) return /카드/.test(company.finance_nm);
-      return false;
-    })
-    .map((company) => ({ code: company.finance_cd, name: company.finance_nm, path: company.finance_path }))
-    .slice(0, 300);
-  return dedupeBy(fallback, (item) => `${item.code}:${item.name}`);
+  return fisisIndustryMap[industry] ?? [];
 }
 
 function getFisisStatistics(industry, keyword = '') {
@@ -605,8 +608,8 @@ async function handleApi(request, response, url) {
       const industry = url.searchParams.get('industry') ?? 'ALL';
       const statistic = url.searchParams.get('statistic') ?? '';
       sendJson(response, 200, {
-        industries: getFisisIndustries(),
-        companies: await getFisisCompanies(industry),
+        industries: getFisisIndustries(fisisIndustryMap),
+        companies: getFisisCompanies(fisisIndustryMap, industry),
         statistics: getFisisStatistics(industry, url.searchParams.get('keyword') ?? ''),
         accounts: statistic ? getFisisAccounts(statistic) : [],
       });
