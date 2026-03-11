@@ -41,7 +41,7 @@ const elements = {
 };
 
 boot().catch((error) => {
-  document.body.innerHTML = `<main class="shell"><section class="panel"><h1>App init failed</h1><p>${escapeHtml(error.message)}</p></section></main>`;
+  document.body.innerHTML = `<main class="shell"><section class="panel"><h1>앱 초기화 실패</h1><p>${escapeHtml(error.message)}</p></section></main>`;
 });
 
 async function boot() {
@@ -95,7 +95,7 @@ async function login() {
     }),
   });
   if (!response.ok) {
-    alert('Login failed');
+    alert('로그인에 실패했습니다.');
     return false;
   }
   await refreshSession();
@@ -120,7 +120,7 @@ function showLogin() {
 function showApp() {
   elements.authPanel.classList.add('hidden');
   elements.appPanel.classList.remove('hidden');
-  elements.sessionText.textContent = `Signed in as ${state.session.username}. Build one or more requests, then merge them into one comparison run.`;
+  elements.sessionText.textContent = `${state.session.username} 계정으로 로그인됨. 출처별 요청을 만든 뒤 하나의 비교 실행으로 병합할 수 있습니다.`;
   renderTabs();
   renderBundle();
   renderActiveSource();
@@ -153,14 +153,14 @@ async function renderActiveSource() {
 function renderOptionGrid(prefix, form) {
   return `
     <div class="step-block">
-      <h3>Display options</h3>
+      <h3>표시 옵션</h3>
       <div class="option-grid">
         <label>
-          <span>Precision</span>
+          <span>소수점</span>
           <input id="${prefix}Precision" type="number" value="${form.precision}" min="0" max="6" />
         </label>
         <label>
-          <span>Unit mode</span>
+          <span>단위</span>
           <select id="${prefix}UnitMode">
             ${['raw', 'million', 'billion'].map((value) => `<option value="${value}" ${form.unitMode === value ? 'selected' : ''}>${unitModeLabel(value)}</option>`).join('')}
           </select>
@@ -710,6 +710,11 @@ function renderCheckList(id, items, selected, keyField = 'code', labelFn = (item
   const selectedSet = new Set(Array.isArray(selected) ? selected : [selected]);
   return `
     <div class="check-list" id="${id}">
+      <div class="check-list-tools">
+        <button class="button subtle mini" type="button" data-check-action="all">전체선택</button>
+        <button class="button subtle mini" type="button" data-check-action="none">해제</button>
+        <span class="check-count">${items.length}개</span>
+      </div>
       ${items.map((item) => `
         <label class="check-item">
           <input type="checkbox" value="${escapeAttr(item[keyField])}" ${selectedSet.has(item[keyField]) ? 'checked' : ''} />
@@ -727,6 +732,15 @@ function bindCheckList(id, onChange) {
     const values = [...root.querySelectorAll('input[type="checkbox"]:checked')].map((input) => input.value);
     onChange(values);
   };
+  for (const button of root.querySelectorAll('[data-check-action]')) {
+    button.addEventListener('click', () => {
+      const shouldCheck = button.dataset.checkAction === 'all';
+      for (const input of root.querySelectorAll('input[type="checkbox"]')) {
+        input.checked = shouldCheck;
+      }
+      sync();
+    });
+  }
   for (const input of root.querySelectorAll('input[type="checkbox"]')) {
     input.addEventListener('change', sync);
   }
@@ -734,9 +748,9 @@ function bindCheckList(id, onChange) {
 }
 
 function unitModeLabel(value) {
-  if (value === 'million') return 'Millions';
-  if (value === 'billion') return 'Billions';
-  return 'Raw';
+  if (value === 'million') return '백만 단위';
+  if (value === 'billion') return '십억 단위';
+  return '원본';
 }
 
 function roundNumber(value, digits) {
