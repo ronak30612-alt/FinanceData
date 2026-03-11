@@ -8,3 +8,4 @@ exports/metadata/
 exports/*.xml
 exports/*.xlsx
 docs/data/metadata-db.json
+.private-server.pid

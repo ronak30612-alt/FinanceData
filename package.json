@@ -6,6 +6,7 @@
     "build:dashboard": "node ./scripts/build-dashboard-data.mjs",
     "build:metadata": "node ./scripts/build-metadata-db.mjs",
     "build:remote": "node ./scripts/build-remote-series.mjs",
+    "serve:private": "node ./server/private-server.mjs",
     "serve:dashboard": "node ./scripts/serve-dashboard.mjs",
     "test": "node ./test/incos-nonlife-monthly-export.test.mjs && node ./test/build-dashboard-data.test.mjs && node ./test/agentic-router.test.mjs",
     "check": "npm run build:dashboard && npm test"

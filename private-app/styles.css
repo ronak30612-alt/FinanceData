@@ -1,0 +1,148 @@
+body {
+  margin: 0;
+  font-family: "Pretendard", "Noto Sans KR", sans-serif;
+  background: #f4f0e6;
+  color: #1c1a17;
+}
+
+.shell {
+  width: min(1440px, calc(100vw - 32px));
+  margin: 0 auto;
+  padding: 24px 0 48px;
+}
+
+.panel {
+  background: #fffaf2;
+  border: 1px solid rgba(40, 30, 10, 0.08);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.05);
+}
+
+.hidden {
+  display: none;
+}
+
+.header-row,
+.header-actions,
+.source-tabs,
+.step-actions,
+.form-grid,
+.control-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.source-tabs {
+  margin-top: 18px;
+}
+
+.source-panel {
+  margin-top: 18px;
+}
+
+.workflow-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.workflow-card,
+.result-panel {
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(40, 30, 10, 0.08);
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.workflow-card label {
+  display: grid;
+  gap: 8px;
+}
+
+select,
+input,
+button,
+textarea {
+  font: inherit;
+}
+
+select,
+input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(40, 30, 10, 0.14);
+  background: #fff;
+}
+
+select[multiple],
+select[size] {
+  min-height: 220px;
+}
+
+.button {
+  border: 1px solid rgba(40, 30, 10, 0.12);
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+.button.primary {
+  background: #0f6f61;
+  color: #fff;
+}
+
+.button.subtle {
+  background: #f7f0e4;
+}
+
+.tab-button.active {
+  background: #1f487e;
+  color: #fff;
+}
+
+.note,
+.status,
+.error {
+  color: #5f5445;
+}
+
+.error {
+  color: #9a2f2f;
+}
+
+.table-wrap {
+  overflow: auto;
+  margin-top: 12px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(40, 30, 10, 0.08);
+  text-align: right;
+}
+
+th:first-child,
+td:first-child {
+  text-align: left;
+  position: sticky;
+  left: 0;
+  background: #fffaf2;
+}
+
+@media (max-width: 1200px) {
+  .workflow-grid {
+    grid-template-columns: 1fr;
+  }
+}
