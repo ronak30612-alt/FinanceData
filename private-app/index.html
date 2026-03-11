@@ -8,10 +8,13 @@
   </head>
   <body>
     <main class="shell">
-      <section class="panel auth-panel" id="authPanel">
-        <h1>Private Finance Workstation</h1>
-        <p>로컬/비공개 배포용 대시보드다. 로그인 후 출처별 단계형 선택으로 데이터를 호출한다.</p>
-        <form id="loginForm" class="form-grid">
+      <section class="auth-card" id="authPanel">
+        <div class="auth-copy">
+          <p class="eyebrow">Private Finance Workstation</p>
+          <h1>비공개 금융 데이터 분석실</h1>
+          <p>출처별 단계형 선택으로 FISIS, ECOS, KOFIA, KRX, INCOS 데이터를 직접 호출하고, 여러 요청을 묶어 시계열 비교표와 차트로 확인한다.</p>
+        </div>
+        <form id="loginForm" class="auth-form">
           <label>
             <span>ID</span>
             <input id="usernameInput" type="text" autocomplete="username" />
@@ -21,36 +24,89 @@
             <input id="passwordInput" type="password" autocomplete="current-password" />
           </label>
           <button class="button primary" type="submit">로그인</button>
+          <p class="hint">기본값은 <code>admin / change-me</code>이며, 실제 값은 <code>.env</code>에서 바꾼다.</p>
         </form>
-        <p class="note">기본값은 `.env`의 `APP_USERNAME`, `APP_PASSWORD`를 사용한다. 없으면 `admin / change-me`다.</p>
       </section>
 
-      <section class="panel hidden" id="appPanel">
-        <div class="header-row">
+      <section class="app-shell hidden" id="appPanel">
+        <header class="hero">
           <div>
-            <h1>Private Finance Workstation</h1>
-            <p id="sessionText">세션 확인 중...</p>
+            <p class="eyebrow">Private Finance Workstation</p>
+            <h1>출처별 단계형 데이터 워크스테이션</h1>
+            <p id="sessionText" class="hero-copy">세션 확인 중...</p>
           </div>
-          <div class="header-actions">
+          <div class="hero-actions">
             <button class="button subtle" id="logoutButton" type="button">로그아웃</button>
           </div>
-        </div>
+        </header>
 
-        <div class="source-tabs" id="sourceTabs"></div>
-        <div id="sourcePanel" class="source-panel"></div>
+        <section class="workspace-grid">
+          <div class="builder-column">
+            <section class="panel">
+              <div class="panel-head">
+                <h2>출처 빌더</h2>
+                <p>출처별 단계에 맞춰 요청을 구성한 뒤 비교 번들에 추가한다.</p>
+              </div>
+              <div class="source-tabs" id="sourceTabs"></div>
+              <div id="sourcePanel" class="source-panel"></div>
+            </section>
+          </div>
+
+          <div class="bundle-column">
+            <section class="panel">
+              <div class="panel-head">
+                <h2>비교 번들</h2>
+                <p>서로 다른 출처의 요청을 여러 개 모아 한 번에 병합한다.</p>
+              </div>
+              <div class="bundle-list" id="bundleList"></div>
+              <div class="bundle-actions">
+                <button class="button primary" id="runBundleButton" type="button">비교 실행</button>
+                <button class="button subtle" id="clearBundleButton" type="button">번들 초기화</button>
+              </div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-head">
+                <h2>출력 옵션</h2>
+                <p>시계열 비교 결과를 차트와 파일로 확인한다.</p>
+              </div>
+              <div class="output-actions">
+                <button class="button subtle" id="downloadCsvButton" type="button">CSV 다운로드</button>
+                <button class="button subtle" id="downloadExcelButton" type="button">Excel 다운로드</button>
+                <button class="button subtle" id="downloadJsonButton" type="button">JSON 다운로드</button>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="panel result-shell">
+          <div class="panel-head">
+            <h2>병합 결과</h2>
+            <p>같은 기간축을 기준으로 여러 출처의 시계열을 병합해 본다.</p>
+          </div>
+          <div id="resultMeta" class="status-line">아직 실행된 비교가 없다.</div>
+          <div id="chartEmpty" class="empty-state">번들에 요청을 추가한 뒤 비교 실행을 누르면 차트와 표가 생성된다.</div>
+          <svg id="chartSvg" class="chart-svg" viewBox="0 0 1080 420" preserveAspectRatio="none"></svg>
+          <div id="chartLegend" class="legend"></div>
+          <div class="table-wrap">
+            <table id="resultTable">
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
       </section>
     </main>
 
-    <template id="resultTableTemplate">
-      <section class="result-panel">
-        <h2>조회 결과</h2>
-        <div class="table-wrap">
-          <table>
-            <thead></thead>
-            <tbody></tbody>
-          </table>
+    <template id="bundleItemTemplate">
+      <article class="bundle-item">
+        <div>
+          <p class="bundle-source"></p>
+          <h3 class="bundle-title"></h3>
+          <p class="bundle-summary"></p>
         </div>
-      </section>
+        <button class="button subtle bundle-remove" type="button">제거</button>
+      </article>
     </template>
 
     <script type="module" src="./app.js"></script>

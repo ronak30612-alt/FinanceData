@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-11T16:28:21.929Z",
+  "generatedAt": "2026-03-11T16:55:36.139Z",
   "description": "브라우저 업로드용 통합 시계열 템플릿이다. docs/data/dashboard-data.json 의 series 스키마와 호환된다.",
   "supportedSources": [
     {

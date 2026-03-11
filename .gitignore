@@ -9,3 +9,6 @@ exports/*.xml
 exports/*.xlsx
 docs/data/metadata-db.json
 .private-server.pid
+private-server.out.log
+private-server.err.log
+KOFIA_data_openapi.docx

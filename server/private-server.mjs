@@ -9,8 +9,8 @@ const ROOT_DIR = path.resolve(__dirname, '..');
 const APP_DIR = path.join(ROOT_DIR, 'private-app');
 const METADATA_DIR = path.join(ROOT_DIR, 'exports', 'metadata');
 const DOCS_DATA_DIR = path.join(ROOT_DIR, 'docs', 'data');
-const PORT = Number(process.env.PORT || 4317);
 const HOST = process.env.HOST || '127.0.0.1';
+const PORT = Number(process.env.PORT || 4317);
 const SESSION_COOKIE = 'finance_private_session';
 const sessions = new Map();
 
@@ -20,6 +20,73 @@ const MIME_TYPES = {
   '.js': 'text/javascript; charset=utf-8',
   '.json': 'application/json; charset=utf-8',
   '.svg': 'image/svg+xml',
+};
+
+const KOFIA_OPERATIONS = {
+  getTrustScaleInfo: {
+    label: '업권별신탁규모',
+    dateField: 'basYm',
+    dateMode: 'M',
+    endpoint: 'getTrustScaleInfo',
+    selectors: ['bzds', 'tstCtg', 'kind', 'iqBs'],
+    valueFields: ['val'],
+  },
+  getFundTotalNetEssetInfo: {
+    label: '펀드순자산총액',
+    dateField: 'basDt',
+    dateMode: 'D',
+    endpoint: 'getFundTotalNetEssetInfo',
+    selectors: ['ctg', 'tstMthdCtg'],
+    valueFields: ['nPptTotAmt'],
+  },
+  getCMAStatus: {
+    label: '일자별 CMA 현황',
+    dateField: 'basDt',
+    dateMode: 'D',
+    endpoint: 'getCMAStatus',
+    selectors: ['mngInvTgt', 'invrCtg'],
+    valueFields: ['scrtCmpyCnt', 'actCnt', 'actBal'],
+  },
+  getGrantingOfCreditBalanceInfo: {
+    label: '신용공여잔고추이',
+    dateField: 'basDt',
+    dateMode: 'D',
+    endpoint: 'getGrantingOfCreditBalanceInfo',
+    selectors: [],
+    valueFields: ['crdTrFingWhl', 'crdTrFingScrs', 'crdTrFingKosdaq', 'crdTrLndrWhl', 'crdTrLndrScrs', 'crdTrLndrKosdaq', 'sbscCapLn', 'dpsgScrtMogFing'],
+  },
+  getSecuritiesMarketTotalCapitalInfo: {
+    label: '증시자금추이',
+    dateField: 'basDt',
+    dateMode: 'D',
+    endpoint: 'getSecuritiesMarketTotalCapitalInfo',
+    selectors: [],
+    valueFields: ['invrDpsgAmt', 'onbdDrvPrdTrRcAdvAmt', 'toCstRpchCndBndSlgBal', 'brkTrdUcolMny', 'brkTrdUcolMnyVsOppsTrdAmt', 'ucolMnyVsOppsTrdRlImpt'],
+  },
+  getDLSAndDLBInfo: {
+    label: 'DLS/DLB 발행동향',
+    dateField: 'basDt',
+    dateMode: 'M',
+    endpoint: 'getDLSAndDLBInfo',
+    selectors: ['ctgDlbDls', 'ctgPrplcPsub', 'presCtg'],
+    valueFields: ['amt', 'ccnt'],
+  },
+  getELSAndELBInfo: {
+    label: 'ELS/ELB 발행동향',
+    dateField: 'basDt',
+    dateMode: 'M',
+    endpoint: 'getELSAndELBInfo',
+    selectors: ['ctgElbEls', 'ctgPrplcPsub', 'presCtg'],
+    valueFields: ['amt', 'ccnt'],
+  },
+  getDerivationProductTradingInfo: {
+    label: '국내투자자의 해외파생상품거래동향',
+    dateField: 'basDt',
+    dateMode: 'M',
+    endpoint: 'getDerivationProductTradingInfo',
+    selectors: ['byPrdGrp', 'actCtg', 'ctgBsonCntrForm', 'prdNm', 'brkPn', 'xchNm', 'byNtnl', 'prdGrp'],
+    valueFields: ['trqu', 'trPrcUsd'],
+  },
 };
 
 function parseEnv(text) {
@@ -57,19 +124,6 @@ function parseCookies(header) {
   );
 }
 
-function sendJson(response, statusCode, payload, headers = {}) {
-  response.writeHead(statusCode, { 'Content-Type': 'application/json; charset=utf-8', ...headers });
-  response.end(JSON.stringify(payload));
-}
-
-function unauthorized(response) {
-  sendJson(response, 401, { error: 'Unauthorized' });
-}
-
-function notFound(response) {
-  sendJson(response, 404, { error: 'Not found' });
-}
-
 async function readBody(request) {
   const chunks = [];
   for await (const chunk of request) {
@@ -78,13 +132,22 @@ async function readBody(request) {
   return Buffer.concat(chunks).toString('utf8');
 }
 
+async function readJson(filePath) {
+  return JSON.parse(await fs.readFile(filePath, 'utf8'));
+}
+
 async function fetchJson(url, options = {}) {
   const response = await fetch(url, options);
   const text = await response.text();
   if (!response.ok) {
-    throw new Error(`HTTP ${response.status} for ${url}: ${text.slice(0, 200)}`);
+    throw new Error(`HTTP ${response.status} for ${url}: ${text.slice(0, 240)}`);
   }
   return JSON.parse(text);
+}
+
+function sendJson(response, statusCode, payload, headers = {}) {
+  response.writeHead(statusCode, { 'Content-Type': 'application/json; charset=utf-8', ...headers });
+  response.end(JSON.stringify(payload));
 }
 
 function formatMonth(value) {
@@ -95,9 +158,22 @@ function formatDay(value) {
   return `${value.slice(0, 4)}-${value.slice(4, 6)}-${value.slice(6, 8)}`;
 }
 
+function formatPeriod(value, mode) {
+  if (!value) {
+    return '';
+  }
+  if (mode === 'D' && value.length >= 8) {
+    return formatDay(value);
+  }
+  if (mode === 'M' && value.length >= 6) {
+    return formatMonth(value);
+  }
+  return value;
+}
+
 function roundValue(value, digits) {
   if (!Number.isFinite(value)) {
-    return value;
+    return null;
   }
   const factor = 10 ** digits;
   return Math.round(value * factor) / factor;
@@ -116,37 +192,50 @@ function normalizeUnit(value, unitMode) {
   return value;
 }
 
-function buildTable(rows, seriesDefinitions, digits, unitMode) {
-  const periods = [...new Set(rows.map((row) => row.period))].sort();
-  const bySeries = new Map();
-  for (const row of rows) {
-    const key = row.seriesKey;
-    if (!bySeries.has(key)) {
-      bySeries.set(key, new Map());
-    }
-    bySeries.get(key).set(row.period, row.value);
+function dedupeBy(items, keyFn) {
+  const map = new Map();
+  for (const item of items) {
+    map.set(keyFn(item), item);
   }
-
-  const tableRows = periods.map((period) => {
-    const record = { period };
-    for (const series of seriesDefinitions) {
-      const raw = bySeries.get(series.key)?.get(period) ?? null;
-      record[series.key] = raw === null ? null : roundValue(normalizeUnit(raw, unitMode), digits);
-    }
-    return record;
-  });
-
-  return {
-    columns: [
-      { key: 'period', label: '기간' },
-      ...seriesDefinitions.map((series) => ({ key: series.key, label: series.label })),
-    ],
-    rows: tableRows,
-  };
+  return [...map.values()];
 }
 
-async function readJson(filePath) {
-  return JSON.parse(await fs.readFile(filePath, 'utf8'));
+function buildQueryResult(source, rows, seriesDefinitions, digits, unitMode) {
+  const normalizedRows = rows.map((row) => ({
+    ...row,
+    value: roundValue(normalizeUnit(row.value, unitMode), digits),
+  }));
+  const periods = [...new Set(normalizedRows.map((row) => row.period))].sort();
+  const bySeries = new Map();
+
+  for (const row of normalizedRows) {
+    if (!bySeries.has(row.seriesKey)) {
+      bySeries.set(row.seriesKey, new Map());
+    }
+    bySeries.get(row.seriesKey).set(row.period, row.value);
+  }
+
+  return {
+    source,
+    series: seriesDefinitions.map((series) => ({
+      key: series.key,
+      label: series.label,
+      points: normalizedRows.filter((row) => row.seriesKey === series.key).map((row) => ({ period: row.period, value: row.value })),
+    })),
+    table: {
+      columns: [
+        { key: 'period', label: '기간' },
+        ...seriesDefinitions.map((series) => ({ key: series.key, label: series.label })),
+      ],
+      rows: periods.map((period) => {
+        const record = { period };
+        for (const series of seriesDefinitions) {
+          record[series.key] = bySeries.get(series.key)?.get(period) ?? null;
+        }
+        return record;
+      }),
+    },
+  };
 }
 
 const env = await loadEnv();
@@ -157,289 +246,245 @@ const metadata = {
   incos: await readJson(path.join(METADATA_DIR, 'incos-metadata.json')),
   kofia: await readJson(path.join(METADATA_DIR, 'kofia-metadata.json')),
 };
-const remoteSeries = await readJson(path.join(DOCS_DATA_DIR, 'remote-series.json'));
 const dashboardData = await readJson(path.join(DOCS_DATA_DIR, 'dashboard-data.json'));
 
 function getSession(request) {
   const cookies = parseCookies(request.headers.cookie);
-  const token = cookies[SESSION_COOKIE];
-  return token ? sessions.get(token) : null;
+  return cookies[SESSION_COOKIE] ? sessions.get(cookies[SESSION_COOKIE]) : null;
 }
 
 function requireAuth(request, response) {
   const session = getSession(request);
   if (!session) {
-    unauthorized(response);
+    sendJson(response, 401, { error: 'Unauthorized' });
     return null;
   }
   return session;
 }
 
 function getFisisIndustries() {
-  const companyBuckets = metadata.fisis.companies
-    .map((company) => company.finance_path?.split('\\')?.[0] ?? company.part_div)
-    .filter(Boolean);
-  return [...new Set(companyBuckets)].sort((a, b) => a.localeCompare(b, 'ko-KR'));
+  return [...new Set(metadata.fisis.statistics.map((item) => item.lrg_div_nm).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'ko-KR'));
 }
 
 function getFisisCompanies(industry) {
-  const rows = metadata.fisis.companies
+  return metadata.fisis.companies
     .filter((company) => !industry || industry === 'ALL' || (company.finance_path ?? '').includes(industry))
     .filter((company) => !/\[폐\]/.test(company.finance_nm))
-    .slice(0, 500)
-    .map((company) => ({
-      code: company.finance_cd,
-      name: company.finance_nm,
-      path: company.finance_path,
-    }));
-  return dedupeBy(rows, (item) => `${item.code}:${item.name}`);
+    .map((company) => ({ code: company.finance_cd, name: company.finance_nm, path: company.finance_path }))
+    .slice(0, 600);
 }
 
 function getFisisStatistics(industry, keyword = '') {
   return metadata.fisis.statistics
-    .filter((stat) => !industry || industry === 'ALL' || (stat.lrg_div_nm ?? '').includes(industry) || (industry.includes('은행') && (stat.lrg_div_nm ?? '').includes('은행')))
+    .filter((stat) => !industry || industry === 'ALL' || stat.lrg_div_nm === industry)
     .filter((stat) => !keyword || `${stat.list_no} ${stat.list_nm}`.includes(keyword))
-    .map((stat) => ({
-      code: stat.list_no,
-      name: stat.list_nm,
-      group: `${stat.lrg_div_nm} / ${stat.sml_div_nm}`,
-    }))
-    .slice(0, 500);
+    .map((stat) => ({ code: stat.list_no, name: stat.list_nm, group: `${stat.lrg_div_nm} / ${stat.sml_div_nm}` }))
+    .slice(0, 600);
 }
 
 function getFisisAccounts(listNo) {
   return metadata.fisis.accounts
-    .filter((account) => account.list_no === listNo)
-    .map((account) => ({
-      code: account.account_cd,
-      name: account.account_nm,
-    }));
+    .filter((item) => item.list_no === listNo)
+    .map((item) => ({ code: item.account_cd, name: item.account_nm }));
 }
 
 function getEcosTables(keyword = '') {
   return metadata.ecos.searchableTables
     .filter((table) => !keyword || `${table.STAT_CODE} ${table.STAT_NAME}`.includes(keyword))
-    .map((table) => ({
-      code: table.STAT_CODE,
-      name: table.STAT_NAME,
-      cycle: table.CYCLE,
-      org: table.ORG_NAME,
-    }))
-    .slice(0, 400);
+    .map((table) => ({ code: table.STAT_CODE, name: table.STAT_NAME, cycle: table.CYCLE, org: table.ORG_NAME }))
+    .slice(0, 500);
 }
 
 function getEcosItems(statCode) {
   return metadata.ecos.items
     .filter((item) => item.STAT_CODE === statCode)
-    .map((item) => ({
-      code: item.ITEM_CODE,
-      name: item.ITEM_NAME,
-      cycle: item.CYCLE,
-      unit: item.UNIT_NAME,
-      group: item.GRP_NAME,
-    }))
-    .slice(0, 800);
+    .map((item) => ({ code: item.ITEM_CODE, name: item.ITEM_NAME, cycle: item.CYCLE, unit: item.UNIT_NAME, group: item.GRP_NAME }))
+    .slice(0, 1000);
 }
 
 function getKrxIndices() {
-  return metadata.krx.indices.map((item) => ({
-    code: item.indexName,
-    name: item.indexName,
-    group: item.indexClass,
-  }));
+  return metadata.krx.indices.map((item) => ({ code: item.indexName, name: item.indexName, group: item.indexClass }));
 }
 
 function getIncosDatasets() {
-  return [...new Set(dashboardData.series.map((series) => series.datasetName))]
-    .map((name) => ({ code: name, name }));
+  return [...new Set(dashboardData.series.map((item) => item.datasetName))].map((name) => ({ code: name, name }));
 }
 
 function getIncosEntities(datasetName) {
   return [...new Set(dashboardData.series
-    .filter((series) => !datasetName || datasetName === 'ALL' || series.datasetName === datasetName)
-    .map((series) => series.entity))]
-    .map((name) => ({ code: name, name }));
+    .filter((item) => !datasetName || datasetName === 'ALL' || item.datasetName === datasetName)
+    .map((item) => item.entity))].map((name) => ({ code: name, name }));
 }
 
 function getIncosMetrics(datasetName, entity) {
   return dashboardData.series
-    .filter((series) => (!datasetName || datasetName === 'ALL' || series.datasetName === datasetName))
-    .filter((series) => (!entity || entity === 'ALL' || series.entity === entity))
-    .map((series) => ({
-      code: series.key,
-      name: series.metricLabel,
-      title: series.title,
-    }));
+    .filter((item) => !datasetName || datasetName === 'ALL' || item.datasetName === datasetName)
+    .filter((item) => !entity || entity === 'ALL' || item.entity === entity)
+    .map((item) => ({ code: item.key, name: item.metricLabel, title: item.title }));
 }
 
-function getKofiaServices(keyword = '') {
-  return metadata.kofia.services
-    .filter((service) => !keyword || `${service.serviceId} ${service.title}`.includes(keyword))
-    .map((service) => ({
-      code: service.serviceId,
-      name: service.title,
-      group: service.parentDivId,
-    }));
-}
-
-function dedupeBy(items, keyFn) {
-  const map = new Map();
-  for (const item of items) {
-    map.set(keyFn(item), item);
+async function fetchKofiaRows(operation, params = {}, pageNo = 1, numOfRows = 1000) {
+  const search = new URLSearchParams({
+    serviceKey: env.KOFIA_API_KEY,
+    pageNo: String(pageNo),
+    numOfRows: String(numOfRows),
+    resultType: 'json',
+  });
+  for (const [key, value] of Object.entries(params)) {
+    if (value !== undefined && value !== null && value !== '' && value !== 'ALL') {
+      search.set(key, value);
+    }
   }
-  return [...map.values()];
+  const url = `https://apis.data.go.kr/1160100/service/GetKofiaStatisticsInfoService/${operation}?${search.toString()}`;
+  const payload = await fetchJson(url);
+  const body = payload?.response?.body ?? {};
+  const items = body?.items?.item ?? [];
+  return Array.isArray(items) ? items : [items];
+}
+
+async function getKofiaOperationOptions(operation, dateHint = '') {
+  const definition = KOFIA_OPERATIONS[operation];
+  if (!definition) {
+    return null;
+  }
+  const params = {};
+  if (dateHint) {
+    params[definition.dateField] = dateHint;
+  }
+  const rows = await fetchKofiaRows(definition.endpoint, params, 1, 600);
+  const selectors = {};
+  for (const selector of definition.selectors) {
+    selectors[selector] = [...new Set(rows.map((row) => row[selector]).filter(Boolean))].sort((a, b) => String(a).localeCompare(String(b), 'ko-KR'));
+  }
+  return {
+    operation,
+    label: definition.label,
+    dateField: definition.dateField,
+    dateMode: definition.dateMode,
+    selectors,
+    valueFields: definition.valueFields,
+  };
 }
 
 async function queryFisis(body) {
-  const companies = body.companies ?? [];
-  const accounts = body.accounts ?? [];
-  const digits = Number(body.precision ?? 2);
-  const unitMode = body.unitMode ?? 'raw';
   const rows = [];
   const seriesDefinitions = [];
-
-  for (const company of companies) {
-    for (const account of accounts) {
+  for (const company of body.companies ?? []) {
+    for (const account of body.accounts ?? []) {
       const url = `${env.FISIS_BASE_URL}/statisticsInfoSearch.json?lang=kr&auth=${encodeURIComponent(env.FISIS_API_KEY)}&financeCd=${encodeURIComponent(company.code)}&listNo=${encodeURIComponent(body.statistic.code)}&accountCd=${encodeURIComponent(account.code)}&term=${encodeURIComponent(body.term)}&startBaseMm=${encodeURIComponent(body.start)}&endBaseMm=${encodeURIComponent(body.end)}`;
       const payload = await fetchJson(url);
       const list = payload?.result?.list ?? [];
-      const seriesKey = `${company.code}:${account.code}`;
-      seriesDefinitions.push({ key: seriesKey, label: `${company.name} · ${account.name}` });
+      const key = `${company.code}:${account.code}`;
+      seriesDefinitions.push({ key, label: `${company.name} · ${account.name}` });
       for (const item of list) {
-        rows.push({
-          seriesKey,
-          period: formatMonth(item.base_month),
-          value: Number(item.a),
-        });
+        rows.push({ seriesKey: key, period: formatMonth(item.base_month), value: Number(item.a) });
       }
     }
   }
-
-  return {
-    source: 'FISIS',
-    table: buildTable(rows, seriesDefinitions, digits, unitMode),
-  };
+  return buildQueryResult('FISIS', rows, seriesDefinitions, Number(body.precision ?? 2), body.unitMode ?? 'raw');
 }
 
 async function queryEcos(body) {
-  const items = body.items ?? [];
-  const digits = Number(body.precision ?? 2);
-  const unitMode = body.unitMode ?? 'raw';
   const rows = [];
   const seriesDefinitions = [];
-
-  for (const item of items) {
+  for (const item of body.items ?? []) {
     const url = `${env.ECOS_BASE_URL}/${encodeURIComponent(env.ECOS_API_KEY)}/json/kr/1/1000/${encodeURIComponent(body.table.code)}/${encodeURIComponent(body.cycle)}/${encodeURIComponent(body.start)}/${encodeURIComponent(body.end)}/${encodeURIComponent(item.code)}`;
     const payload = await fetchJson(url);
     const list = payload?.StatisticSearch?.row ?? [];
-    const seriesKey = `${body.table.code}:${item.code}`;
-    seriesDefinitions.push({ key: seriesKey, label: item.name });
+    const key = `${body.table.code}:${item.code}`;
+    seriesDefinitions.push({ key, label: item.name });
     for (const row of list) {
-      rows.push({
-        seriesKey,
-        period: body.cycle === 'D' ? formatDay(row.TIME) : formatMonth(row.TIME),
-        value: Number(row.DATA_VALUE),
-      });
+      rows.push({ seriesKey: key, period: formatPeriod(row.TIME, body.cycle), value: Number(row.DATA_VALUE) });
     }
   }
-
-  return {
-    source: 'ECOS',
-    table: buildTable(rows, seriesDefinitions, digits, unitMode),
-  };
+  return buildQueryResult('ECOS', rows, seriesDefinitions, Number(body.precision ?? 2), body.unitMode ?? 'raw');
 }
 
 async function queryKrx(body) {
-  const digits = Number(body.precision ?? 2);
-  const unitMode = body.unitMode ?? 'raw';
+  const rows = [];
   const selected = new Set((body.indices ?? []).map((item) => item.code));
+  const seriesDefinitions = [...selected].map((code) => ({ key: code, label: code }));
   const start = new Date(`${body.start.slice(0, 4)}-${body.start.slice(4, 6)}-${body.start.slice(6, 8)}T00:00:00Z`);
   const end = new Date(`${body.end.slice(0, 4)}-${body.end.slice(4, 6)}-${body.end.slice(6, 8)}T00:00:00Z`);
-  const rows = [];
-  const seriesDefinitions = [...selected].map((code) => ({ key: code, label: code }));
 
   for (let cursor = new Date(start); cursor <= end; cursor.setUTCDate(cursor.getUTCDate() + 1)) {
     const basDd = `${cursor.getUTCFullYear()}${String(cursor.getUTCMonth() + 1).padStart(2, '0')}${String(cursor.getUTCDate()).padStart(2, '0')}`;
-    const payload = await fetchJson(`${env.KRX_BASE_URL}?basDd=${basDd}`, {
-      headers: { AUTH_KEY: env.KRX_API_KEY },
-    }).catch(() => null);
-    const list = payload?.OutBlock_1 ?? [];
-    for (const item of list) {
-      if (!selected.has(item.IDX_NM)) {
-        continue;
+    const payload = await fetchJson(`${env.KRX_BASE_URL}?basDd=${basDd}`, { headers: { AUTH_KEY: env.KRX_API_KEY } }).catch(() => null);
+    for (const item of payload?.OutBlock_1 ?? []) {
+      if (selected.has(item.IDX_NM)) {
+        rows.push({ seriesKey: item.IDX_NM, period: formatDay(item.BAS_DD), value: Number(item.CLSPRC_IDX) });
       }
-      rows.push({
-        seriesKey: item.IDX_NM,
-        period: formatDay(item.BAS_DD),
-        value: Number(item.CLSPRC_IDX),
-      });
     }
   }
 
-  return {
-    source: 'KRX',
-    table: buildTable(rows, seriesDefinitions, digits, unitMode),
-  };
+  return buildQueryResult('KRX', rows, seriesDefinitions, Number(body.precision ?? 2), body.unitMode ?? 'raw');
 }
 
 async function queryIncos(body) {
-  const digits = Number(body.precision ?? 2);
-  const unitMode = body.unitMode ?? 'raw';
   const selected = body.seriesKeys ?? [];
   const chosenSeries = dashboardData.series.filter((series) => selected.includes(series.key));
-  const rows = [];
   const seriesDefinitions = chosenSeries.map((series) => ({ key: series.key, label: series.title }));
+  const rows = [];
 
   for (const series of chosenSeries) {
     for (const point of series.points) {
-      if (body.start && point.period < body.start) {
-        continue;
-      }
-      if (body.end && point.period > body.end) {
-        continue;
-      }
-      rows.push({
-        seriesKey: series.key,
-        period: point.period,
-        value: Number(point.value),
-      });
+      if (body.start && point.period < body.start) continue;
+      if (body.end && point.period > body.end) continue;
+      rows.push({ seriesKey: series.key, period: point.period, value: Number(point.value) });
     }
   }
 
-  return {
-    source: 'INCOS',
-    table: buildTable(rows, seriesDefinitions, digits, unitMode),
-  };
+  return buildQueryResult('INCOS', rows, seriesDefinitions, Number(body.precision ?? 2), body.unitMode ?? 'raw');
+}
+
+async function queryKofia(body) {
+  const def = KOFIA_OPERATIONS[body.operation];
+  if (!def) {
+    throw new Error('Unknown KOFIA operation');
+  }
+  const params = {};
+  if (body.exactDate) {
+    params[def.dateField] = body.exactDate;
+  } else {
+    const baseField = def.dateField[0].toUpperCase() + def.dateField.slice(1);
+    if (body.start) params[`begin${baseField}`] = body.start;
+    if (body.end) params[`end${baseField}`] = body.end;
+  }
+  for (const selector of def.selectors) {
+    if (body.filters?.[selector]) {
+      params[selector] = body.filters[selector];
+    }
+  }
+  const sourceRows = await fetchKofiaRows(def.endpoint, params, 1, 5000);
+  const metrics = body.metrics?.length ? body.metrics : def.valueFields;
+  const seriesDefinitions = [];
+  const rows = [];
+
+  for (const row of sourceRows) {
+    const selectorLabel = def.selectors.map((selector) => row[selector]).filter(Boolean).join(' · ') || def.label;
+    const period = formatPeriod(row[def.dateField], def.dateMode);
+    for (const metric of metrics) {
+      const value = Number(row[metric]);
+      if (!Number.isFinite(value)) continue;
+      const key = `${selectorLabel}:${metric}`;
+      if (!seriesDefinitions.some((item) => item.key === key)) {
+        seriesDefinitions.push({ key, label: `${selectorLabel} · ${metric}` });
+      }
+      rows.push({ seriesKey: key, period, value });
+    }
+  }
+
+  return buildQueryResult('KOFIA', rows, seriesDefinitions, Number(body.precision ?? 2), body.unitMode ?? 'raw');
 }
 
 function privateWorkflowDefinition() {
   return {
     sources: [
-      {
-        id: 'FISIS',
-        title: 'FISIS',
-        steps: ['industry', 'companies', 'statistics', 'accounts', 'options'],
-      },
-      {
-        id: 'ECOS',
-        title: 'ECOS',
-        steps: ['table', 'items', 'options'],
-      },
-      {
-        id: 'KRX',
-        title: 'KRX',
-        steps: ['indices', 'options'],
-      },
-      {
-        id: 'INCOS',
-        title: 'INCOS',
-        steps: ['dataset', 'entity', 'metrics', 'options'],
-      },
-      {
-        id: 'KOFIA',
-        title: 'KOFIA',
-        steps: ['serviceCatalog'],
-      },
+      { id: 'FISIS', title: 'FISIS' },
+      { id: 'ECOS', title: 'ECOS' },
+      { id: 'KOFIA', title: 'KOFIA' },
+      { id: 'KRX', title: 'KRX' },
+      { id: 'INCOS', title: 'INCOS' },
     ],
   };
 }
@@ -461,18 +506,14 @@ async function handleApi(request, response, url) {
     }
     const token = crypto.randomBytes(24).toString('hex');
     sessions.set(token, { username });
-    sendJson(response, 200, { ok: true }, {
-      'Set-Cookie': `${SESSION_COOKIE}=${token}; HttpOnly; Path=/; SameSite=Lax`,
-    });
+    sendJson(response, 200, { ok: true }, { 'Set-Cookie': `${SESSION_COOKIE}=${token}; HttpOnly; Path=/; SameSite=Lax` });
     return;
   }
 
   if (url.pathname === '/api/logout' && request.method === 'POST') {
     const cookies = parseCookies(request.headers.cookie);
     sessions.delete(cookies[SESSION_COOKIE]);
-    sendJson(response, 200, { ok: true }, {
-      'Set-Cookie': `${SESSION_COOKIE}=; HttpOnly; Path=/; Max-Age=0; SameSite=Lax`,
-    });
+    sendJson(response, 200, { ok: true }, { 'Set-Cookie': `${SESSION_COOKIE}=; HttpOnly; Path=/; Max-Age=0; SameSite=Lax` });
     return;
   }
 
@@ -487,9 +528,10 @@ async function handleApi(request, response, url) {
 
   if (url.pathname === '/api/options' && request.method === 'GET') {
     const source = url.searchParams.get('source');
+
     if (source === 'FISIS') {
       const industry = url.searchParams.get('industry') ?? 'ALL';
-      const statistic = url.searchParams.get('statistic');
+      const statistic = url.searchParams.get('statistic') ?? '';
       sendJson(response, 200, {
         industries: getFisisIndustries(),
         companies: getFisisCompanies(industry),
@@ -498,70 +540,67 @@ async function handleApi(request, response, url) {
       });
       return;
     }
+
     if (source === 'ECOS') {
-      const statCode = url.searchParams.get('statCode');
+      const statCode = url.searchParams.get('statCode') ?? '';
       sendJson(response, 200, {
         tables: getEcosTables(url.searchParams.get('keyword') ?? ''),
         items: statCode ? getEcosItems(statCode) : [],
       });
       return;
     }
+
+    if (source === 'KOFIA') {
+      const operation = url.searchParams.get('operation') ?? '';
+      const dateHint = url.searchParams.get('dateHint') ?? '';
+      sendJson(response, 200, {
+        operations: Object.entries(KOFIA_OPERATIONS).map(([code, item]) => ({
+          code,
+          name: item.label,
+          dateField: item.dateField,
+          dateMode: item.dateMode,
+        })),
+        operationOptions: operation ? await getKofiaOperationOptions(operation, dateHint) : null,
+      });
+      return;
+    }
+
     if (source === 'KRX') {
       sendJson(response, 200, { indices: getKrxIndices() });
       return;
     }
+
     if (source === 'INCOS') {
-      const datasetName = url.searchParams.get('dataset') ?? 'ALL';
+      const dataset = url.searchParams.get('dataset') ?? 'ALL';
       const entity = url.searchParams.get('entity') ?? 'ALL';
       sendJson(response, 200, {
         datasets: getIncosDatasets(),
-        entities: getIncosEntities(datasetName),
-        metrics: getIncosMetrics(datasetName, entity),
+        entities: getIncosEntities(dataset),
+        metrics: getIncosMetrics(dataset, entity),
       });
       return;
     }
-    if (source === 'KOFIA') {
-      sendJson(response, 200, {
-        services: getKofiaServices(url.searchParams.get('keyword') ?? ''),
-        note: 'KOFIA 실데이터 호출은 내부 서비스 분석이 추가로 필요합니다.',
-      });
-      return;
-    }
-    notFound(response);
+
+    sendJson(response, 404, { error: 'Unknown source' });
     return;
   }
 
   if (url.pathname === '/api/query' && request.method === 'POST') {
-    const body = JSON.parse(await readBody(request) || '{}');
     try {
-      if (body.source === 'FISIS') {
-        sendJson(response, 200, await queryFisis(body));
-        return;
-      }
-      if (body.source === 'ECOS') {
-        sendJson(response, 200, await queryEcos(body));
-        return;
-      }
-      if (body.source === 'KRX') {
-        sendJson(response, 200, await queryKrx(body));
-        return;
-      }
-      if (body.source === 'INCOS') {
-        sendJson(response, 200, await queryIncos(body));
-        return;
-      }
-      if (body.source === 'KOFIA') {
-        sendJson(response, 501, { error: 'KOFIA live query is not yet wired. Service catalog is available, but the backend data call path still needs reverse engineering.' });
-        return;
-      }
-      notFound(response);
+      const body = JSON.parse(await readBody(request) || '{}');
+      if (body.source === 'FISIS') return sendJson(response, 200, await queryFisis(body));
+      if (body.source === 'ECOS') return sendJson(response, 200, await queryEcos(body));
+      if (body.source === 'KOFIA') return sendJson(response, 200, await queryKofia(body));
+      if (body.source === 'KRX') return sendJson(response, 200, await queryKrx(body));
+      if (body.source === 'INCOS') return sendJson(response, 200, await queryIncos(body));
+      sendJson(response, 404, { error: 'Unknown source' });
     } catch (error) {
       sendJson(response, 500, { error: error.message });
     }
     return;
   }
 
-  notFound(response);
+  sendJson(response, 404, { error: 'Not found' });
 }
 
 async function serveStatic(response, pathname) {
