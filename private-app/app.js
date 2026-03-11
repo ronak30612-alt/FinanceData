@@ -183,7 +183,7 @@ async function renderFisis() {
       </div>
       <div class="step-block">
         <h3>2. Companies</h3>
-        <label><span>Compare companies</span><select id="fisisCompanies" multiple size="9">${renderObjectOptions(data.companies, form.companies)}</select></label>
+        <label><span>Compare companies</span>${renderCheckList('fisisCompanies', data.companies, form.companies)}</label>
       </div>
       <div class="step-block">
         <h3>3. Statistics table</h3>
@@ -192,7 +192,7 @@ async function renderFisis() {
       </div>
       <div class="step-block">
         <h3>4. Accounts</h3>
-        <label><span>Statistics accounts</span><select id="fisisAccounts" multiple size="10">${renderObjectOptions(data.accounts, form.accounts)}</select></label>
+        <label><span>Statistics accounts</span>${renderCheckList('fisisAccounts', data.accounts, form.accounts)}</label>
       </div>
       <div class="step-block">
         <h3>Period</h3>
@@ -225,12 +225,8 @@ async function renderFisis() {
     form.accounts = [];
     await renderFisis();
   });
-  document.querySelector('#fisisCompanies').addEventListener('change', (event) => {
-    form.companies = selectedValues(event.target);
-  });
-  document.querySelector('#fisisAccounts').addEventListener('change', (event) => {
-    form.accounts = selectedValues(event.target);
-  });
+  bindCheckList('fisisCompanies', (values) => { form.companies = values; });
+  bindCheckList('fisisAccounts', (values) => { form.accounts = values; });
   document.querySelector('#fisisTerm').addEventListener('change', (event) => { form.term = event.target.value; });
   document.querySelector('#fisisStart').addEventListener('change', (event) => { form.start = event.target.value; });
   document.querySelector('#fisisEnd').addEventListener('change', (event) => { form.end = event.target.value; });
@@ -261,7 +257,7 @@ async function renderEcos() {
       </div>
       <div class="step-block">
         <h3>2. Items</h3>
-        <label><span>Items</span><select id="ecosItems" multiple size="12">${renderObjectOptions(data.items, form.items, 'code', (item) => `${item.code} · ${item.name} (${item.cycle})`)}</select></label>
+        <label><span>Items</span>${renderCheckList('ecosItems', data.items, form.items, 'code', (item) => `${item.code} · ${item.name} (${item.cycle})`)}</label>
       </div>
       <div class="step-block">
         <h3>Period</h3>
@@ -288,9 +284,7 @@ async function renderEcos() {
     form.items = [];
     await renderEcos();
   });
-  document.querySelector('#ecosItems').addEventListener('change', (event) => {
-    form.items = selectedValues(event.target);
-  });
+  bindCheckList('ecosItems', (values) => { form.items = values; });
   document.querySelector('#ecosCycle').addEventListener('change', (event) => { form.cycle = event.target.value; });
   document.querySelector('#ecosStart').addEventListener('change', (event) => { form.start = event.target.value; });
   document.querySelector('#ecosEnd').addEventListener('change', (event) => { form.end = event.target.value; });
@@ -331,7 +325,7 @@ async function renderKofia() {
       ${renderKofiaSelectorBlocks(op, form)}
       <div class="step-block">
         <h3>3. Metrics</h3>
-        <label><span>Metric fields</span><select id="kofiaMetrics" multiple size="10">${(op?.valueFields ?? []).map((field) => `<option value="${field}" ${form.metrics.includes(field) ? 'selected' : ''}>${field}</option>`).join('')}</select></label>
+        <label><span>Metric fields</span>${renderCheckList('kofiaMetrics', (op?.valueFields ?? []).map((field) => ({ code: field, name: field })), form.metrics)}</label>
       </div>
       ${renderOptionGrid('kofia', form)}
     </div>
@@ -360,9 +354,7 @@ async function renderKofia() {
       form.filters[event.target.dataset.kofiaFilter] = event.target.value;
     });
   }
-  document.querySelector('#kofiaMetrics')?.addEventListener('change', (event) => {
-    form.metrics = selectedValues(event.target);
-  });
+  bindCheckList('kofiaMetrics', (values) => { form.metrics = values; });
   document.querySelector('#kofiaRefresh').addEventListener('click', async () => {
     await renderKofia();
   });
@@ -393,7 +385,7 @@ async function renderKrx() {
     <div class="builder-grid">
       <div class="step-block">
         <h3>1. Indices</h3>
-        <label><span>KRX indices</span><select id="krxIndices" multiple size="14">${renderObjectOptions(data.indices, form.indices, 'code', (item) => item.name)}</select></label>
+        <label><span>KRX indices</span>${renderCheckList('krxIndices', data.indices, form.indices, 'code', (item) => item.name)}</label>
       </div>
       <div class="step-block">
         <h3>KRX service catalog</h3>
@@ -418,7 +410,7 @@ async function renderKrx() {
   `;
 
   bindCommonInputs('krx', form);
-  document.querySelector('#krxIndices').addEventListener('change', (event) => { form.indices = selectedValues(event.target); });
+  bindCheckList('krxIndices', (values) => { form.indices = values; });
   document.querySelector('#krxStart').addEventListener('change', (event) => { form.start = event.target.value; });
   document.querySelector('#krxEnd').addEventListener('change', (event) => { form.end = event.target.value; });
   document.querySelector('#krxAdd').addEventListener('click', () => {
@@ -449,7 +441,7 @@ async function renderIncos() {
       </div>
       <div class="step-block">
         <h3>3. Metrics</h3>
-        <label><span>Metrics</span><select id="incosMetrics" multiple size="12">${renderObjectOptions(data.metrics, form.metrics, 'code', (item) => item.title)}</select></label>
+        <label><span>Metrics</span>${renderCheckList('incosMetrics', data.metrics, form.metrics, 'code', (item) => item.title)}</label>
       </div>
       <div class="step-block">
         <h3>Period</h3>
@@ -477,9 +469,7 @@ async function renderIncos() {
     form.metrics = [];
     await renderIncos();
   });
-  document.querySelector('#incosMetrics').addEventListener('change', (event) => {
-    form.metrics = selectedValues(event.target);
-  });
+  bindCheckList('incosMetrics', (values) => { form.metrics = values; });
   document.querySelector('#incosStart').addEventListener('change', (event) => { form.start = event.target.value; });
   document.querySelector('#incosEnd').addEventListener('change', (event) => { form.end = event.target.value; });
   document.querySelector('#incosAdd').addEventListener('click', () => {
@@ -716,8 +706,31 @@ function renderObjectOptions(items, selected, keyField = 'code', labelFn = (item
   return items.map((item) => `<option value="${escapeAttr(item[keyField])}" ${selectedSet.has(item[keyField]) ? 'selected' : ''}>${escapeHtml(labelFn(item))}</option>`).join('');
 }
 
-function selectedValues(select) {
-  return [...select.selectedOptions].map((option) => option.value);
+function renderCheckList(id, items, selected, keyField = 'code', labelFn = (item) => item.name) {
+  const selectedSet = new Set(Array.isArray(selected) ? selected : [selected]);
+  return `
+    <div class="check-list" id="${id}">
+      ${items.map((item) => `
+        <label class="check-item">
+          <input type="checkbox" value="${escapeAttr(item[keyField])}" ${selectedSet.has(item[keyField]) ? 'checked' : ''} />
+          <span>${escapeHtml(labelFn(item))}</span>
+        </label>
+      `).join('')}
+    </div>
+  `;
+}
+
+function bindCheckList(id, onChange) {
+  const root = document.querySelector(`#${id}`);
+  if (!root) return;
+  const sync = () => {
+    const values = [...root.querySelectorAll('input[type="checkbox"]:checked')].map((input) => input.value);
+    onChange(values);
+  };
+  for (const input of root.querySelectorAll('input[type="checkbox"]')) {
+    input.addEventListener('change', sync);
+  }
+  sync();
 }
 
 function unitModeLabel(value) {

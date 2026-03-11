@@ -104,6 +104,28 @@ select[size] {
   min-height: 210px;
 }
 
+.check-list {
+  max-height: 260px;
+  overflow: auto;
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 14px;
+  border: 1px solid rgba(57, 43, 24, 0.16);
+  background: #fff;
+}
+
+.check-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.check-item input {
+  width: auto;
+  margin-top: 3px;
+}
+
 .button {
   border-radius: 14px;
   border: 1px solid rgba(57, 43, 24, 0.12);
