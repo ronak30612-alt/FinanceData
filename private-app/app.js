@@ -41,7 +41,7 @@ const elements = {
 };
 
 boot().catch((error) => {
-  document.body.innerHTML = `<main class="shell"><section class="panel"><h1>앱 초기화 실패</h1><p>${escapeHtml(error.message)}</p></section></main>`;
+  document.body.innerHTML = `<main class="shell"><section class="panel"><h1>App init failed</h1><p>${escapeHtml(error.message)}</p></section></main>`;
 });
 
 async function boot() {
@@ -58,8 +58,7 @@ async function boot() {
 function wireEvents() {
   elements.loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
-    const ok = await login();
-    if (!ok) return;
+    if (!(await login())) return;
     await loadWorkflows();
     showApp();
   });
@@ -76,13 +75,14 @@ function wireEvents() {
 
   elements.clearBundleButton.addEventListener('click', () => {
     state.bundle = [];
+    state.lastRun = null;
     renderBundle();
     renderResult(null);
   });
 
-  elements.downloadCsvButton.addEventListener('click', () => downloadCsv());
-  elements.downloadExcelButton.addEventListener('click', () => downloadExcel());
-  elements.downloadJsonButton.addEventListener('click', () => downloadJson());
+  elements.downloadCsvButton.addEventListener('click', downloadCsv);
+  elements.downloadExcelButton.addEventListener('click', downloadExcel);
+  elements.downloadJsonButton.addEventListener('click', downloadJson);
 }
 
 async function login() {
@@ -95,7 +95,7 @@ async function login() {
     }),
   });
   if (!response.ok) {
-    alert('로그인 실패');
+    alert('Login failed');
     return false;
   }
   await refreshSession();
@@ -120,7 +120,7 @@ function showLogin() {
 function showApp() {
   elements.authPanel.classList.add('hidden');
   elements.appPanel.classList.remove('hidden');
-  elements.sessionText.textContent = `${state.session.username} 계정으로 로그인됨. 선택형 빌더에서 여러 요청을 묶어 비교할 수 있다.`;
+  elements.sessionText.textContent = `Signed in as ${state.session.username}. Build one or more requests, then merge them into one comparison run.`;
   renderTabs();
   renderBundle();
   renderActiveSource();
@@ -143,38 +143,24 @@ function renderTabs() {
 }
 
 async function renderActiveSource() {
-  if (state.activeSource === 'FISIS') {
-    await renderFisis();
-    return;
-  }
-  if (state.activeSource === 'ECOS') {
-    await renderEcos();
-    return;
-  }
-  if (state.activeSource === 'KOFIA') {
-    await renderKofia();
-    return;
-  }
-  if (state.activeSource === 'KRX') {
-    await renderKrx();
-    return;
-  }
-  if (state.activeSource === 'INCOS') {
-    await renderIncos();
-  }
+  if (state.activeSource === 'FISIS') return renderFisis();
+  if (state.activeSource === 'ECOS') return renderEcos();
+  if (state.activeSource === 'KOFIA') return renderKofia();
+  if (state.activeSource === 'KRX') return renderKrx();
+  if (state.activeSource === 'INCOS') return renderIncos();
 }
 
-function optionGrid(prefix, form) {
+function renderOptionGrid(prefix, form) {
   return `
     <div class="step-block">
-      <h3>표시 옵션</h3>
+      <h3>Display options</h3>
       <div class="option-grid">
         <label>
-          <span>소수점</span>
+          <span>Precision</span>
           <input id="${prefix}Precision" type="number" value="${form.precision}" min="0" max="6" />
         </label>
         <label>
-          <span>단위</span>
+          <span>Unit mode</span>
           <select id="${prefix}UnitMode">
             ${['raw', 'million', 'billion'].map((value) => `<option value="${value}" ${form.unitMode === value ? 'selected' : ''}>${unitModeLabel(value)}</option>`).join('')}
           </select>
@@ -192,34 +178,34 @@ async function renderFisis() {
   elements.sourcePanel.innerHTML = `
     <div class="builder-grid">
       <div class="step-block">
-        <h3>1. 금융업권</h3>
-        <label><span>업권</span><select id="fisisIndustry" size="9">${renderOptions(['ALL', ...data.industries], form.industry)}</select></label>
+        <h3>1. Industry</h3>
+        <label><span>Financial industry</span><select id="fisisIndustry" size="9">${renderOptions(['ALL', ...data.industries], form.industry)}</select></label>
       </div>
       <div class="step-block">
-        <h3>2. 비교할 회사</h3>
-        <label><span>회사</span><select id="fisisCompanies" multiple size="9">${renderObjectOptions(data.companies, form.companies)}</select></label>
+        <h3>2. Companies</h3>
+        <label><span>Compare companies</span><select id="fisisCompanies" multiple size="9">${renderObjectOptions(data.companies, form.companies)}</select></label>
       </div>
       <div class="step-block">
-        <h3>3. 통계표</h3>
-        <label><span>키워드</span><input id="fisisKeyword" value="${escapeAttr(form.keyword)}" /></label>
-        <label><span>통계표</span><select id="fisisStatistic" size="10">${renderObjectOptions(data.statistics, form.statistic, 'code', (item) => `${item.code} · ${item.name}`)}</select></label>
+        <h3>3. Statistics table</h3>
+        <label><span>Keyword</span><input id="fisisKeyword" value="${escapeAttr(form.keyword)}" /></label>
+        <label><span>Statistics table</span><select id="fisisStatistic" size="10">${renderObjectOptions(data.statistics, form.statistic, 'code', (item) => `${item.code} · ${item.name}`)}</select></label>
       </div>
       <div class="step-block">
-        <h3>4. 통계항목</h3>
-        <label><span>항목</span><select id="fisisAccounts" multiple size="10">${renderObjectOptions(data.accounts, form.accounts)}</select></label>
+        <h3>4. Accounts</h3>
+        <label><span>Statistics accounts</span><select id="fisisAccounts" multiple size="10">${renderObjectOptions(data.accounts, form.accounts)}</select></label>
       </div>
       <div class="step-block">
-        <h3>기간 / 주기</h3>
+        <h3>Period</h3>
         <div class="option-grid">
-          <label><span>주기</span><select id="fisisTerm">${renderOptions(['Q', 'M', 'Y'], form.term)}</select></label>
-          <label><span>시작</span><input id="fisisStart" value="${escapeAttr(form.start)}" /></label>
-          <label><span>종료</span><input id="fisisEnd" value="${escapeAttr(form.end)}" /></label>
+          <label><span>Term</span><select id="fisisTerm">${renderOptions(['Q', 'M', 'Y'], form.term)}</select></label>
+          <label><span>Start</span><input id="fisisStart" value="${escapeAttr(form.start)}" /></label>
+          <label><span>End</span><input id="fisisEnd" value="${escapeAttr(form.end)}" /></label>
         </div>
       </div>
-      ${optionGrid('fisis', form)}
+      ${renderOptionGrid('fisis', form)}
     </div>
     <div class="step-actions">
-      <button class="button primary" id="fisisAdd" type="button">비교 번들에 추가</button>
+      <button class="button primary" id="fisisAdd" type="button">Add to bundle</button>
     </div>
   `;
 
@@ -245,13 +231,16 @@ async function renderFisis() {
   document.querySelector('#fisisAccounts').addEventListener('change', (event) => {
     form.accounts = selectedValues(event.target);
   });
+  document.querySelector('#fisisTerm').addEventListener('change', (event) => { form.term = event.target.value; });
+  document.querySelector('#fisisStart').addEventListener('change', (event) => { form.start = event.target.value; });
+  document.querySelector('#fisisEnd').addEventListener('change', (event) => { form.end = event.target.value; });
   document.querySelector('#fisisAdd').addEventListener('click', () => {
     const statistic = data.statistics.find((item) => item.code === form.statistic);
     const companies = data.companies.filter((item) => form.companies.includes(item.code));
     const accounts = data.accounts.filter((item) => form.accounts.includes(item.code));
     addBundleItem({
       source: 'FISIS',
-      label: `FISIS · ${statistic?.name ?? '통계표'} · ${companies.length}개 회사`,
+      label: `FISIS · ${statistic?.name ?? 'Statistics'} · ${companies.length} companies`,
       summary: `${companies.map((item) => item.name).join(', ')} / ${accounts.map((item) => item.name).join(', ')}`,
       payload: { ...form, statistic, companies, accounts },
     });
@@ -266,26 +255,26 @@ async function renderEcos() {
   elements.sourcePanel.innerHTML = `
     <div class="builder-grid">
       <div class="step-block">
-        <h3>1. 통계표 검색</h3>
-        <label><span>키워드</span><input id="ecosKeyword" value="${escapeAttr(form.keyword)}" /></label>
-        <label><span>통계표</span><select id="ecosTable" size="12">${renderObjectOptions(data.tables, form.table, 'code', (item) => `${item.code} · ${item.name}`)}</select></label>
+        <h3>1. Statistics table</h3>
+        <label><span>Keyword</span><input id="ecosKeyword" value="${escapeAttr(form.keyword)}" /></label>
+        <label><span>Table</span><select id="ecosTable" size="12">${renderObjectOptions(data.tables, form.table, 'code', (item) => `${item.code} · ${item.name}`)}</select></label>
       </div>
       <div class="step-block">
-        <h3>2. 세부 ITEM</h3>
-        <label><span>ITEM</span><select id="ecosItems" multiple size="12">${renderObjectOptions(data.items, form.items, 'code', (item) => `${item.code} · ${item.name} (${item.cycle})`)}</select></label>
+        <h3>2. Items</h3>
+        <label><span>Items</span><select id="ecosItems" multiple size="12">${renderObjectOptions(data.items, form.items, 'code', (item) => `${item.code} · ${item.name} (${item.cycle})`)}</select></label>
       </div>
       <div class="step-block">
-        <h3>기간 / 주기</h3>
+        <h3>Period</h3>
         <div class="option-grid">
-          <label><span>주기</span><select id="ecosCycle">${renderOptions(['D', 'M', 'Q', 'A'], form.cycle)}</select></label>
-          <label><span>시작</span><input id="ecosStart" value="${escapeAttr(form.start)}" /></label>
-          <label><span>종료</span><input id="ecosEnd" value="${escapeAttr(form.end)}" /></label>
+          <label><span>Cycle</span><select id="ecosCycle">${renderOptions(['D', 'M', 'Q', 'A'], form.cycle)}</select></label>
+          <label><span>Start</span><input id="ecosStart" value="${escapeAttr(form.start)}" /></label>
+          <label><span>End</span><input id="ecosEnd" value="${escapeAttr(form.end)}" /></label>
         </div>
       </div>
-      ${optionGrid('ecos', form)}
+      ${renderOptionGrid('ecos', form)}
     </div>
     <div class="step-actions">
-      <button class="button primary" id="ecosAdd" type="button">비교 번들에 추가</button>
+      <button class="button primary" id="ecosAdd" type="button">Add to bundle</button>
     </div>
   `;
 
@@ -302,12 +291,15 @@ async function renderEcos() {
   document.querySelector('#ecosItems').addEventListener('change', (event) => {
     form.items = selectedValues(event.target);
   });
+  document.querySelector('#ecosCycle').addEventListener('change', (event) => { form.cycle = event.target.value; });
+  document.querySelector('#ecosStart').addEventListener('change', (event) => { form.start = event.target.value; });
+  document.querySelector('#ecosEnd').addEventListener('change', (event) => { form.end = event.target.value; });
   document.querySelector('#ecosAdd').addEventListener('click', () => {
     const table = data.tables.find((item) => item.code === form.table);
     const items = data.items.filter((item) => form.items.includes(item.code));
     addBundleItem({
       source: 'ECOS',
-      label: `ECOS · ${table?.name ?? '통계표'} · ${items.length}개 항목`,
+      label: `ECOS · ${table?.name ?? 'Statistics'} · ${items.length} items`,
       summary: items.map((item) => item.name).join(', '),
       payload: { ...form, table, items },
     });
@@ -316,35 +308,35 @@ async function renderEcos() {
 
 async function renderKofia() {
   const form = state.forms.KOFIA;
-  const query = new URLSearchParams({ source: 'KOFIA', operation: form.operation, dateHint: form.dateHint || '' });
+  const query = new URLSearchParams({ source: 'KOFIA', operation: form.operation, dateHint: form.dateHint });
   const data = await (await fetch(`/api/options?${query.toString()}`)).json();
   const op = data.operationOptions;
 
   elements.sourcePanel.innerHTML = `
     <div class="builder-grid">
       <div class="step-block">
-        <h3>1. 오퍼레이션</h3>
-        <label><span>데이터셋</span><select id="kofiaOperation" size="10">${renderObjectOptions(data.operations, form.operation, 'code', (item) => item.name)}</select></label>
+        <h3>1. Operation</h3>
+        <label><span>KOFIA operation</span><select id="kofiaOperation" size="10">${renderObjectOptions(data.operations, form.operation, 'code', (item) => item.name)}</select></label>
       </div>
       <div class="step-block">
-        <h3>2. 기준 시점</h3>
+        <h3>2. Date controls</h3>
         <div class="option-grid">
-          <label><span>옵션 조회용 기준값</span><input id="kofiaDateHint" value="${escapeAttr(form.dateHint)}" /></label>
-          <label><span>단일 기준일</span><input id="kofiaExactDate" value="${escapeAttr(form.exactDate)}" /></label>
-          <label><span>시작</span><input id="kofiaStart" value="${escapeAttr(form.start)}" /></label>
-          <label><span>종료</span><input id="kofiaEnd" value="${escapeAttr(form.end)}" /></label>
+          <label><span>Hint date for selector loading</span><input id="kofiaDateHint" value="${escapeAttr(form.dateHint)}" /></label>
+          <label><span>Exact date</span><input id="kofiaExactDate" value="${escapeAttr(form.exactDate)}" /></label>
+          <label><span>Start</span><input id="kofiaStart" value="${escapeAttr(form.start)}" /></label>
+          <label><span>End</span><input id="kofiaEnd" value="${escapeAttr(form.end)}" /></label>
         </div>
       </div>
       ${renderKofiaSelectorBlocks(op, form)}
       <div class="step-block">
-        <h3>3. 값 항목 선택</h3>
-        <label><span>Metric</span><select id="kofiaMetrics" multiple size="10">${(op?.valueFields ?? []).map((field) => `<option value="${field}" ${form.metrics.includes(field) ? 'selected' : ''}>${field}</option>`).join('')}</select></label>
+        <h3>3. Metrics</h3>
+        <label><span>Metric fields</span><select id="kofiaMetrics" multiple size="10">${(op?.valueFields ?? []).map((field) => `<option value="${field}" ${form.metrics.includes(field) ? 'selected' : ''}>${field}</option>`).join('')}</select></label>
       </div>
-      ${optionGrid('kofia', form)}
+      ${renderOptionGrid('kofia', form)}
     </div>
     <div class="step-actions">
-      <button class="button subtle" id="kofiaRefresh" type="button">선택지 갱신</button>
-      <button class="button primary" id="kofiaAdd" type="button">비교 번들에 추가</button>
+      <button class="button subtle" id="kofiaRefresh" type="button">Reload selectors</button>
+      <button class="button primary" id="kofiaAdd" type="button">Add to bundle</button>
     </div>
   `;
 
@@ -377,17 +369,15 @@ async function renderKofia() {
     addBundleItem({
       source: 'KOFIA',
       label: `KOFIA · ${op?.label ?? form.operation}`,
-      summary: `${Object.entries(form.filters).filter(([, value]) => value).map(([key, value]) => `${key}:${value}`).join(' / ')} / ${form.metrics.join(', ')}`,
+      summary: `${Object.entries(form.filters).filter(([, value]) => value && value !== 'ALL').map(([key, value]) => `${key}:${value}`).join(' / ')} / ${(form.metrics.length ? form.metrics : op?.valueFields ?? []).join(', ')}`,
       payload: { ...form },
     });
   });
 }
 
 function renderKofiaSelectorBlocks(op, form) {
-  if (!op) {
-    return '';
-  }
-  return Object.entries(op.selectors ?? {}).map(([key, values]) => `
+  if (!op) return '';
+  return Object.entries(op.selectors ?? []).map(([key, values]) => `
     <div class="step-block">
       <h3>${key}</h3>
       <label><span>${key}</span><select data-kofia-filter="${key}" size="10">${renderOptions(['ALL', ...values], form.filters[key] ?? 'ALL')}</select></label>
@@ -401,20 +391,20 @@ async function renderKrx() {
   elements.sourcePanel.innerHTML = `
     <div class="builder-grid">
       <div class="step-block">
-        <h3>1. 지수 선택</h3>
-        <label><span>지수</span><select id="krxIndices" multiple size="14">${renderObjectOptions(data.indices, form.indices, 'code', (item) => item.name)}</select></label>
+        <h3>1. Indices</h3>
+        <label><span>KRX indices</span><select id="krxIndices" multiple size="14">${renderObjectOptions(data.indices, form.indices, 'code', (item) => item.name)}</select></label>
       </div>
       <div class="step-block">
-        <h3>기간</h3>
+        <h3>Period</h3>
         <div class="option-grid">
-          <label><span>시작</span><input id="krxStart" value="${escapeAttr(form.start)}" /></label>
-          <label><span>종료</span><input id="krxEnd" value="${escapeAttr(form.end)}" /></label>
+          <label><span>Start</span><input id="krxStart" value="${escapeAttr(form.start)}" /></label>
+          <label><span>End</span><input id="krxEnd" value="${escapeAttr(form.end)}" /></label>
         </div>
       </div>
-      ${optionGrid('krx', form)}
+      ${renderOptionGrid('krx', form)}
     </div>
     <div class="step-actions">
-      <button class="button primary" id="krxAdd" type="button">비교 번들에 추가</button>
+      <button class="button primary" id="krxAdd" type="button">Add to bundle</button>
     </div>
   `;
 
@@ -426,7 +416,7 @@ async function renderKrx() {
     const indices = data.indices.filter((item) => form.indices.includes(item.code));
     addBundleItem({
       source: 'KRX',
-      label: `KRX · ${indices.length}개 지수`,
+      label: `KRX · ${indices.length} indices`,
       summary: indices.map((item) => item.name).join(', '),
       payload: { ...form, indices },
     });
@@ -441,28 +431,28 @@ async function renderIncos() {
   elements.sourcePanel.innerHTML = `
     <div class="builder-grid">
       <div class="step-block">
-        <h3>1. 데이터셋</h3>
-        <label><span>데이터셋</span><select id="incosDataset" size="8">${renderOptions(['ALL', ...data.datasets.map((item) => item.code)], form.dataset)}</select></label>
+        <h3>1. Dataset</h3>
+        <label><span>Dataset</span><select id="incosDataset" size="8">${renderOptions(['ALL', ...data.datasets.map((item) => item.code)], form.dataset)}</select></label>
       </div>
       <div class="step-block">
-        <h3>2. 엔터티</h3>
-        <label><span>엔터티</span><select id="incosEntity" size="8">${renderOptions(['ALL', ...data.entities.map((item) => item.code)], form.entity)}</select></label>
+        <h3>2. Entity</h3>
+        <label><span>Entity</span><select id="incosEntity" size="8">${renderOptions(['ALL', ...data.entities.map((item) => item.code)], form.entity)}</select></label>
       </div>
       <div class="step-block">
-        <h3>3. 지표</h3>
-        <label><span>지표</span><select id="incosMetrics" multiple size="12">${renderObjectOptions(data.metrics, form.metrics, 'code', (item) => item.title)}</select></label>
+        <h3>3. Metrics</h3>
+        <label><span>Metrics</span><select id="incosMetrics" multiple size="12">${renderObjectOptions(data.metrics, form.metrics, 'code', (item) => item.title)}</select></label>
       </div>
       <div class="step-block">
-        <h3>기간</h3>
+        <h3>Period</h3>
         <div class="option-grid">
-          <label><span>시작</span><input id="incosStart" value="${escapeAttr(form.start)}" /></label>
-          <label><span>종료</span><input id="incosEnd" value="${escapeAttr(form.end)}" /></label>
+          <label><span>Start</span><input id="incosStart" value="${escapeAttr(form.start)}" /></label>
+          <label><span>End</span><input id="incosEnd" value="${escapeAttr(form.end)}" /></label>
         </div>
       </div>
-      ${optionGrid('incos', form)}
+      ${renderOptionGrid('incos', form)}
     </div>
     <div class="step-actions">
-      <button class="button primary" id="incosAdd" type="button">비교 번들에 추가</button>
+      <button class="button primary" id="incosAdd" type="button">Add to bundle</button>
     </div>
   `;
 
@@ -481,10 +471,12 @@ async function renderIncos() {
   document.querySelector('#incosMetrics').addEventListener('change', (event) => {
     form.metrics = selectedValues(event.target);
   });
+  document.querySelector('#incosStart').addEventListener('change', (event) => { form.start = event.target.value; });
+  document.querySelector('#incosEnd').addEventListener('change', (event) => { form.end = event.target.value; });
   document.querySelector('#incosAdd').addEventListener('click', () => {
     addBundleItem({
       source: 'INCOS',
-      label: `INCOS · ${form.dataset === 'ALL' ? '전체' : form.dataset}`,
+      label: `INCOS · ${form.dataset === 'ALL' ? 'All datasets' : form.dataset}`,
       summary: data.metrics.filter((item) => form.metrics.includes(item.code)).map((item) => item.title).join(', '),
       payload: { ...form, seriesKeys: [...form.metrics] },
     });
@@ -499,21 +491,19 @@ function bindCommonInputs(prefix, form) {
 }
 
 function addBundleItem(item) {
-  state.bundle.push({
-    id: cryptoRandomId(),
-    ...item,
-  });
+  state.bundle.push({ id: createId(), ...item });
   renderBundle();
 }
 
 function renderBundle() {
   elements.bundleList.innerHTML = '';
   if (state.bundle.length === 0) {
-    elements.bundleList.innerHTML = '<p class="hint">아직 번들에 추가된 요청이 없다.</p>';
+    elements.bundleList.innerHTML = '<p class="hint">No requests in the bundle yet.</p>';
     return;
   }
+
   for (const item of state.bundle) {
-    const fragment = document.querySelector('#bundleItemTemplate').content.cloneNode(true);
+    const fragment = elements.bundleItemTemplate.content.cloneNode(true);
     fragment.querySelector('.bundle-source').textContent = item.source;
     fragment.querySelector('.bundle-title').textContent = item.label;
     fragment.querySelector('.bundle-summary').textContent = item.summary || '-';
@@ -527,7 +517,7 @@ function renderBundle() {
 
 async function runBundle() {
   if (state.bundle.length === 0) {
-    alert('먼저 비교 번들에 요청을 추가하세요.');
+    alert('Add at least one request to the bundle first.');
     return;
   }
 
@@ -553,28 +543,28 @@ async function runBundle() {
 function mergeResults(results) {
   const series = [];
   for (const result of results) {
-    for (const entry of result.series) {
+    for (const item of result.series) {
       series.push({
-        key: `${result.source}:${entry.key}`,
-        label: `${result.bundleLabel} · ${entry.label}`,
-        points: entry.points,
+        key: `${result.source}:${item.key}`,
+        label: `${result.bundleLabel} · ${item.label}`,
+        points: item.points,
       });
     }
   }
 
-  const periods = [...new Set(series.flatMap((entry) => entry.points.map((point) => point.period)))].sort();
+  const periods = [...new Set(series.flatMap((item) => item.points.map((point) => point.period)))].sort();
   const rows = periods.map((period) => {
-    const record = { period };
-    for (const entry of series) {
-      record[entry.key] = entry.points.find((point) => point.period === period)?.value ?? null;
+    const row = { period };
+    for (const item of series) {
+      row[item.key] = item.points.find((point) => point.period === period)?.value ?? null;
     }
-    return record;
+    return row;
   });
 
   return {
     series,
     table: {
-      columns: [{ key: 'period', label: '기간' }, ...series.map((entry) => ({ key: entry.key, label: entry.label }))],
+      columns: [{ key: 'period', label: 'Period' }, ...series.map((item) => ({ key: item.key, label: item.label }))],
       rows,
     },
   };
@@ -582,7 +572,7 @@ function mergeResults(results) {
 
 function renderResult(result) {
   if (!result) {
-    elements.resultMeta.textContent = '아직 실행된 비교가 없다.';
+    elements.resultMeta.textContent = 'No comparison has been run yet.';
     elements.chartEmpty.style.display = 'grid';
     elements.chartSvg.style.display = 'none';
     elements.chartLegend.innerHTML = '';
@@ -601,7 +591,7 @@ function renderResult(result) {
     return;
   }
 
-  elements.resultMeta.textContent = `${result.series.length}개 시리즈 / ${result.table.rows.length}개 기간`;
+  elements.resultMeta.textContent = `${result.series.length} series across ${result.table.rows.length} periods`;
   elements.chartEmpty.style.display = 'none';
   elements.chartSvg.style.display = 'block';
   renderChart(result.series);
@@ -609,7 +599,7 @@ function renderResult(result) {
 }
 
 function renderTable(table) {
-  elements.resultTableHead.innerHTML = `<tr>${table.columns.map((column) => `<th>${column.label}</th>`).join('')}</tr>`;
+  elements.resultTableHead.innerHTML = `<tr>${table.columns.map((column) => `<th>${escapeHtml(column.label)}</th>`).join('')}</tr>`;
   elements.resultTableBody.innerHTML = table.rows.map((row) => `
     <tr>
       ${table.columns.map((column) => `<td>${row[column.key] ?? '-'}</td>`).join('')}
@@ -618,15 +608,15 @@ function renderTable(table) {
 }
 
 function renderChart(series) {
-  const periods = [...new Set(series.flatMap((entry) => entry.points.map((point) => point.period)))].sort();
-  const allValues = series.flatMap((entry) => entry.points.map((point) => point.value)).filter((value) => value !== null && Number.isFinite(value));
+  const periods = [...new Set(series.flatMap((item) => item.points.map((point) => point.period)))].sort();
+  const values = series.flatMap((item) => item.points.map((point) => point.value)).filter((value) => value !== null && Number.isFinite(value));
   const width = 1080;
   const height = 420;
   const padding = { top: 24, right: 24, bottom: 44, left: 72 };
   const innerWidth = width - padding.left - padding.right;
   const innerHeight = height - padding.top - padding.bottom;
-  const minValue = Math.min(...allValues);
-  const maxValue = Math.max(...allValues);
+  const minValue = Math.min(...values);
+  const maxValue = Math.max(...values);
   const range = maxValue - minValue || 1;
   const xStep = periods.length > 1 ? innerWidth / (periods.length - 1) : innerWidth / 2;
   const parts = [];
@@ -643,15 +633,15 @@ function renderChart(series) {
     parts.push(`<text x="${x}" y="${height - 14}" text-anchor="middle" fill="#6a5b48" font-size="12">${escapeHtml(period)}</text>`);
   });
 
-  series.forEach((entry, index) => {
+  series.forEach((item, index) => {
     const color = COLORS[index % COLORS.length];
-    const coordinates = entry.points
+    const coordinates = item.points
       .map((point) => {
-        const pIndex = periods.indexOf(point.period);
-        if (pIndex === -1 || !Number.isFinite(point.value)) return null;
-        const x = padding.left + (periods.length === 1 ? innerWidth / 2 : xStep * pIndex);
+        const pointIndex = periods.indexOf(point.period);
+        if (pointIndex === -1 || !Number.isFinite(point.value)) return null;
+        const x = padding.left + (periods.length === 1 ? innerWidth / 2 : xStep * pointIndex);
         const y = padding.top + ((maxValue - point.value) / range) * innerHeight;
-        return { x, y, value: point.value, period: point.period };
+        return { x, y };
       })
       .filter(Boolean);
     if (!coordinates.length) return;
@@ -659,10 +649,10 @@ function renderChart(series) {
   });
 
   elements.chartSvg.innerHTML = parts.join('');
-  elements.chartLegend.innerHTML = series.map((entry, index) => `
+  elements.chartLegend.innerHTML = series.map((item, index) => `
     <div class="legend-item">
       <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${COLORS[index % COLORS.length]}"></span>
-      <span>${entry.label}</span>
+      <span>${escapeHtml(item.label)}</span>
     </div>
   `).join('');
 }
@@ -680,12 +670,10 @@ function downloadExcel() {
   if (!state.lastRun) return;
   const html = `
     <html><head><meta charset="utf-8"></head><body>
-    <table>
-      <thead><tr>${state.lastRun.table.columns.map((column) => `<th>${escapeHtml(column.label)}</th>`).join('')}</tr></thead>
-      <tbody>
-        ${state.lastRun.table.rows.map((row) => `<tr>${state.lastRun.table.columns.map((column) => `<td>${row[column.key] ?? ''}</td>`).join('')}</tr>`).join('')}
-      </tbody>
-    </table>
+      <table>
+        <thead><tr>${state.lastRun.table.columns.map((column) => `<th>${escapeHtml(column.label)}</th>`).join('')}</tr></thead>
+        <tbody>${state.lastRun.table.rows.map((row) => `<tr>${state.lastRun.table.columns.map((column) => `<td>${row[column.key] ?? ''}</td>`).join('')}</tr>`).join('')}</tbody>
+      </table>
     </body></html>
   `;
   downloadBlob('finance-comparison.xls', new Blob([html], { type: 'application/vnd.ms-excel' }));
@@ -707,7 +695,7 @@ function downloadBlob(filename, blob) {
 
 function renderOptions(values, selected) {
   return values.map((value) => {
-    const label = value === 'ALL' ? '전체' : value;
+    const label = value === 'ALL' ? 'All' : value;
     return `<option value="${escapeAttr(value)}" ${value === selected ? 'selected' : ''}>${escapeHtml(label)}</option>`;
   }).join('');
 }
@@ -722,9 +710,9 @@ function selectedValues(select) {
 }
 
 function unitModeLabel(value) {
-  if (value === 'million') return '백만 단위';
-  if (value === 'billion') return '십억 단위';
-  return '원본';
+  if (value === 'million') return 'Millions';
+  if (value === 'billion') return 'Billions';
+  return 'Raw';
 }
 
 function roundNumber(value, digits) {
@@ -740,7 +728,7 @@ function csvEscape(value) {
   return text;
 }
 
-function cryptoRandomId() {
+function createId() {
   return Math.random().toString(36).slice(2, 10);
 }
 
